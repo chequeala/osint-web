@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 
 import { Finding, FindingInputs, getFindings, Severity } from 'utils/findings';
 import { CONTACT_EMAIL, SITE_URL } from 'config';
+import { findingParams } from 'utils/countries';
 
 const SummaryCard = styled.section`
   background: var(--surface);
@@ -89,7 +90,7 @@ const Summary = (props: SummaryProps): JSX.Element => {
   })();
 
   const findingText = (f: Finding, part: 'title' | 'desc' | 'action') =>
-    t(`summary.findings.${f.id}.${part}`, f.params);
+    t(`summary.findings.${f.id}.${part}`, findingParams(f.params));
 
   // El correo se arma con el resumen; la persona decide qué enviar
   const mailto = () => {

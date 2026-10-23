@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { FindingInputs, getFindings, parseDate } from 'utils/findings';
 import { dateLocale } from 'i18n';
 import { CONTACT_EMAIL, SITE_URL } from 'config';
+import { findingParams } from 'utils/countries';
 
 // Informe para imprimir o "Guardar como PDF" desde el navegador. Solo se ve al
 // imprimir (ver @media print en index.css); en pantalla está oculto.
@@ -139,6 +140,7 @@ const Report = (props: ReportProps): JSX.Element => {
     ['SPF', hasMailData ? yesNo(mailTxt.includes('v=spf1')) : null],
     ['DMARC', hasMailData ? yesNo(mailTxt.includes('v=dmarc1')) : null],
     ['WordPress', inputs.wordpress?.isWordPress ? (inputs.wordpress.version || t('wordpress.hidden')) : null],
+    [t('report.facts.ddos'), inputs.firewall ? (inputs.firewall.hasWaf ? inputs.firewall.waf : t('wordpress.no')) : null],
   ];
 
   const now = new Intl.DateTimeFormat(dateLocale(), { dateStyle: 'long', timeStyle: 'short' }).format(new Date());
@@ -164,9 +166,9 @@ const Report = (props: ReportProps): JSX.Element => {
       {findings.length === 0 && <p>{t('summary.allGood')}</p>}
       {findings.map(f => (
         <div key={f.id} className={`finding sev-${f.severity}`}>
-          <h3><span className="sev">{t(`summary.severity.${f.severity}`)}</span>{t(`summary.findings.${f.id}.title`, f.params)}</h3>
-          <p>{t(`summary.findings.${f.id}.desc`, f.params)}</p>
-          <p><strong>{t('summary.whatToDo')}</strong> {t(`summary.findings.${f.id}.action`, f.params)}</p>
+          <h3><span className="sev">{t(`summary.severity.${f.severity}`)}</span>{t(`summary.findings.${f.id}.title`, findingParams(f.params))}</h3>
+          <p>{t(`summary.findings.${f.id}.desc`, findingParams(f.params))}</p>
+          <p><strong>{t('summary.whatToDo')}</strong> {t(`summary.findings.${f.id}.action`, findingParams(f.params))}</p>
         </div>
       ))}
 

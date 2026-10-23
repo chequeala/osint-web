@@ -429,6 +429,17 @@ const docs: Doc[] = [
     ],
   },
   {
+    id: 'censorship',
+    title: 'Censura',
+    description: 'Verifica se o site está bloqueado em algum país usando os dados abertos do OONI (Open Observatory of Network Interference), medições feitas por pessoas voluntárias em redes do mundo todo. Mostra, por país, que parte das medições dos últimos 90 dias teve anomalias.',
+    use: 'Para meios de comunicação e organizações que trabalham em ou sobre países com censura, saber se o site está bloqueado (e onde) permite oferecer acessos alternativos a tempo e documentar o bloqueio.',
+    resources: [
+      { title: 'OONI Explorer', link: 'https://explorer.ooni.org/' },
+      { title: 'O que é o OONI', link: 'https://ooni.org/pt-br/about/' },
+      { title: 'OONI Probe: medir a censura na sua rede', link: 'https://ooni.org/pt-br/install/' },
+    ],
+  },
+  {
     id: 'exposed-files',
     title: 'Arquivos expostos',
     description: 'Procura arquivos que nunca deveriam estar públicos: o repositório .git, arquivos .env, backups do wp-config.php, dumps de banco de dados, backups .zip, phpinfo e listagens de pastas. Cada arquivo é confirmado pelo conteúdo, e o veni nunca mostra o que encontra.',

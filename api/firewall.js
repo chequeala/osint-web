@@ -11,9 +11,40 @@ const handler = async (url) => {
   const fullUrl = url.startsWith('http') ? url : `http://${url}`;
   
   try {
-    const response = await axios.get(fullUrl);
+    // validateStatus: los desafíos anti-bots (Deflect, Cloudflare) responden 403/503,
+    // y justamente esa respuesta delata la protección
+    const response = await axios.get(fullUrl, { validateStatus: () => true, timeout: 8000 });
 
     const headers = response.headers;
+    const cookies = [].concat(headers['set-cookie'] || []).join(' ');
+    const header = (name) => String(headers[name] || '');
+
+    // Protección contra DDoS y CDN usadas por organizaciones de sociedad civil
+    if (/deflect/i.test(cookies) || /deflect/i.test(header('server')) || headers['x-deflect-cache']) {
+      return hasWaf('Deflect (eQualitie)');
+    }
+    if (/incap_ses|visid_incap/i.test(cookies) || headers['x-iinfo'] || /incapsula/i.test(header('x-cdn'))) {
+      return hasWaf('Imperva Incapsula');
+    }
+    if (headers['cf-ray'] || /__cf_bm|cf_clearance/.test(cookies)) {
+      return hasWaf('Cloudflare');
+    }
+    if (headers['x-amz-cf-id']) {
+      return hasWaf('Amazon CloudFront');
+    }
+    if (/fastly/i.test(header('x-served-by') + header('via')) || headers['x-fastly-request-id']
+      || (headers['x-timer'] && /^cache-/.test(header('x-served-by')))) {
+      return hasWaf('Fastly');
+    }
+    if (headers['x-azure-ref']) {
+      return hasWaf('Azure Front Door');
+    }
+    if (/bunnycdn/i.test(header('server'))) {
+      return hasWaf('Bunny CDN');
+    }
+    if (/\bgoogle\b/i.test(header('via')) && /gfe|google/i.test(header('server'))) {
+      return hasWaf('Google Cloud (Project Shield / Cloud Armor)');
+    }
 
     if (headers['server'] && headers['server'].includes('cloudflare')) {
       return hasWaf('Cloudflare');

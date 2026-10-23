@@ -99,4 +99,17 @@ describe('getFindings', () => {
     expect(ids({ ssl: { valid: true, problems: [], httpRedirectsToHttps: false, valid_to: 'Dec  1 00:00:00 2027 GMT' } })).toEqual(['noHttpsRedirect']);
     expect(ids({ ssl: { valid: true, problems: [], httpRedirectsToHttps: true, valid_to: 'Dec  1 00:00:00 2027 GMT' } })).toEqual([]);
   });
+
+  it('censura: confirmado y posible bloqueo son urgentes; sin señales cuenta como bien', () => {
+    const r = getFindings({ censorship: { countries: [
+      { country: 'VE', status: 'likely' }, { country: 'CN', status: 'confirmed' }, { country: 'MX', status: 'ok' },
+    ] } }, now);
+    expect(r.findings.map(f => [f.id, f.params?.countryCodes])).toEqual([['censored', 'CN'], ['censoredLikely', 'VE']]);
+    expect(getFindings({ censorship: { countries: [{ country: 'MX', status: 'ok' }] } }, now).passed).toContain('censorship');
+  });
+
+  it('sin protección DDoS es importante', () => {
+    expect(getFindings({ firewall: { hasWaf: false } }, now).findings).toEqual([{ id: 'noDdosProtection', severity: 'medium' }]);
+    expect(getFindings({ firewall: { hasWaf: true, waf: 'Deflect (eQualitie)' } }, now).passed).toContain('ddos');
+  });
 });

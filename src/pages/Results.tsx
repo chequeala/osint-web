@@ -54,6 +54,7 @@ import ThreatsCard from 'components/Results/Threats';
 import WordPressCard from 'components/Results/WordPress';
 import ExposedFilesCard from 'components/Results/ExposedFiles';
 import SubdomainsCard from 'components/Results/Subdomains';
+import CensorshipCard from 'components/Results/Censorship';
 import Summary from 'components/misc/Summary';
 import SslBanner from 'components/misc/SslBanner';
 import Report from 'components/misc/Report';
@@ -480,6 +481,14 @@ const Results = (): JSX.Element => {
     fetchRequest: () => fetch(`${api}/subdomains?url=${address}`).then(res => parseJson(res)),
   });
 
+  // Bloqueos por país según las mediciones abiertas de OONI
+  const [censorshipResults, updateCensorshipResults] = useMotherHook({
+    jobId: 'censorship',
+    updateLoadingJobs,
+    addressInfo: { address, addressType, expectedAddressTypes: urlTypeOnly },
+    fetchRequest: () => fetch(`${api}/censorship?url=${address}`).then(res => parseJson(res)),
+  });
+
   // Fetches URL redirects
   const [redirectResults, updateRedirectResults] = useMotherHook({
     jobId: 'redirects',
@@ -767,6 +776,13 @@ const Results = (): JSX.Element => {
       refresh: updateWordpressResults,
       tags: ['security'],
     }, {
+      id: 'censorship',
+      title: 'Censorship',
+      result: censorshipResults,
+      Component: CensorshipCard,
+      refresh: updateCensorshipResults,
+      tags: ['security'],
+    }, {
       id: 'exposed-files',
       title: 'Exposed Files',
       result: exposedFilesResults,
@@ -906,6 +922,8 @@ const Results = (): JSX.Element => {
         exposedFiles={exposedFilesResults}
         subdomains={subdomainsResults}
         headers={headersResults}
+        censorship={censorshipResults}
+        firewall={firewallResults}
       /> }
       <div className="container results-screen">
         <Nav>
@@ -941,6 +959,8 @@ const Results = (): JSX.Element => {
           exposedFiles={exposedFilesResults}
           subdomains={subdomainsResults}
           headers={headersResults}
+          censorship={censorshipResults}
+          firewall={firewallResults}
         /> }
           <Loader show={loadingJobs.filter((job: LoadingJob) => job.state !== 'loading').length < 5} />
         <FilterButtons>{ showFilters ? <>

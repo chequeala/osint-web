@@ -25,6 +25,8 @@ export interface FindingInputs {
   exposedFiles?: any;
   subdomains?: any;
   headers?: any;
+  censorship?: any;
+  firewall?: any;
 }
 
 const DAY_MS = 24 * 60 * 60 * 1000;
@@ -78,6 +80,21 @@ export const getFindings = (r: FindingInputs, now: Date = new Date()): { finding
     blocked.length
       ? findings.push({ id: 'blocklisted', severity: 'high', params: { lists: blocked.join(', ') } })
       : passed.push('blocklisted');
+  }
+
+  // Censura: bloqueos por país según OONI (params con códigos de país; la interfaz los nombra)
+  if (r.censorship?.countries) {
+    const countries: { country: string, status: string }[] = r.censorship.countries;
+    const confirmed = countries.filter(c => c.status === 'confirmed').map(c => c.country);
+    const likely = countries.filter(c => c.status === 'likely').map(c => c.country);
+    if (confirmed.length) findings.push({ id: 'censored', severity: 'high', params: { countryCodes: confirmed.join(',') } });
+    if (likely.length) findings.push({ id: 'censoredLikely', severity: 'high', params: { countryCodes: likely.join(',') } });
+    if (!confirmed.length && !likely.length) passed.push('censorship');
+  }
+
+  // Protección contra ataques de denegación de servicio (DDoS)
+  if (r.firewall && typeof r.firewall.hasWaf === 'boolean') {
+    r.firewall.hasWaf ? passed.push('ddos') : findings.push({ id: 'noDdosProtection', severity: 'medium' });
   }
 
   // Vencimientos: perder el dominio o el certificado deja el sitio fuera de línea

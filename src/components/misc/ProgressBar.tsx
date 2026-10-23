@@ -210,6 +210,7 @@ const jobNames = [
   'wordpress',
   'exposed-files',
   'subdomains',
+  'censorship',
   'redirects',
   'linked-pages',
   'robots-txt',

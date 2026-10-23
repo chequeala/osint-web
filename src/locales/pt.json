@@ -202,7 +202,7 @@
     "privacy": "Privacidade",
     "privacyDescription": "O Veni OSINT não usa ferramentas de analytics, cookies nem registros de erro de terceiros. Não guardamos os endereços que você analisa. Como em qualquer site, nosso provedor de hospedagem (Netlify) pode registrar temporariamente dados técnicos das requisições.",
     "title": "Sobre o Veni OSINT",
-    "privacyThirdParties": "Para obter alguns resultados, nosso servidor consulta serviços externos (por exemplo Google DNS, Internet Archive, Tranco, ipwho.is ou listas de bloqueio), que recebem o domínio ou o IP analisado. O seu navegador só se conecta com veni.chequea.la."
+    "privacyThirdParties": "Para obter alguns resultados, nosso servidor consulta serviços externos (por exemplo Google DNS, Internet Archive, Tranco, OONI, ipwho.is ou listas de bloqueio), que recebem o domínio ou o IP analisado. O seu navegador só se conecta com veni.chequea.la."
   },
   "serverLocation": {
     "city": "Cidade",
@@ -264,7 +264,8 @@
     "carbon": "Pegada de carbono",
     "wordpress": "WordPress",
     "exposed-files": "Arquivos expostos",
-    "subdomains": "Subdomínios"
+    "subdomains": "Subdomínios",
+    "censorship": "Censura"
   },
   "mailConfig": {
     "checklist": "Proteção contra falsificação",
@@ -435,6 +436,21 @@
         "title": "http:// não redireciona para https://",
         "desc": "Quem digita o seu endereço sem \"https\" navega sem criptografia, mesmo que o site tenha HTTPS.",
         "action": "Configure no seu servidor ou hospedagem um redirecionamento permanente (301) de http:// para https://."
+      },
+      "censored": {
+        "title": "O site está bloqueado em: {{countries}}",
+        "desc": "O OONI confirmou que nesses países as conexões ao site são bloqueadas, então as pessoas de lá não conseguem lê-lo sem ferramentas para contornar a censura.",
+        "action": "Escreva para nós: podemos ajudar a oferecer acessos alternativos (espelhos, Tor com Onion-Location, Deflect) e a documentar o bloqueio."
+      },
+      "censoredLikely": {
+        "title": "Possível bloqueio do site em: {{countries}}",
+        "desc": "Muitas medições do OONI nesses países mostram anomalias ao acessar o site, um sinal frequente de censura (embora também possa ser uma falha de rede).",
+        "action": "Veja os detalhes no OONI Explorer e escreva para nós para confirmar e ver opções de acesso alternativo."
+      },
+      "noDdosProtection": {
+        "title": "O site não parece ter proteção contra ataques DDoS",
+        "desc": "Um ataque de negação de serviço pode deixar o site fora do ar justamente quando mais se precisa dele, por exemplo depois de publicar uma denúncia.",
+        "action": "Organizações da sociedade civil e meios de comunicação podem usar de graça o Deflect (deflect.ca) ou o Project Shield do Google. Podemos ajudar a configurar."
       }
     }
   },
@@ -499,7 +515,8 @@
       "certExpiry": "O certificado vence",
       "registrar": "Registrador do domínio",
       "domainExpiry": "O domínio vence",
-      "dnssec": "DNSSEC"
+      "dnssec": "DNSSEC",
+      "ddos": "Proteção contra DDoS"
     },
     "passed": {
       "threats": "Não aparece em listas de malware nem phishing",
@@ -516,7 +533,9 @@
       "securityTxt": "Tem security.txt",
       "exposedFiles": "Sem arquivos sensíveis expostos",
       "subdomains": "Sem subdomínios pendentes",
-      "versionExposed": "Não mostra versões de software"
+      "versionExposed": "Não mostra versões de software",
+      "censorship": "Sem sinais de bloqueio segundo o OONI",
+      "ddos": "Protegido contra DDoS"
     },
     "help": "Precisa de ajuda para resolver algo deste relatório? Escreva para {{email}}. Você pode nos escrever sem criptografia.",
     "disclaimer": "Relatório gerado com o Veni OSINT ({{site}}) a partir de informações públicas do site. É uma revisão automática: não substitui uma auditoria de segurança."
@@ -549,5 +568,14 @@
     "blocked403": "O site bloqueou a consulta (HTTP 403); pode ter proteção contra bots.",
     "rateLimitedRemote": "O site ou um serviço externo limitou as consultas (HTTP 429); tente de novo em alguns minutos.",
     "privateAddress": "O Veni só analisa sites públicos: {{host}} aponta para uma rede privada ou local."
+  },
+  "censorship": {
+    "status": {
+      "confirmed": "Bloqueio confirmado",
+      "likely": "Possível bloqueio",
+      "ok": "Sem bloqueio"
+    },
+    "detail": "{{anomalies}} anomalias em {{measurements}} medições",
+    "note": "Medições do OONI dos últimos {{days}} dias. Uma anomalia pode ser um bloqueio ou uma falha de rede; mais detalhes em"
   }
 }
