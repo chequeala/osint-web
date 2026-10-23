@@ -24,6 +24,7 @@ export interface FindingInputs {
   wordpress?: any;
   exposedFiles?: any;
   subdomains?: any;
+  headers?: any;
 }
 
 const DAY_MS = 24 * 60 * 60 * 1000;
@@ -32,6 +33,23 @@ const SEVERITY_ORDER: Record<Severity, number> = { high: 0, medium: 1, low: 2 };
 // Bases de datos y escritorios remotos: nunca deberían estar abiertos a internet
 const CRITICAL_PORTS = [3306, 3389, 5900, 27017, 5432, 6379];
 const EXPECTED_PORTS = [80, 443];
+
+// Fin del soporte de seguridad de PHP (https://www.php.net/supported-versions.php).
+// Las ramas anteriores a 8.2 ya no tienen soporte; las posteriores a 8.5 aún no estaban.
+const PHP_SECURITY_UNTIL: Record<string, string> = {
+  '8.2': '2026-12-31',
+  '8.3': '2027-12-31',
+  '8.4': '2028-12-31',
+  '8.5': '2029-12-31',
+};
+
+export const isPhpUnsupported = (version: string, now: Date): boolean => {
+  const [major, minor] = version.split('.').map(Number);
+  if (isNaN(major) || isNaN(minor)) return false;
+  const until = PHP_SECURITY_UNTIL[`${major}.${minor}`];
+  if (until) return now > new Date(`${until}T23:59:59Z`);
+  return major < 8 || (major === 8 && minor < 2);
+};
 
 // Fechas de whois en formatos variados, incluido 20270307 (registro.br)
 export const parseDate = (value: string | undefined): Date | null => {
@@ -107,6 +125,19 @@ export const getFindings = (r: FindingInputs, now: Date = new Date()): { finding
     dangling.length
       ? findings.push({ id: 'danglingCname', severity: 'high', params: { names: dangling.join(', ') } })
       : passed.push('subdomains');
+  }
+
+  // Versiones de software visibles en las cabeceras (Server, X-Powered-By)
+  if (r.headers && typeof r.headers === 'object') {
+    const banners = [r.headers['server'], r.headers['x-powered-by']].filter(Boolean).join(' ');
+    const php = banners.match(/PHP\/(\d+\.\d+(?:\.\d+)?)/i);
+    if (php && isPhpUnsupported(php[1], now)) {
+      findings.push({ id: 'phpUnsupported', severity: 'high', params: { version: php[1] } });
+    }
+    const versions = (banners.match(/[A-Za-z][\w.-]*\/\d+(?:\.\d+)+/g) || []);
+    versions.length
+      ? findings.push({ id: 'versionExposed', severity: 'low', params: { versions: [...new Set(versions)].join(', ') } })
+      : passed.push('versionExposed');
   }
 
   // Puertos abiertos además de la web

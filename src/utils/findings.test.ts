@@ -1,4 +1,4 @@
-import { getFindings, parseDate } from 'utils/findings';
+import { getFindings, isPhpUnsupported, parseDate } from 'utils/findings';
 
 const now = new Date('2026-10-23T00:00:00Z');
 const ids = (r: Parameters<typeof getFindings>[0]) => getFindings(r, now).findings.map(f => f.id);
@@ -69,5 +69,22 @@ describe('getFindings', () => {
       { name: 'viejo.ejemplo.org', dangling: true }, { name: 'vivo.ejemplo.org', dangling: false },
     ] } }, now);
     expect(r.findings).toEqual([{ id: 'danglingCname', severity: 'high', params: { names: 'viejo.ejemplo.org' } }]);
+  });
+
+  it('PHP sin soporte según la fecha', () => {
+    expect(isPhpUnsupported('7.4.33', now)).toBe(true);
+    expect(isPhpUnsupported('8.1.2', now)).toBe(true);
+    expect(isPhpUnsupported('8.2.10', now)).toBe(false);
+    expect(isPhpUnsupported('8.2.10', new Date('2027-01-01T12:00:00Z'))).toBe(true);
+    expect(isPhpUnsupported('8.6.0', now)).toBe(false);
+  });
+
+  it('avisa de versiones visibles y de PHP viejo en las cabeceras', () => {
+    const r = getFindings({ headers: { server: 'Apache/2.4.41 (Ubuntu)', 'x-powered-by': 'PHP/7.4.3' } }, now);
+    expect(r.findings).toEqual([
+      { id: 'phpUnsupported', severity: 'high', params: { version: '7.4.3' } },
+      { id: 'versionExposed', severity: 'low', params: { versions: 'Apache/2.4.41, PHP/7.4.3' } },
+    ]);
+    expect(getFindings({ headers: { server: 'nginx' } }, now).findings).toEqual([]);
   });
 });

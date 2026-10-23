@@ -915,6 +915,7 @@ const Results = (): JSX.Element => {
           wordpress={wordpressResults}
           exposedFiles={exposedFilesResults}
           subdomains={subdomainsResults}
+          headers={headersResults}
         /> }
           <Loader show={loadingJobs.filter((job: LoadingJob) => job.state !== 'loading').length < 5} />
         <FilterButtons>{ showFilters ? <>

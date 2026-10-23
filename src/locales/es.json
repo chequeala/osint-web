@@ -412,6 +412,16 @@
         "title": "Subdominio que apunta a un servicio inexistente: {{names}}",
         "desc": "Apunta (CNAME) a un servicio que ya no existe. Alguien podría crear ese servicio y publicar lo que quiera en tu subdominio.",
         "action": "Borra ese registro CNAME en tu proveedor de DNS si ya no lo usas."
+      },
+      "phpUnsupported": {
+        "title": "El servidor usa PHP {{version}}, que ya no recibe parches de seguridad",
+        "desc": "Las fallas que se descubran en esa versión no se van a corregir, y hay ataques automáticos que buscan justamente versiones viejas.",
+        "action": "Pide a tu hosting que actualice a PHP 8.3 o más nuevo; antes revisa que tus plugins y tema sean compatibles."
+      },
+      "versionExposed": {
+        "title": "El servidor muestra las versiones de su software: {{versions}}",
+        "desc": "Ayuda a quien busca servidores con versiones vulnerables.",
+        "action": "Oculta las versiones en la configuración del servidor (por ejemplo ServerTokens Prod en Apache, server_tokens off en nginx, expose_php = Off en PHP)."
       }
     }
   },
