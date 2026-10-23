@@ -20,15 +20,15 @@ export const StyledRow = styled.div`
  justify-content: space-between;
  flex-wrap: wrap;
  padding: 0.25rem;
-  &:not(:last-child) { border-bottom: 1px solid ${colors.primary}; }
- span.lbl { font-weight: bold; }
+  &:not(:last-child) { border-bottom: 1px solid ${colors.border}; }
+ span.lbl { font-weight: 600; color: ${colors.textColor}; }
  span.val {
    max-width: 16rem;
    white-space: nowrap;
    overflow: hidden;
    text-overflow: ellipsis;
    a {
-      color: ${colors.primary};
+      color: ${colors.primaryDeep};
    }
  }  
 `;
@@ -93,7 +93,7 @@ const List = styled.ul`
      text-transform: capitalize
    }
    &::marker {
-      color: ${colors.primary};
+      color: ${colors.primaryDeep};
    }
  }
 `;

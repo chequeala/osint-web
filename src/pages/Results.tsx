@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback, ReactNode } from 'react';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import { ToastContainer } from 'react-toastify';
 import Masonry from 'react-masonry-css'
@@ -74,14 +74,18 @@ const ResultsOuter = styled.div`
     display: flex;
     width: auto;
   }
+  padding-bottom: 3rem;
   .masonry-grid-col section { margin: 1rem 0.5rem; }
+  .tophead { font-size: clamp(1.4rem, 1rem + 1.5vw, 2rem); font-weight: 700; }
+  .tophead a { color: var(--ink); }
+  .tophead i { color: var(--vt-purple); }
 `;
 
 const ResultsContent = styled.section`
   width: 95vw;
   display: grid;
   grid-auto-flow: dense;
-  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(400px, 100%), 1fr));
   gap: 1rem;
   margin: auto;
   width: 100%;
@@ -98,55 +102,60 @@ const FilterButtons = styled.div`
   .one-half {
     display: flex;
     flex-wrap: wrap;
-    gap: 1rem;
+    gap: 0.75rem;
     align-items: center;
   }
-  button, input, .toggle-filters {
-    background: #86a5d9;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    padding: 0.25rem 0.5rem;
-    transition: all 0.2s ease-in-out;
+  .group-label {
+    font-weight: 600;
   }
   button, .toggle-filters {
+    background: var(--surface);
+    color: var(--vt-purple-deep);
+    border: 1px solid var(--vt-purple-soft);
+    border-radius: 50rem;
+    padding: 0.25rem 0.9rem;
+    font-size: 0.9rem;
+    font-weight: 600;
     cursor: pointer;
-    text-transform: capitalize;
     transition: all 0.2s ease-in-out;
     &:hover {
-      background: #86a5d9;
-      color: white;
+      background: var(--vt-purple-tint);
+      border-color: var(--vt-purple);
     }
     &.selected {
-      color: #86a5d9;
+      background: var(--vt-purple);
+      border-color: var(--vt-purple);
+      color: #fff;
     }
   }
-  input:focus {
-    border: 1px solid #86a5d9;
-    outline: none;
+  input {
+    border: 1px solid var(--border);
+    border-radius: 50rem;
+    padding: 0.25rem 0.9rem;
+    &:focus {
+      border-color: var(--vt-purple-soft);
+      outline: none;
+      box-shadow: 0 0 0 0.25rem rgba(128, 79, 220, 0.2);
+    }
   }
   .clear {
-    color: #86a5d9;
+    background: none;
+    border: none;
+    color: var(--vt-purple-deep);
     text-decoration: underline;
-    cursor: pointer;
-    font-size: 0.8rem;
-    opacity: 0.8;
-  }
-  .toggle-filters  {
-    font-size: 0.8rem;
+    font-size: 0.85rem;
+    padding: 0;
   }
   .control-options {
     display: flex;
     flex-wrap: wrap;
-    gap: 1rem;
+    gap: 0.75rem;
     align-items: center;
-    a {
-      text-decoration: none;
-    }
   }
 `;
 
 const Results = (): JSX.Element => {
+  const { t } = useTranslation();
   const startTime = new Date().getTime();
 
   const [ addressType, setAddressType ] = useState<AddressType>('empt');
@@ -829,8 +838,8 @@ const Results = (): JSX.Element => {
 
   const makeActionButtons = (title: string, refresh: () => void, showInfo: (id: string) => void): ReactNode => {
     const actions = [
-      { label: `Info about ${title}`, onClick: showInfo, icon: 'ⓘ'},
-      { label: `Re-fetch ${title} data`, onClick: refresh, icon: '↻'},
+      { label: t('results.actions.info', { title }), onClick: showInfo, icon: 'ⓘ'},
+      { label: t('results.actions.refetch', { title }), onClick: refresh, icon: '↻'},
     ];
     return (
       <ActionButtons actions={actions} />
@@ -851,7 +860,6 @@ const Results = (): JSX.Element => {
 
 
 
-  const { t } = useTranslation();
 
   
   return (
@@ -860,12 +868,14 @@ const Results = (): JSX.Element => {
         <Nav>
         { address &&
           <Heading className='display-6 tophead'>
-            { addressType === 'url' && <a href={address}><img width="28px" src={`https://icon.horse/icon/${makeSiteName(address)}`} alt="" /></a> }
-            {makeSiteName(address)}
+            <i className="bi bi-globe2" aria-hidden="true"></i>
+            { addressType === 'url'
+              ? <a href={address} target="_blank" rel="noopener noreferrer nofollow">{makeSiteName(address)}</a>
+              : makeSiteName(address) }
           </Heading>
           }
         </Nav>
-        <div className='card border-light mb-5 px-4 pt-4'>
+        <div className='card mb-4 px-4 pt-4'>
           <ProgressBar loadStatus={loadingJobs} showModal={showErrorModal} showJobDocs={showInfo} />
           { address?.includes(window?.location?.hostname || 'web-check.xyz') && <SelfScanMsg />}
         </div>
@@ -878,10 +888,10 @@ const Results = (): JSX.Element => {
               key={tag}
               className={tags.includes(tag) ? 'selected' : ''}
               onClick={() => updateTags(tag)}>
-                {tag}
+                {t(`results.filters.tags.${tag}`)}
             </button>
           ))}
-          {(tags.length > 0 || searchTerm.length > 0) && <span onClick={clearFilters} className="clear">{t('results.filters.clear')}</span> }
+          {(tags.length > 0 || searchTerm.length > 0) && <button type="button" onClick={clearFilters} className="clear">{t('results.filters.clear')}</button> }
           </div>
           <div className="one-half">
           <span className="group-label">{t('results.filters.label.search')}</span>
@@ -891,13 +901,13 @@ const Results = (): JSX.Element => {
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
           />
-          <span className="toggle-filters" onClick={() => setShowFilters(false)}>{t('results.filters.hide')}</span>
+          <button type="button" className="toggle-filters" onClick={() => setShowFilters(false)}>{t('results.filters.hide')}</button>
           </div>
           </> : (
             <div className="control-options">
-              <span className="toggle-filters" onClick={() => setShowFilters(true)}>{t('results.filters.show')}</span>
-            <a href="#view-download-raw-data"><span className="toggle-filters">{t('results.filters.export')}</span></a>
-            <a href="/about"><span className="toggle-filters">{t('results.filters.learnAboutResults')}</span></a>
+              <button type="button" className="toggle-filters" onClick={() => setShowFilters(true)}>{t('results.filters.show')}</button>
+            <a href="#view-download-raw-data" className="toggle-filters">{t('results.filters.export')}</a>
+            <Link to="/about" className="toggle-filters">{t('results.filters.learnAboutResults')}</Link>
             {/* <a href="/about#additional-resources"><span className="toggle-filters">{t('results.filters.moreTools')}</span></a> */}
             {/* <a href="https://github.com/lissy93/web-check"><span className="toggle-filters">{t('results.filters.viewGitHub')}</span></a> */}
             </div>
@@ -917,17 +927,17 @@ const Results = (): JSX.Element => {
             columnClassName="masonry-grid-col">
             {
               resultCardData
-              .map(({ id, title, result, tags, refresh, Component }, index: number) => {
-                const show = (tags.length === 0 || tags.some(tag => tags.includes(tag)))
-                && title.toLowerCase().includes(searchTerm.toLowerCase())
-                && (result && !result.error);
+              .map(({ id, title, result, tags: cardTags, refresh, Component }, index: number) => {
+                const label = t(`cards.${id}`, { defaultValue: title });
+                const show = (tags.length === 0 || cardTags.some(tag => tags.includes(tag)))
+                && label.toLowerCase().includes(searchTerm.toLowerCase())
+                && (result && typeof result === 'object' && !result.error);
                 return show ? (
-                  <ErrorBoundary title={title}>
+                  <ErrorBoundary title={label} key={`${id}-${index}`}>
                     <Component
-                      key={`${title}-${index}`}
                       data={{...result}}
-                      title={title}
-                      actionButtons={refresh ? makeActionButtons(title, refresh, () => showInfo(id)) : undefined}
+                      title={label}
+                      actionButtons={refresh ? makeActionButtons(label, refresh, () => showInfo(id)) : undefined}
                     />
                   </ErrorBoundary>
               ) : null})
@@ -937,7 +947,7 @@ const Results = (): JSX.Element => {
         <ViewRaw everything={resultCardData} />
         <AdditionalResources url={address} />
         <Modal isOpen={modalOpen} closeModal={()=> setModalOpen(false)}>{modalContent}</Modal>
-        <ToastContainer limit={3} draggablePercent={60} autoClose={2500} theme="dark" position="bottom-right" />
+        <ToastContainer limit={3} draggablePercent={60} autoClose={2500} theme="light" position="bottom-right" />
       </div>
     </ResultsOuter>
   );

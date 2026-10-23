@@ -29,7 +29,7 @@ const StyledButton = styled.button<ButtonProps>`
   }
   ${props => applySize(props.size)};
   ${(props) => props.bgColor ?
-    `background: ${props.bgColor};` : `background: #86a5d9;`
+    `background: ${props.bgColor};` : `background: var(--vt-purple);`
   }
   ${(props) => props.fgColor ?
     `color: ${props.fgColor};` : `color:white;`

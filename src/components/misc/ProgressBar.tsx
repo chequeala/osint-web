@@ -48,7 +48,7 @@ const Details = styled.details`
     content: "►";
     position: absolute;
     margin-left: -1rem;
-    color: #b288ff;
+    color: var(--vt-purple);
     cursor: pointer;
   }
   &[open] summary:before {
@@ -63,13 +63,13 @@ const Details = styled.details`
       cursor: pointer;
     }
     i {
-      color: #7D7AB;
+      color: var(--ink-soft);
     }
   }
   p.error {
     margin: 0.5rem 0;
     opacity: 0.75;
-    color: #EF767A;
+    color: var(--danger);
   }
 `;
 
@@ -78,13 +78,13 @@ const StatusInfoWrapper = styled.div`
   justify-content: space-between;
   align-items: center;
   .run-status {
-    color: #b288ff;
+    color: var(--vt-purple);
     margin: 0;
   }
 `;
 
 const AboutPageLink = styled.a`
-  color: #b288ff;
+  color: var(--vt-purple);
 `;
 
 const SummaryContainer = styled.div`
@@ -98,21 +98,21 @@ const SummaryContainer = styled.div`
     opacity: 0.75;
   }
   &.error-info {
-    color: #EF767A;
+    color: var(--danger);
   }
   &.success-info {
-    color: #23F0C7;
+    color: var(--success);
   }
   &.loading-info {
-    color: #7D7ABC;
+    color: var(--vt-purple-deep);
   }
   .skipped {
     margin-left: 0.75rem;
-    color: #FFE347;
+    color: var(--warning);
   }
   .success {
     margin-left: 0.75rem;
-    color: #23F0C7;
+    color: var(--success);
   }
   .error {
     margin-left: 0.75rem;
@@ -148,7 +148,7 @@ const DismissButton = styled.button`
 
 const FailedJobActionButton = styled.button`
   margin: 0.1rem 0.1rem 0.1rem 0.5rem;
-  background: #b288ff;
+  background: var(--vt-purple);
   color: white;
   border: none;
   padding: 0.25rem 0.5rem;
@@ -156,7 +156,7 @@ const FailedJobActionButton = styled.button`
   cursor: pointer;
   transition: all 0.2s ease-in-out;
   &:hover {
-    color: #23F0C7;
+    color: var(--success);
   } 
 `;
 
@@ -165,7 +165,7 @@ p {
   margin: 0;
 }
 pre {
-  color: #EF767A;
+  color: var(--danger);
   &.info {
     color: orange;
   }
@@ -368,11 +368,11 @@ const ProgressLoader = (props: { loadStatus: LoadingJob[], showModal: (err: Reac
   };
 
   const barColors: Record<LoadingState | string, [string, string]> = {
-    'success': isDone ? makeBarColor("#23F0C7") : makeBarColor("#b288ff"),
-    'loading': makeBarColor("#804fdc"),
-    'skipped': makeBarColor("#FFE347"),
-    'error': makeBarColor("#EF767A"),
-    'timed-out': makeBarColor("#7D7ABC"),
+    'success': isDone ? makeBarColor("#1f8a5b") : makeBarColor("#804fdc"),
+    'loading': makeBarColor("#d9c7fb"),
+    'skipped': makeBarColor("#a86a12"),
+    'error': makeBarColor("#c2414b"),
+    'timed-out': makeBarColor("#5f33b5"),
   };
 
   const getStatusEmoji = (state: LoadingState): string => {
@@ -446,7 +446,7 @@ const ProgressLoader = (props: { loadStatus: LoadingJob[], showModal: (err: Reac
               loadStatus.map(({ name, state, timeTaken, retry, error }: LoadingJob) => (
                 <li key={name}>
                   <b onClick={() => props.showJobDocs(name)}>{getStatusEmoji(state)} {name}</b>
-                  <span style={{ color: barColors[state][0] }}> ({t(`progressbar.status.${state}`)})</span> {/* Traducción del estado */}
+                  <span style={{ color: state === 'loading' ? 'var(--ink-soft)' : barColors[state][0] }}> ({t(`progressbar.status.${state}`)})</span> {/* Traducción del estado */}
                   <i>{(timeTaken && state !== 'loading') ? `${t('progressbar.details.took')} ${timeTaken} ms` : ''}</i>
                   { (retry && state !== 'success' && state !== 'loading') && <FailedJobActionButton onClick={retry}>↻ {t('progressbar.button.retry')}</FailedJobActionButton> }
                   { (error && state === 'error') && <FailedJobActionButton onClick={() => showErrorModal(name, state, timeTaken, error)}>■ {t('progressbar.button.showError')}</FailedJobActionButton> }

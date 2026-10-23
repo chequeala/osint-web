@@ -51,7 +51,7 @@ function Chart(chartData: { date: string; uv: number; }[], data: any) {
       <CartesianGrid strokeDasharray="4" strokeWidth={0.25} verticalPoints={[50, 100, 150, 200, 250, 300, 350]} horizontalPoints={[25, 50, 75]} />
       <Tooltip contentStyle={{ background: colors.background, color: colors.textColor, borderRadius: 4 }}
         labelFormatter={(value) => ['Date : ', data[value].date]} />
-      <Area type="monotone" dataKey="uv" stroke="#9fef00" fillOpacity={1} name="Rank" fill={`${colors.backgroundDarker}a1`} />
+      <Area type="monotone" dataKey="uv" stroke={colors.primary} fillOpacity={1} name="Rank" fill={colors.primaryTransparent} />
     </AreaChart>
   </ResponsiveContainer>;
 }

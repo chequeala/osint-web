@@ -14,7 +14,7 @@ transition: all 0.2s ease-in-out;
 display: flex;
 flex-direction: column;
 a {
-  color: #86a5d9;
+  color: var(--vt-purple-deep);
 }
 .controls {
   display: flex;

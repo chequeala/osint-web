@@ -1,29 +1,69 @@
 {
   "navbar": {
-    "brand": "Chequea.la",
-    "description": "We handle web incidents for organizations in Latin America.", 
+    "brand": "chequea.la",
+    "description": "We handle web incidents for organizations in Latin America.",
     "languages": {
       "es": "Español",
       "en": "English"
-    }
+    },
+    "contact": "Get help",
+    "menu": "Open menu",
+    "language": "Language",
+    "checkList": "Check List",
+    "veniOSINT": "Veni OSINT",
+    "principles": "Our Principles"
   },
   "footer": {
-    "part1": "Este es un proyecto de la comunidad",
-    "part2": "para la comunidad",
-    "highlight": "latinoamericana"
+    "part1": "A project by the",
+    "part2": "community, for the",
+    "highlight": "Latin American",
+    "explore": "Explore",
+    "contactTitle": "Contact",
+    "aboutVeni": "About Veni OSINT",
+    "basedOn": "Based on",
+    "byAuthor": "by",
+    "sourceCode": "Veni OSINT source code"
   },
   "home": {
     "title": "Veni OSINT",
-    "welcome": "Welcome",
     "defaultPlaceholder": "e.g. https://chequea.la/",
     "errorEmptyField": "The field must not be empty",
     "errorInvalidUrl": "It must be a valid URL, IPv4 or IPv6",
     "inputLabel": "Enter your website URL",
-    "submitButton": "Check my website!",
+    "submitButton": "Check my website",
     "infotitle": "Why is it important to know the public information of your website?",
     "paragraph1": "As human rights defenders, journalists, and activists, it is essential that we take steps to protect our digital platforms. The public information of your website, such as metadata or exposed security settings, can be used by malicious actors to compromise your security or that of your community.",
     "paragraph2": "\"Veni OSINT\" is a tool designed to help you easily visualize this public information and provide a clear overview of potential risks. By knowing what data is accessible, you can take informed actions to improve your website's security and strengthen your digital protection.",
-    "paragraph3": "This tool is aimed at those fighting for a more just and secure world, providing them with the control and knowledge necessary to keep their digital work safe."
+    "paragraph3": "This tool is aimed at those fighting for a more just and secure world, providing them with the control and knowledge necessary to keep their digital work safe.",
+    "eyebrow": "A chequea.la tool",
+    "lead": "See what public information your website exposes: DNS, certificates, headers, ports and more.",
+    "subLead": "Type your site's address and in under a minute you will get an overview of its configuration and possible weak spots.",
+    "inputHint": "You can enter a domain, a URL or an IP address.",
+    "privacyHint": "No analytics, no cookies. Some checks query external services.",
+    "privacyLink": "More about privacy",
+    "checksTitle": "What does Veni OSINT check?",
+    "checks": {
+      "server": {
+        "title": "Server and DNS",
+        "desc": "Where your site is hosted, its DNS records, open ports and whether it responds properly."
+      },
+      "security": {
+        "title": "Security",
+        "desc": "SSL certificate, security headers, HSTS, DNSSEC, firewall and block lists."
+      },
+      "mail": {
+        "title": "Email",
+        "desc": "Whether your domain has SPF, DKIM and DMARC so nobody can send email pretending to be you."
+      },
+      "exposure": {
+        "title": "What others can see",
+        "desc": "Detected technologies, cookies, robots.txt, security.txt, web archive history and more."
+      }
+    },
+    "helpTitle": "Found something you don't understand or that worries you?",
+    "helpDesc": "Write to us with the result and we will help you understand and fix it.",
+    "credit": "Veni OSINT is based on Web Check, the open source project by",
+    "moreAbout": "More about Veni OSINT"
   },
   "progressbar": {
     "finishedIn": "Finished in",
@@ -36,16 +76,14 @@
     "failed": "failed",
     "loading": "Loading {{loaded}} / {{total}} Jobs",
     "completedSuccessfully": "{{count}} Jobs Completed Successfully",
-
-
     "error": {
-    "modal": {
-      "title": "Error Details for {{name}}",
-      "description": "The {{name}} job failed with an {{state}} state after {{timeTaken}} ms.",
-      "serverResponse": "The server responded with the following error:"
-    },
-    "checkConsole": "Check the browser console for logs and more info",
-    "explanation": "It's normal for some jobs to fail, either because the host doesn't return the required info, or restrictions in the lambda function, or hitting an API limit."
+      "modal": {
+        "title": "Error Details for {{name}}",
+        "description": "The {{name}} job failed with an {{state}} state after {{timeTaken}} ms.",
+        "serverResponse": "The server responded with the following error:"
+      },
+      "checkConsole": "Check the browser console for logs and more info",
+      "explanation": "It's normal for some jobs to fail, either because the host doesn't return the required info, or restrictions in the lambda function, or hitting an API limit."
     },
     "button": {
       "showLoadState": "Show Load State",
@@ -90,13 +128,35 @@
       "learnAboutResults": "Learn about the Results",
       "moreTools": "More tools",
       "viewGitHub": "View GitHub"
+    },
+    "actions": {
+      "info": "About {{title}}",
+      "refetch": "Re-fetch {{title}}"
     }
   },
   "additionalresources": {
     "note": {
-      "heading": "External Tools for Further Research",
-      "disclaimer": "These tools are not affiliated with Chequea.la. Please use them at your own risk.",
-      "availability": "At the time of listing, all of the above were available and free to use - if this changes, please report it via GitHub"
+      "heading": "External tools for further research",
+      "disclaimer": "These tools are not affiliated with chequea.la and using them shares the domain with them.",
+      "availability": "They were available and free when we added them; if one has changed, let us know at"
+    },
+    "items": {
+      "ssllabs": "Analyzes the server's SSL/TLS configuration and grades it.",
+      "virustotal": "Checks the domain against dozens of antivirus engines.",
+      "shodan": "Search engine for internet-connected devices and services.",
+      "archive": "Previous versions of the site saved by the Internet Archive.",
+      "urlscan": "Scans a URL and shows which resources the page connects to.",
+      "sucuri": "Looks for known malware and blacklisting.",
+      "domaintools": "WHOIS lookup for the domain.",
+      "nslookup": "Shows all DNS records for the domain.",
+      "dnschecker": "Checks DNS propagation across servers worldwide.",
+      "censys": "Hosts and certificates associated with the domain.",
+      "pagespeed": "Performance, accessibility and SEO on mobile and desktop.",
+      "builtwith": "Technologies the site is built with.",
+      "dnsdumpster": "Maps a domain from its DNS records.",
+      "internetnl": "Checks for modern standards: IPv6, DNSSEC, HTTPS and more.",
+      "securityheaders": "Grades the site's HTTP security headers.",
+      "radar": "Domain ranking and traffic data from Cloudflare."
     }
   },
   "viewRaw": {
@@ -129,7 +189,7 @@
     "errorInstructions": "Usually this happens if the result from the server was not what was expected. Check the logs for more info. If you continue to experience this issue, please raise a ticket on the repository."
   },
   "modal": {
-     "close": "Close"
+    "close": "Close"
   },
   "about": {
     "viewOnGitHub": "View on GitHub",
@@ -145,11 +205,10 @@
     "termsAndInfo": "Terms and Information",
     "responsibleUse": "Responsible Use",
     "privacy": "Privacy",
-    "privacyDescription": "Analytics are used on the Netlify instance. This only logs the URL you visited, without collecting personal data. Basic error logging is also present, used solely to help fix bugs.\n\nYour IP address, browser/OS/hardware information, or any other data will not be collected or recorded. (You can verify this yourself, either by inspecting the source code or using developer tools)."
+    "privacyDescription": "Veni OSINT uses no analytics, cookies or third-party error logging. We don't store the addresses you scan. As with any website, our hosting provider (Netlify) may temporarily log technical request data.",
+    "title": "About Veni OSINT",
+    "privacyThirdParties": "Some results come from external services (such as Google DNS, the Internet Archive, Tranco, ipapi.co or block lists), which receive the scanned domain or IP. The server location is looked up by your browser directly from ipapi.co."
   },
-
-
-  
   "serverLocation": {
     "city": "City",
     "country": "Country",
@@ -157,6 +216,29 @@
     "languages": "Languages",
     "currency": "Currency",
     "latitude_longitude": "Latitude: {{latitude}}, Longitude: {{longitude}}"
+  },
+  "titles": {
+    "home": "Veni OSINT",
+    "results": "Veni OSINT results",
+    "about": "About Veni OSINT",
+    "notFound": "Page not found"
+  },
+  "notFound": {
+    "title": "We couldn't find this page",
+    "description": "The link may be broken or the page may have moved.",
+    "back": "Back to home"
+  },
+  "selfScan": {
+    "title": "You are scanning Veni OSINT with Veni OSINT!",
+    "text": "If you want to see how this site is built, check out the",
+    "link": "source code"
+  },
+  "mailConfig": {
+    "checklist": "Spoofing protection",
+    "mx": "MX records",
+    "priority": "Priority",
+    "services": "Detected mail services",
+    "txt": "Mail-related TXT records",
+    "dkimNote": "DKIM is checked using the most common selectors; if your provider uses another one it may exist even if it doesn't show here."
   }
-  
 }
