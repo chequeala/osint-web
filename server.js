@@ -89,6 +89,8 @@ fs.readdirSync(dirPath, { withFileTypes: true })
 
 // Handle SPA routing
 app.use(historyApiFallback({
+  disableDotRule: true, // las rutas de resultados llevan dominios con punto (/results/chequea.la)
+  htmlAcceptHeaders: ['text/html', 'application/xhtml+xml'], // sin '*/*', para no reescribir los .js y .css
   rewrites: [
     { from: /^\/api\/.*$/, to: (context) => context.parsedUrl.path },
   ]

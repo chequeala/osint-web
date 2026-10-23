@@ -1,7 +1,8 @@
 const https = require('https');
 const middleware = require('./_common/middleware'); // Make sure this path is correct
 
-const handler = async (domain) => {
+const handler = async (url) => {
+  const domain = new URL(url.includes('://') ? url : `https://${url}`).hostname;
   const dnsTypes = ['DNSKEY', 'DS', 'RRSIG'];
   const records = {};
 

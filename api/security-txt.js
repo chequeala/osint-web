@@ -2,9 +2,10 @@ const { https } = require('follow-redirects');
 const { URL } = require('url');
 const middleware = require('./_common/middleware');
 
+// RFC 9116: la ubicación oficial es /.well-known/, la raíz es la antigua
 const SECURITY_TXT_PATHS = [
-  '/security.txt',
   '/.well-known/security.txt',
+  '/security.txt',
 ];
 
 const parseResult = (result) => {
@@ -51,7 +52,7 @@ const handler = async (urlParam) => {
   for (let path of SECURITY_TXT_PATHS) {
     try {
       const result = await fetchSecurityTxt(url, path);
-      if (result && result.includes('<html')) return { isPresent: false };
+      if (result && /<html/i.test(result)) continue;
       if (result) {
         return {
           isPresent: true,

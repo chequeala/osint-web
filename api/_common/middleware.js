@@ -23,7 +23,9 @@ const commonMiddleware = (handler) => {
     try {
       const handlerResponse = await handler(url, request);
       if (handlerResponse.body && handlerResponse.statusCode) {
-        response.status(handlerResponse.statusCode).json(handlerResponse.body);
+        // Los handlers escritos para Lambda devuelven el body ya serializado
+        const { body } = handlerResponse;
+        response.status(handlerResponse.statusCode).json(typeof body === 'string' ? JSON.parse(body) : body);
       } else {
         response.status(200).json(
           typeof handlerResponse === 'object' ? handlerResponse : JSON.parse(handlerResponse)

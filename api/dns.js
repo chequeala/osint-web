@@ -22,7 +22,7 @@ const handler = async (url) => {
     const resolveSrvPromise = util.promisify(dns.resolveSrv);
     const resolvePtrPromise = util.promisify(dns.resolvePtr);
 
-    const [a, aaaa, mx, txt, ns, cname, soa, srv, ptr] = await Promise.all([
+    const [a, a4, aaaa, mx, txt, ns, cname, soa, srv, ptr] = await Promise.all([
       lookupPromise(hostname),
       resolve4Promise(hostname).catch(() => []), // A record
       resolve6Promise(hostname).catch(() => []), // AAAA record
@@ -37,6 +37,7 @@ const handler = async (url) => {
 
     return {
       A: a,
+      A4: a4,
       AAAA: aaaa,
       MX: mx,
       TXT: txt,
