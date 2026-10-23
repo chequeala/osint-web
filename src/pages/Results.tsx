@@ -223,6 +223,7 @@ const Results = (): JSX.Element => {
   }, [startTime]);
 
   const parseJson = (response: Response): Promise<any> => {
+    if (response.status === 429) return Promise.resolve({ error: t('results.rateLimited') });
     return new Promise((resolve) => {
         response.json()
           .then(data => resolve(data))
@@ -263,7 +264,7 @@ const Results = (): JSX.Element => {
     jobId: 'location',
     updateLoadingJobs,
     addressInfo: { address: ipAddress, addressType: 'ipV4', expectedAddressTypes: ['ipV4', 'ipV6'] },
-    fetchRequest: () => fetch(`https://ipapi.co/${ipAddress}/json/`)
+    fetchRequest: () => fetch(`${api}/location?url=${ipAddress}`)
       .then(res => parseJson(res))
       .then(res => getLocation(res)),
   });
@@ -946,7 +947,7 @@ const Results = (): JSX.Element => {
             }
             </Masonry>
         </ResultsContent>
-        <ViewRaw everything={resultCardData} />
+        <ViewRaw everything={resultCardData} address={address} />
         <AdditionalResources url={address} />
         <Modal isOpen={modalOpen} closeModal={()=> setModalOpen(false)}>{modalContent}</Modal>
         <ToastContainer limit={3} draggablePercent={60} autoClose={2500} theme="light" position="bottom-right" />

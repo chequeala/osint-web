@@ -140,6 +140,10 @@ const Home = (): JSX.Element => {
                     </div>
                   </form>
                   <p className="small text-soft mt-3 mb-0">
+                    <i className="bi bi-shield-check me-1" aria-hidden="true"></i>{t('home.responsibleUse')}{' '}
+                    <Link to="/about#uso-responsable">{t('home.responsibleLink')}</Link>
+                  </p>
+                  <p className="small text-soft mt-2 mb-0">
                     <i className="bi bi-info-circle me-1" aria-hidden="true"></i>{t('home.privacyHint')}{' '}
                     <Link to="/about#privacidad">{t('home.privacyLink')}</Link>
                   </p>

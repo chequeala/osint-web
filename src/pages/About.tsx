@@ -175,7 +175,7 @@ const About = (): JSX.Element => {
 
       <Heading as="h2" size="medium">{t('about.termsAndInfo')}</Heading>
       <Section>
-        <Heading as="h3" size="small">{t('about.responsibleUse')}</Heading>
+        <Heading as="h3" size="small" id="uso-responsable">{t('about.responsibleUse')}</Heading>
         <ul>
           {fairUse.map((para, index: number) => (<li key={index}>{para}</li>))}
         </ul>

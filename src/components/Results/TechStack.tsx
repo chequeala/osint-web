@@ -80,7 +80,6 @@ h4 {
 
 const TechStackCard = (props: {data: any, title: string, actionButtons: any }): JSX.Element => {
 const technologies = props.data.technologies;
-const iconsCdn = 'https://www.wappalyzer.com/images/icons/';
 return (
 <Card heading={props.title} actionButtons={props.actionButtons} styles={cardStyles}>
 {technologies.map((tech: any, index: number) => {
@@ -97,7 +96,7 @@ return (
 </span>
 </div>
 <div className="r2">
-<img className="tech-icon" width="10" src={`${iconsCdn}${tech.icon}`} alt={tech.name} />
+
 <div>
 <p className="tech-description">{tech.description}</p>
 <p className="tech-website">Learn more at: <a href={tech.website}>{tech.website}</a></p>

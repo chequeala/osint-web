@@ -33,7 +33,6 @@ const docs: Doc[] = [
       { title: 'RFC-8446 - TLS', link: 'https://tools.ietf.org/html/rfc8446' },
       { title: 'Comprobador SSL', link: 'https://www.sslshopper.com/ssl-checker.html' },
     ],
-    screenshot: 'https://i.ibb.co/kB7LsV1/wc-ssl.png',
   },
   {
     id: "dns",
@@ -47,7 +46,6 @@ const docs: Doc[] = [
       { title: 'RFC-1035 - DNS', link: 'https://tools.ietf.org/html/rfc1035' },
       { title: 'Consulta DNS (vía MxToolbox)', link: 'https://mxtoolbox.com/DNSLookup.aspx' },
     ],
-    screenshot: 'https://i.ibb.co/7Q1kMwM/wc-dns.png',
   },
 
 
@@ -76,7 +74,6 @@ const docs: Doc[] = [
       { title: 'Pruebas de atributos de cookies (OWASP)', link: 'https://owasp.org/www-project-web-security-testing-guide/v42/4-Web_Application_Security_Testing/06-Session_Management_Testing/02-Testing_for_Cookies_Attributes' },
       { title: 'RFC-6265 - Cookies', link: 'https://tools.ietf.org/html/rfc6265' },
     ],
-    screenshot: 'https://i.ibb.co/TTQ6DtP/wc-cookies.png',
   },
   {
     id: "robots-txt",
@@ -91,7 +88,6 @@ const docs: Doc[] = [
       { title: 'RFC-9309 - Protocolo de Exclusión de Robots', link: 'https://datatracker.ietf.org/doc/rfc9309/' },
       { title: 'Robots.txt - Wikipedia', link: 'https://es.wikipedia.org/wiki/Estándar_de_exclusión_de_robots' },
     ],
-    screenshot: 'https://i.ibb.co/KwQCjPf/wc-robots.png',
   },
   {
     id: "headers",
@@ -106,7 +102,6 @@ const docs: Doc[] = [
       { title: 'Lista de campos de respuesta en cabeceras', link: 'https://es.wikipedia.org/wiki/Lista_de_campos_de_cabecera_HTTP' },
       { title: 'Proyecto de cabeceras seguras (OWASP)', link: 'https://owasp.org/www-project-secure-headers/' },
     ],
-    screenshot: 'https://i.ibb.co/t3xcwP1/wc-headers.png',
   },
   {
     id: "quality",
@@ -123,7 +118,6 @@ const docs: Doc[] = [
       { title: 'Verificador de SEO', link: 'https://www.seobility.net/es/seocheck/' },
       { title: 'PWA Builder', link: 'https://www.pwabuilder.com/' },
     ],
-    screenshot: 'https://i.ibb.co/Kqg8rx7/wc-quality.png',
   },
     
 
@@ -154,7 +148,6 @@ const docs: Doc[] = [
       { title: 'Localizador IP', link: 'https://geobytes.com/iplocator/' },
       { title: 'Geolocalización de Internet - Wiki', link: 'https://es.wikipedia.org/wiki/Geolocalizaci%C3%B3n_de_Internet' },
     ],
-    screenshot: 'https://i.ibb.co/cXH2hfR/wc-location.png',
   },
   {
     id: "hosts",
@@ -168,7 +161,6 @@ const docs: Doc[] = [
       { title: 'Enumeración DNS - DNS Dumpster', link: 'https://dnsdumpster.com/' },
       { title: 'Buscador de Subdominios', link: 'https://subdomainfinder.c99.nl/' },
     ],
-    screenshot: 'https://i.ibb.co/25j1sT7/wc-hosts.png',
   },
   {
     id: "redirects",
@@ -181,7 +173,6 @@ const docs: Doc[] = [
       { title: 'Redirección de URL - Wiki', link: 'https://es.wikipedia.org/wiki/Redirecci%C3%B3n_de_URL' },
       { title: 'Redirecciones 301 explicadas', link: 'https://ahrefs.com/blog/301-redirects/' },
     ],
-    screenshot: 'https://i.ibb.co/hVVrmwh/wc-redirects.png',
   },
   {
     id: "txt-records",
@@ -195,7 +186,6 @@ const docs: Doc[] = [
       { title: 'RFC-1464 - Registros TXT', link: 'https://datatracker.ietf.org/doc/html/rfc1464' },
       { title: 'Búsqueda de Registros TXT (vía MxToolbox)', link: 'https://mxtoolbox.com/TXTLookup.aspx' },
     ],
-    screenshot: 'https://i.ibb.co/wyt21QN/wc-txt-records.png',
   },
   {
     id: "status",
@@ -203,7 +193,6 @@ const docs: Doc[] = [
     description: "Verifica si un servidor está en línea y respondiendo a solicitudes.",
     use: "",
     resources: [],
-    screenshot: 'https://i.ibb.co/V9CNLBK/wc-status.png',
   },
 
 
@@ -233,7 +222,6 @@ const docs: Doc[] = [
       { title: 'Lista de Números de Puertos TCP y UDP', link: 'https://en.wikipedia.org/wiki/List_of_TCP_and_UDP_port_numbers' },
       { title: 'NMAP - Fundamentos del Escaneo de Puertos', link: 'https://nmap.org/book/man-port-scanning-basics.html' },
     ],
-    screenshot: 'https://i.ibb.co/F8D1hmf/wc-ports.png',
   },
   {
     id: "trace-route",
@@ -248,7 +236,6 @@ const docs: Doc[] = [
       "https://en.wikipedia.org/wiki/Traceroute",
       "https://www.ripe.net/publications/docs/ripe-611",
     ],
-    screenshot: 'https://i.ibb.co/M59qgxP/wc-trace-route.png',
   },
   {
     id: "carbon",
@@ -264,7 +251,6 @@ const docs: Doc[] = [
       { title: 'Reset.org', link: 'https://en.reset.org/' },
       { title: 'Tu sitio web está matando el planeta - vía Wired', link: 'https://www.wired.co.uk/article/internet-carbon-footprint' },
     ],
-    screenshot: 'https://i.ibb.co/5v6fSyw/Screenshot-from-2023-07-29-19-07-50.png',
   },
   {
     id: "server-info",
@@ -279,7 +265,6 @@ const docs: Doc[] = [
       "https://tools.ietf.org/html/rfc7231#section-7.4.2",
       "https://builtwith.com/",
     ],
-    screenshot: 'https://i.ibb.co/Mk1jx32/wc-server.png',
   },
   {
     id: "domain",
@@ -293,7 +278,6 @@ const docs: Doc[] = [
       "https://www.icann.org/resources/pages/whois-2018-01-17-en",
       "https://whois.domaintools.com/",
     ],
-    screenshot: 'https://i.ibb.co/89WLp14/wc-domain.png',
   },
   {
     id: "whois",
@@ -307,7 +291,6 @@ const docs: Doc[] = [
       "https://www.icann.org/resources/pages/whois-2018-01-17-en",
       "https://whois.domaintools.com/",
     ],
-    screenshot: 'https://i.ibb.co/89WLp14/wc-domain.png',
   },
   
 
@@ -340,7 +323,6 @@ const docs: Doc[] = [
       "https://support.google.com/domains/answer/6147083",
       "https://www.internetsociety.org/resources/deploy360/2013/dnssec-test-sites/",
     ],
-    screenshot: 'https://i.ibb.co/J54zVmQ/wc-dnssec.png',
   },
   {
     id: "features",
@@ -348,7 +330,6 @@ const docs: Doc[] = [
     description: 'Verifica qué características principales están activas en un sitio web. Si alguna aparece como inactiva, significa que no está siendo utilizada durante la carga del sitio.',
     use: "Esto te ayuda a comprender las capacidades de tu sitio y qué tecnologías están activas o faltantes.",
     resources: [],
-    screenshot: 'https://i.ibb.co/gP4P6kp/wc-features.png',
   },
   {
     id: "hsts",
@@ -364,7 +345,6 @@ const docs: Doc[] = [
       'https://cheatsheetseries.owasp.org/cheatsheets/HTTP_Strict_Transport_Security_Cheat_Sheet.html',
       'https://hstspreload.org/'
     ],
-    screenshot: 'https://i.ibb.co/k253fq4/Screenshot-from-2023-07-17-20-10-52.png',
   },
   {
     id: 'dns-server',
@@ -372,7 +352,6 @@ const docs: Doc[] = [
     description: 'Este análisis identifica los servidores DNS a los que apunta tu dominio, y también revisa si soportan DNS sobre HTTPS (DoH) y si son vulnerables a envenenamiento de caché DNS.',
     use: 'Comprender qué servidores DNS utiliza tu dominio puede ayudarte a diagnosticar problemas de seguridad y evaluar posibles vulnerabilidades.',
     resources: [],
-    screenshot: 'https://i.ibb.co/tKpL8F9/Screenshot-from-2023-08-12-15-43-12.png',
   },
   {
     id: 'tech-stack',
@@ -383,7 +362,6 @@ const docs: Doc[] = [
       { title: 'Huellas digitales de Wappalyzer', link: 'https://github.com/wappalyzer/wappalyzer/tree/master/src/technologies'},
       { title: 'BuiltWith - Revisa qué tecnologías usa un sitio', link: 'https://builtwith.com/'},
     ],
-    screenshot: 'https://i.ibb.co/bBQSQNz/Screenshot-from-2023-08-12-15-43-46.png',
   },
   {
     id: 'sitemap',
@@ -395,7 +373,6 @@ const docs: Doc[] = [
       { title: 'Especificación de sitemap XML', link: 'https://www.sitemaps.org/protocol.html'},
       { title: 'Tutorial de sitemap', link: 'https://www.conductor.com/academy/xml-sitemap/'},
     ],
-    screenshot: 'https://i.ibb.co/GtrCQYq/Screenshot-from-2023-07-21-12-28-38.png',
   },
   {
     id: 'security-txt',
@@ -410,7 +387,6 @@ const docs: Doc[] = [
       { title: 'Ejemplo de security.txt (Cloudflare)', link: 'https://www.cloudflare.com/.well-known/security.txt'},
       { title: 'Tutorial para crear security.txt (Pieter Bakker)', link: 'https://pieterbakker.com/implementing-security-txt/'},
     ],
-    screenshot: 'https://i.ibb.co/tq1FT5r/Screenshot-from-2023-07-24-20-31-21.png',
   },
 
 
@@ -434,7 +410,6 @@ const docs: Doc[] = [
     resources: [
       { title: 'W3C Verificador de Enlaces', link: 'https://validator.w3.org/checklink'},
     ],
-    screenshot: 'https://i.ibb.co/LtK14XR/Screenshot-from-2023-07-29-11-16-44.png',
   },
   {
     id: 'social-tags',
@@ -449,7 +424,6 @@ const docs: Doc[] = [
       { title: 'Twitter Cards', link: 'https://developer.twitter.com/en/docs/twitter-for-websites/cards/overview/abouts-cards'},
       { title: 'Facebook Open Graph', link: 'https://developers.facebook.com/docs/sharing/webmasters'},
     ],
-    screenshot: 'https://i.ibb.co/4srTT1w/Screenshot-from-2023-07-29-11-15-27.png',
   },
   {
     id: 'mail-config',
@@ -468,7 +442,6 @@ const docs: Doc[] = [
       { title: 'RFC-7489 - DMARC', link: 'https://datatracker.ietf.org/doc/html/rfc7489' },
       { title: 'BIMI Group', link: 'https://bimigroup.org/' },
     ],
-    screenshot: 'https://i.ibb.co/yqhwx5G/Screenshot-from-2023-07-29-18-22-20.png',
   },
   {
     id: 'firewall',
@@ -481,7 +454,6 @@ const docs: Doc[] = [
       { title: 'Mejores prácticas para WAF', link: 'https://owasp.org/www-pdf-archive/Best_Practices_Guide_WAF_v104.en.pdf' },
       { title: 'WAF - Wiki', link: 'https://en.wikipedia.org/wiki/Web_application_firewall' },
     ],
-    screenshot: 'https://i.ibb.co/MfcxQt2/Screenshot-from-2023-08-12-15-40-52.png',
   },
 
 
@@ -527,7 +499,6 @@ const docs: Doc[] = [
       { title: 'Documentación de X-Frame-Options', link: 'https://developer.mozilla.org/es/docs/Web/HTTP/Headers/X-Frame-Options' },
       { title: 'Documentación de X-XSS-Protection', link: 'https://developer.mozilla.org/es/docs/Web/HTTP/Headers/X-XSS-Protection' },
     ],
-    screenshot: 'https://i.ibb.co/LP05HMV/Screenshot-from-2023-08-12-15-40-28.png',
   },
   {
     id: 'archives',
@@ -537,7 +508,6 @@ const docs: Doc[] = [
     resources: [
       { title: 'Wayback Machine', link: 'https://archive.org/web/' },
     ],
-    screenshot: 'https://i.ibb.co/nB9szT1/Screenshot-from-2023-08-14-22-31-16.png',
   },
   {
     id: 'rank',
@@ -548,7 +518,6 @@ const docs: Doc[] = [
       { title: 'Lista Tranco', link: 'https://tranco-list.eu/' },
       { title: 'Artículo de Investigación de Tranco', link: 'https://tranco-list.eu/assets/tranco-ndss19.pdf' },
     ],
-    screenshot: 'https://i.ibb.co/nkbczgb/Screenshot-from-2023-08-14-22-02-40.png',
   },
   {
     id: 'block-lists',
@@ -558,7 +527,6 @@ const docs: Doc[] = [
     resources: [
       { title: 'Listas ThreatJammer', link: 'https://threatjammer.com/osint-lists' },
     ],
-    screenshot: 'https://i.ibb.co/M5JSXbW/Screenshot-from-2023-08-26-12-12-43.png',
   },
   {
     id: 'threats',
@@ -569,7 +537,6 @@ const docs: Doc[] = [
       { title: 'URLHaus', link: 'https://urlhaus-api.abuse.ch/' },
       { title: 'PhishTank', link: 'https://www.phishtank.com/' },
     ],
-    screenshot: 'https://i.ibb.co/hYgy621/Screenshot-from-2023-08-26-12-07-47.png',
   },
 
 
@@ -602,7 +569,6 @@ const docs: Doc[] = [
     description: 'Esta función toma una captura de pantalla de la página web a la que resuelve la URL/IP solicitada y la muestra.',
     use: 'Esto puede ser útil para ver cómo se ve un sitio web sin las limitaciones de tu navegador, IP o ubicación.',
     resources: [],
-    screenshot: 'https://i.ibb.co/2F0x8kP/Screenshot-from-2023-07-29-18-34-48.png',
 },
 
 ];
@@ -654,7 +620,7 @@ export const supportUs = [
 
 export const fairUse = [
   'Por favor, utiliza esta herramienta de manera responsable. No la uses para escanear hosts para los que no tienes permiso. No la uses como parte de un plan para atacar o interrumpir servicios.',
-  'Por favor, úsala de forma justa, ya que un uso excesivo agotará rápidamente los créditos de la función lambda, haciendo que el servicio no esté disponible para otros (y/o vaciando nuestra cuenta bancaria 😅).',
+  'Para que el servicio siga disponible para todas las personas, hay un límite de análisis por minuto desde una misma conexión. Si lo alcanzas, espera un momento y vuelve a intentar.',
 ];
 
 

@@ -1,8 +1,6 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import styled from 'styled-components';
-import colors from 'styles/colors';
 import { Card } from 'components/Form/Card';
-import Button from 'components/Form/Button';
 
 import { useTranslation } from 'react-i18next';
 
@@ -10,95 +8,72 @@ const CardStyles = `
 margin: 0 auto 1rem auto;
 width: 100%;
 position: relative;
-transition: all 0.2s ease-in-out;
 display: flex;
 flex-direction: column;
-a {
-  color: var(--vt-purple-deep);
-}
 .controls {
   display: flex;
   flex-wrap: wrap;
-  button {
-    max-width: 300px;
-  }
+  gap: 0.75rem;
+  margin: 0.5rem 0;
 }
 small {
   margin-top: 0.5rem;
   font-size: 0.8rem;
-  opacity: 0.5;
+  color: var(--ink-soft);
 }
 `;
 
-const StyledIframe = styled.iframe`
-  width: calc(100% - 2rem);
-  outline: none;
-  border: none;
-  border-radius: 4px;
-  min-height: 50vh;
-  height: 100%;
-  margin: 1rem;
-  background: ${colors.background};
+const RawJson = styled.pre`
+  background: var(--vt-green);
+  border-radius: 0.5rem;
+  padding: 1rem;
+  max-height: 60vh;
+  overflow: auto;
+  font-size: 0.8rem;
+  white-space: pre-wrap;
+  word-break: break-word;
 `;
 
-const ViewRaw = (props: { everything: { id: string, result: any}[] }) => {
-  const { t } = useTranslation(); 
-  const [resultUrl, setResultUrl] = useState<string | null>(null);
-  const [error, setError] = useState<string | null>(null);
+// Antes "Ver resultados" subía todo el análisis a jsonhero.io; ahora se muestra aquí mismo
+const ViewRaw = (props: { everything: { id: string, result: any}[], address?: string }) => {
+  const { t } = useTranslation();
+  const [showRaw, setShowRaw] = useState(false);
 
   const makeResults = () => {
     const result: {[key: string]: any} = {};
     props.everything.forEach((item: {id: string, result: any}) => {
       result[item.id] = item.result;
     });
-    return result;
+    return JSON.stringify(result, null, 2);
   };
 
-  const fetchResultsUrl = async () => {
-    const resultContent = makeResults();
-    const response = await fetch('https://jsonhero.io/api/create.json', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        title: 'web-check results',
-        content: resultContent,
-        readOnly: true,
-        ttl: 3600,
-      })
-    });
-    if (!response.ok) {
-      setError(t('viewRaw.error', { status: response.status }));
-    } else {
-      setError(null);
-    }
-    await response.json().then(
-      (data) => setResultUrl(data.location)
-    )
+  const fileName = () => {
+    let host = 'resultados';
+    try { host = new URL(props.address || '').hostname || host; } catch { /* nombre por defecto */ }
+    return `veni-osint-${host}.json`;
   };
 
   const handleDownload = () => {
-    const blob = new Blob([JSON.stringify(makeResults(), null, 2)], { type: "application/json" });
+    const blob = new Blob([makeResults()], { type: 'application/json' });
     const url = URL.createObjectURL(blob);
     const link = document.createElement('a');
     link.href = url;
-    link.download = 'web-check-results.json';
+    link.download = fileName();
     link.click();
     URL.revokeObjectURL(url);
-  }
+  };
+
   return (
     <Card heading={t('viewRaw.heading')} styles={CardStyles}>
       <div className="controls">
-        <Button onClick={handleDownload}>{t('viewRaw.download')}</Button>
-        <Button onClick={fetchResultsUrl}>{resultUrl ? t('viewRaw.update') : t('viewRaw.view')}</Button>
-        { resultUrl && <Button onClick={() => setResultUrl('')}>{t('viewRaw.hide')}</Button> }
+        <button type="button" className="btn btn-brand rounded-pill px-4" onClick={handleDownload}>
+          <i className="bi bi-download me-2" aria-hidden="true"></i>{t('viewRaw.download')}
+        </button>
+        <button type="button" className="btn btn-outline-brand rounded-pill px-4" aria-expanded={showRaw} onClick={() => setShowRaw(!showRaw)}>
+          {showRaw ? t('viewRaw.hide') : t('viewRaw.view')}
+        </button>
       </div>
-      { resultUrl && !error &&
-      <>
-        <StyledIframe title={t('viewRaw.iframeTitle')} src={resultUrl} />
-        <small>{t('viewRaw.available')} <a href={resultUrl}> {t('viewRaw.here')}</a>.</small>
-      </>
-      }
-      { error && <p className="error">{error}</p> }
+      { showRaw && <RawJson tabIndex={0}>{makeResults()}</RawJson> }
       <small>{t('viewRaw.info')}</small>
     </Card>
   );

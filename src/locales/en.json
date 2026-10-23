@@ -63,7 +63,9 @@
     "helpTitle": "Found something you don't understand or that worries you?",
     "helpDesc": "Write to us with the result and we will help you understand and fix it.",
     "credit": "Veni OSINT is based on Web Check, the open source project by",
-    "moreAbout": "More about Veni OSINT"
+    "moreAbout": "More about Veni OSINT",
+    "responsibleUse": "Only scan your own sites or those of organizations that give you permission.",
+    "responsibleLink": "Responsible use"
   },
   "progressbar": {
     "finishedIn": "Finished in",
@@ -132,7 +134,8 @@
     "actions": {
       "info": "About {{title}}",
       "refetch": "Re-fetch {{title}}"
-    }
+    },
+    "rateLimited": "You ran many scans in a row. Wait a minute and try again."
   },
   "additionalresources": {
     "note": {
@@ -207,7 +210,7 @@
     "privacy": "Privacy",
     "privacyDescription": "Veni OSINT uses no analytics, cookies or third-party error logging. We don't store the addresses you scan. As with any website, our hosting provider (Netlify) may temporarily log technical request data.",
     "title": "About Veni OSINT",
-    "privacyThirdParties": "Some results come from external services (such as Google DNS, the Internet Archive, Tranco, ipapi.co or block lists), which receive the scanned domain or IP. The server location is looked up by your browser directly from ipapi.co."
+    "privacyThirdParties": "To get some results, our server queries external services (such as Google DNS, the Internet Archive, Tranco, ipwho.is or block lists), which receive the scanned domain or IP. Your browser only connects to veni.chequea.la."
   },
   "serverLocation": {
     "city": "City",

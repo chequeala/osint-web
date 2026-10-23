@@ -36,7 +36,11 @@ return (
 { tags.author && <Row lbl="Author" val={tags.author} />}
 { tags.publisher && <Row lbl="Publisher" val={tags.publisher} />}
 { tags.generator && <Row lbl="Generator" val={tags.generator} />}
-{ tags.ogImage && <div className="banner-image"><img src={tags.ogImage} alt="Banner" /></div> }
+{/* No se carga la imagen del sitio analizado: le revelaría la IP de quien usa veni */}
+{ tags.ogImage && <Row lbl="" val="">
+  <span className="lbl">Image</span>
+  <span className="val"><a href={tags.ogImage} target="_blank" rel="noopener noreferrer nofollow">{tags.ogImage}</a></span>
+</Row> }
 </Card>
 );
 }

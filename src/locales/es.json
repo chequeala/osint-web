@@ -63,7 +63,9 @@
     "helpTitle": "¿Encontraste algo que no entiendes o que te preocupa?",
     "helpDesc": "Escríbenos con el resultado y te ayudamos a interpretarlo y a resolverlo.",
     "credit": "Veni OSINT está basado en Web Check, el proyecto de código abierto de",
-    "moreAbout": "Más sobre Veni OSINT"
+    "moreAbout": "Más sobre Veni OSINT",
+    "responsibleUse": "Analiza solo sitios propios o de organizaciones que te den permiso.",
+    "responsibleLink": "Uso responsable"
   },
   "progressbar": {
     "finishedIn": "Finalizado en",
@@ -132,7 +134,8 @@
     "actions": {
       "info": "Información sobre {{title}}",
       "refetch": "Volver a consultar {{title}}"
-    }
+    },
+    "rateLimited": "Hiciste muchos análisis seguidos. Espera un minuto y vuelve a intentar."
   },
   "additionalresources": {
     "note": {
@@ -207,7 +210,7 @@
     "privacy": "Privacidad",
     "privacyDescription": "Veni OSINT no usa herramientas de analítica, cookies ni registros de error de terceros. No guardamos las direcciones que analizas. Como en cualquier sitio web, nuestro proveedor de alojamiento (Netlify) puede registrar temporalmente datos técnicos de las solicitudes.",
     "title": "Sobre Veni OSINT",
-    "privacyThirdParties": "Para obtener algunos resultados se consultan servicios externos (por ejemplo Google DNS, Internet Archive, Tranco, ipapi.co o listas de bloqueo), que reciben el dominio o la IP analizada. La ubicación del servidor la consulta tu navegador directamente a ipapi.co."
+    "privacyThirdParties": "Para obtener algunos resultados, nuestro servidor consulta servicios externos (por ejemplo Google DNS, Internet Archive, Tranco, ipwho.is o listas de bloqueo), que reciben el dominio o la IP analizada. Tu navegador solo se conecta con veni.chequea.la."
   },
   "serverLocation": {
     "city": "Ciudad",

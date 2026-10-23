@@ -19,11 +19,18 @@
   # REACT_APP_WHO_API_KEY=''    # WhoAPI key, for iniiating client-side whois lookup
 
 # Redirect the /api/* path to the lambda functions
+# Reescritura (200, no 301) para que el límite de uso aplique a la API.
+# Un análisis completo hace ~35 llamadas: 150 por minuto y por IP permite unos 4 análisis.
 [[redirects]]
   from = "/api/*"
   to = "/.netlify/functions/:splat"
-  status = 301
+  status = 200
   force = true
+
+  [redirects.rate_limit]
+    window_limit = 150
+    window_size = 60
+    aggregate_by = ["ip", "domain"]
 
 # For router history mode, ensure pages land on index
 [[redirects]]
@@ -38,8 +45,20 @@ package = "netlify-plugin-chromium"
   packageManager = "yarn"
 
 # Set any security headers here
+# Mismas cabeceras de seguridad que chequea.la (chequeala_web/public/_headers).
+# style-src necesita 'unsafe-inline' por styled-components. Si se agrega un recurso
+# de otro dominio, hay que permitirlo aquí o el navegador lo bloqueará.
 [[headers]]
   for = "/*"
   [headers.values]
-  # Uncomment to enable Netlify user control. Requires premium plan.
-  # Basic-Auth = "someuser:somepassword anotheruser:anotherpassword"
+  Strict-Transport-Security = "max-age=31536000; includeSubDomains"
+  Content-Security-Policy = "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self' data:; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'; upgrade-insecure-requests"
+  X-Content-Type-Options = "nosniff"
+  X-Frame-Options = "DENY"
+  Referrer-Policy = "strict-origin-when-cross-origin"
+  Permissions-Policy = "camera=(), microphone=(), geolocation=(), interest-cohort=()"
+
+[[headers]]
+  for = "/static/*"
+  [headers.values]
+  Cache-Control = "public, max-age=31536000, immutable"
