@@ -1,3 +1,4 @@
+const { assertPublicTarget } = require('./ssrf');
 const normalizeUrl = (url) => {
   return url.startsWith('http') ? url : `https://${url}`;
 };
@@ -22,6 +23,13 @@ const errorText = (response) => {
 // Si una prueba falla solo por el certificado, se repite por http://, que es como la
 // gente está viendo ese sitio. Nunca se desactiva la verificación de certificados.
 const withHttpFallback = (handler) => async (url, ...rest) => {
+  // Antes que nada: nunca analizar direcciones privadas o locales
+  try {
+    await assertPublicTarget(url);
+  } catch (error) {
+    if (error.code === 'ENOTALLOWED') return { statusCode: 400, body: JSON.stringify({ error: error.message }) };
+    throw error;
+  }
   const retryOverHttp = async () => {
     const result = await handler(url.replace(/^https:\/\//i, 'http://'), ...rest);
     if (result && typeof result === 'object' && !result.statusCode && !Array.isArray(result)) {

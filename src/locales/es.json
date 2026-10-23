@@ -241,7 +241,6 @@
     "hosts": "Nombres de host",
     "http-security": "Seguridad HTTP",
     "social-tags": "Etiquetas sociales",
-    "trace-route": "Traza de ruta",
     "security-txt": "Security.txt",
     "dns-server": "Servidor DNS",
     "firewall": "Firewall",
@@ -523,7 +522,6 @@
     "disclaimer": "Informe generado con Veni OSINT ({{site}}) a partir de información pública del sitio. Es una revisión automática: no reemplaza una auditoría de seguridad."
   },
   "serverMessages": {
-    "noTraceroute": "Este servidor no tiene traceroute instalado.",
     "noBrowserScreenshot": "Este servidor no tiene un navegador para hacer capturas de pantalla.",
     "noBrowserTech": "Este servidor no tiene un navegador para detectar tecnologías.",
     "missingKey": "Falta configurar la clave {{key}} en el servidor.",

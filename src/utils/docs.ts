@@ -224,20 +224,6 @@ const docs: Doc[] = [
     ],
   },
   {
-    id: "trace-route",
-    title: "Traceroute",
-    description:
-      "Traceroute es una herramienta de diagnóstico de red utilizada para rastrear en tiempo real el camino que toma un paquete de información de un sistema a otro. Registra cada salto a lo largo de la ruta, proporcionando detalles sobre las IP de los routers y la demora en cada punto.",
-    use:
-      "En investigaciones de OSINT, traceroute puede ofrecer información sobre las rutas de enrutamiento y la geografía de la infraestructura de red que soporta un sitio web o servicio. Esto puede ayudarte a identificar cuellos de botella en la red, potencial censura o manipulación del tráfico de red, y brindarte una visión general de la estructura y eficiencia de la red. Además, las direcciones IP recopiladas durante el traceroute pueden ofrecer puntos adicionales de investigación para un análisis de OSINT más profundo.",
-    resources: [
-      "https://www.cloudflare.com/learning/network-layer/what-is-traceroute/",
-      "https://tools.ietf.org/html/rfc1393",
-      "https://en.wikipedia.org/wiki/Traceroute",
-      "https://www.ripe.net/publications/docs/ripe-611",
-    ],
-  },
-  {
     id: "carbon",
     title: "Huella de Carbono",
     description:
