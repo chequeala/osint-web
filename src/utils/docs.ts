@@ -587,6 +587,16 @@ const docs: Doc[] = [
 
 
   {
+    id: 'wordpress',
+    title: 'WordPress',
+    description: 'Si el sitio está hecho con WordPress, revisa tres problemas muy comunes: si la API REST muestra la lista de usuarios del panel, si xmlrpc.php está activo y si la versión de WordPress se ve en el código. Solo hace consultas normales, como cualquier visitante.',
+    use: 'Conocer los nombres de usuario y tener xmlrpc.php activo facilita los ataques que prueban miles de contraseñas. Ocultar esa información, usar contraseñas largas y la verificación en dos pasos reduce mucho el riesgo.',
+    resources: [
+      { title: 'Endurecimiento de WordPress (documentación oficial)', link: 'https://developer.wordpress.org/advanced-administration/security/hardening/' },
+      { title: 'OWASP - Pruebas de enumeración de usuarios', link: 'https://owasp.org/www-project-web-security-testing-guide/latest/4-Web_Application_Security_Testing/03-Identity_Management_Testing/04-Testing_for_Account_Enumeration_and_Guessable_User_Account' },
+    ],
+  },
+  {
     id: 'screenshot',
     title: 'Captura de Pantalla',
     description: 'Esta función toma una captura de pantalla de la página web a la que resuelve la URL/IP solicitada y la muestra.',

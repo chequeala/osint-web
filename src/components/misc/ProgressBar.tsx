@@ -207,6 +207,7 @@ const jobNames = [
   'archives',
   'rank',
   'screenshot',
+  'wordpress',
   'redirects',
   'linked-pages',
   'robots-txt',

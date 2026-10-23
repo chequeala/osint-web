@@ -52,6 +52,8 @@ import ArchivesCard from 'components/Results/Archives';
 import RankCard from 'components/Results/Rank';
 import BlockListsCard from 'components/Results/BlockLists';
 import ThreatsCard from 'components/Results/Threats';
+import WordPressCard from 'components/Results/WordPress';
+import Summary from 'components/misc/Summary';
 import { useTranslation } from 'react-i18next';
 
 import keys from 'utils/get-keys';
@@ -440,6 +442,14 @@ const Results = (): JSX.Element => {
     fetchRequest: () => fetch(`${api}/screenshot?url=${address}`).then(res => parseJson(res)),
   });
 
+  // Usuarios expuestos, xmlrpc.php y versión en sitios WordPress
+  const [wordpressResults, updateWordpressResults] = useMotherHook({
+    jobId: 'wordpress',
+    updateLoadingJobs,
+    addressInfo: { address, addressType, expectedAddressTypes: urlTypeOnly },
+    fetchRequest: () => fetch(`${api}/wordpress?url=${address}`).then(res => parseJson(res)),
+  });
+
   // Fetches URL redirects
   const [redirectResults, updateRedirectResults] = useMotherHook({
     jobId: 'redirects',
@@ -726,6 +736,13 @@ const Results = (): JSX.Element => {
       refresh: updateScreenshotResult,
       tags: ['client', 'meta'],
     }, {
+      id: 'wordpress',
+      title: 'WordPress',
+      result: wordpressResults,
+      Component: WordPressCard,
+      refresh: updateWordpressResults,
+      tags: ['security'],
+    }, {
       id: 'redirects',
       title: 'Redirects',
       result: redirectResults,
@@ -848,6 +865,22 @@ const Results = (): JSX.Element => {
           <ProgressBar loadStatus={loadingJobs} showModal={showErrorModal} showJobDocs={showInfo} />
           { address?.includes(window?.location?.hostname || 'web-check.xyz') && <SelfScanMsg />}
         </div>
+        { address && <Summary
+          address={address}
+          isDone={loadingJobs.every((job: LoadingJob) => job.state !== 'loading')}
+          ssl={sslResults}
+          domain={domainLookupResults}
+          mail={mailConfigResults}
+          mailSkipped={loadingJobs.some((job: LoadingJob) => job.name === 'mail-config' && job.state === 'skipped')}
+          hsts={hstsResults}
+          httpSecurity={httpSecurityResults}
+          dnssec={dnsSecResults}
+          securityTxt={securityTxtResults}
+          blockLists={blockListsResults}
+          threats={threatResults}
+          ports={portsResults}
+          wordpress={wordpressResults}
+        /> }
           <Loader show={loadingJobs.filter((job: LoadingJob) => job.state !== 'loading').length < 5} />
         <FilterButtons>{ showFilters ? <>
           <div className="one-half">

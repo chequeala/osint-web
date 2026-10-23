@@ -270,7 +270,8 @@
     "block-lists": "Listas de bloqueo",
     "features": "Funciones del sitio",
     "sitemap": "Páginas",
-    "carbon": "Huella de carbono"
+    "carbon": "Huella de carbono",
+    "wordpress": "WordPress"
   },
   "mailConfig": {
     "checklist": "Protección contra suplantación",
@@ -279,5 +280,119 @@
     "services": "Servicios de correo detectados",
     "txt": "Registros TXT de correo",
     "dkimNote": "DKIM se busca con los selectores más comunes; si tu proveedor usa otro, puede existir aunque aquí no aparezca."
+  },
+  "wordpress": {
+    "version": "Versión visible",
+    "hidden": "Oculta",
+    "usersExposed": "Usuarios expuestos",
+    "xmlrpc": "xmlrpc.php activo",
+    "usersTitle": "Usuarios visibles en la API",
+    "yes": "Sí",
+    "no": "No"
+  },
+  "summary": {
+    "title": "Qué revisar primero",
+    "loading": "El resumen se actualiza a medida que terminan las pruebas…",
+    "severity": {
+      "high": "Urgente",
+      "medium": "Importante",
+      "low": "Recomendado"
+    },
+    "passed_one": "{{count}} prueba bien",
+    "passed_other": "{{count}} pruebas bien",
+    "whatToDo": "Qué hacer:",
+    "allGood": "¡Bien! No encontramos problemas en las pruebas principales. Aun así, revisa el Check List para seguir mejorando.",
+    "helpButton": "Pedir ayuda con este resultado",
+    "checklistButton": "Ver el Check List",
+    "helpNote": "Se abrirá tu correo con este resumen ya escrito; tú decides qué enviar. Puedes escribirnos sin cifrar.",
+    "mail": {
+      "subject": "Ayuda con mi sitio {{host}} (Veni OSINT)",
+      "intro": "Hola, analicé {{host}} con Veni OSINT y me gustaría ayuda con lo siguiente:",
+      "noFindings": "- No aparecieron problemas, pero quiero una revisión.",
+      "results": "Resultados",
+      "outro": "Gracias."
+    },
+    "findings": {
+      "threats": {
+        "title": "El sitio aparece reportado como peligroso",
+        "desc": "Servicios de seguridad lo marcan por phishing o malware. Los navegadores pueden mostrar advertencias a quienes lo visitan.",
+        "action": "Escríbenos cuanto antes: suele significar que el sitio fue comprometido."
+      },
+      "blocklisted": {
+        "title": "El dominio está bloqueado en: {{lists}}",
+        "desc": "Algunas redes y filtros DNS impiden que la gente entre a tu sitio.",
+        "action": "Revisa si el sitio tiene malware y luego pide la revisión en cada lista. Podemos ayudarte."
+      },
+      "domainExpiry": {
+        "title": "El dominio vence en {{days}} días",
+        "desc": "Si vence, el sitio y el correo dejan de funcionar y alguien más podría registrarlo.",
+        "action": "Renuévalo con tu registrador y activa la renovación automática."
+      },
+      "sslExpired": {
+        "title": "El certificado HTTPS está vencido",
+        "desc": "Los navegadores muestran un aviso de \"sitio no seguro\" y mucha gente no podrá entrar.",
+        "action": "Renueva el certificado desde tu hosting (por ejemplo con Let's Encrypt, que es gratuito)."
+      },
+      "sslExpiring": {
+        "title": "El certificado HTTPS vence en {{days}} días",
+        "desc": "Cuando venza, los navegadores mostrarán un aviso de \"sitio no seguro\".",
+        "action": "Confirma que tu hosting lo renueva automáticamente."
+      },
+      "wpUsers": {
+        "title": "WordPress muestra los usuarios del panel: {{users}}",
+        "desc": "Cualquiera puede ver los nombres con los que se entra a administrar el sitio, y eso facilita los ataques para adivinar contraseñas.",
+        "action": "Bloquea la lista de usuarios de la API REST (por ejemplo con un plugin de seguridad), usa contraseñas largas y activa la verificación en dos pasos."
+      },
+      "wpXmlrpc": {
+        "title": "xmlrpc.php está activo",
+        "desc": "Es una puerta antigua de WordPress que se usa mucho para probar contraseñas a gran escala.",
+        "action": "Desactívalo si no usas la app móvil de WordPress ni Jetpack."
+      },
+      "wpVersion": {
+        "title": "Se ve la versión de WordPress ({{version}})",
+        "desc": "Ayuda a quien busca sitios con versiones vulnerables.",
+        "action": "Mantén WordPress actualizado y oculta la versión del código del sitio."
+      },
+      "criticalPorts": {
+        "title": "Servicios delicados abiertos a internet (puertos {{ports}})",
+        "desc": "Son bases de datos o escritorios remotos: no deberían poder alcanzarse desde cualquier lugar.",
+        "action": "Pide a tu hosting que los cierre o que solo acepten conexiones desde direcciones conocidas."
+      },
+      "openPorts": {
+        "title": "Puertos abiertos además de la web: {{ports}}",
+        "desc": "Cada servicio abierto es una puerta más que hay que mantener actualizada.",
+        "action": "Revisa con tu hosting si los necesitas; cierra los que no uses."
+      },
+      "noDmarc": {
+        "title": "Falta DMARC en el correo del dominio",
+        "desc": "Sin DMARC, es fácil enviar correos falsos haciéndose pasar por tu organización, por ejemplo para phishing.",
+        "action": "Agrega un registro TXT en _dmarc.tudominio. Si no envías correo desde el dominio, usa \"v=DMARC1; p=reject\"."
+      },
+      "noSpf": {
+        "title": "Falta SPF en el correo del dominio",
+        "desc": "SPF indica qué servidores pueden enviar correo a tu nombre.",
+        "action": "Agrega un registro TXT \"v=spf1 ...\" con tu proveedor de correo, o \"v=spf1 -all\" si no envías correo."
+      },
+      "noHsts": {
+        "title": "El sitio no obliga a usar HTTPS (falta HSTS)",
+        "desc": "Una conexión podría ser desviada a la versión sin cifrar del sitio, por ejemplo en un wifi público.",
+        "action": "Agrega la cabecera Strict-Transport-Security en tu servidor o hosting."
+      },
+      "headers": {
+        "title": "Faltan cabeceras de seguridad: {{headers}}",
+        "desc": "Ayudan a que el navegador bloquee ataques como el robo de clics o la inyección de código.",
+        "action": "Agrégalas en la configuración de tu servidor o hosting. El Check List explica cómo."
+      },
+      "noDnssec": {
+        "title": "El dominio no usa DNSSEC",
+        "desc": "DNSSEC impide que alguien falsifique las respuestas del DNS y desvíe a la gente a otro sitio.",
+        "action": "Actívalo en tu registrador o proveedor de DNS; muchos lo hacen con un clic."
+      },
+      "noSecurityTxt": {
+        "title": "No hay security.txt",
+        "desc": "Es un archivo que indica a quién avisar si alguien encuentra un problema de seguridad en tu sitio.",
+        "action": "Publica /.well-known/security.txt con un correo de contacto."
+      }
+    }
   }
 }

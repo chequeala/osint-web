@@ -240,5 +240,122 @@
     "services": "Detected mail services",
     "txt": "Mail-related TXT records",
     "dkimNote": "DKIM is checked using the most common selectors; if your provider uses another one it may exist even if it doesn't show here."
+  },
+  "cards": {
+    "wordpress": "WordPress"
+  },
+  "wordpress": {
+    "version": "Visible version",
+    "hidden": "Hidden",
+    "usersExposed": "Users exposed",
+    "xmlrpc": "xmlrpc.php enabled",
+    "usersTitle": "Users visible in the API",
+    "yes": "Yes",
+    "no": "No"
+  },
+  "summary": {
+    "title": "What to check first",
+    "loading": "The summary updates as checks finish…",
+    "severity": {
+      "high": "Urgent",
+      "medium": "Important",
+      "low": "Recommended"
+    },
+    "passed_one": "{{count}} check passed",
+    "passed_other": "{{count}} checks passed",
+    "whatToDo": "What to do:",
+    "allGood": "Nice! We found no problems in the main checks. Still, have a look at the Check List to keep improving.",
+    "helpButton": "Get help with this result",
+    "checklistButton": "See the Check List",
+    "helpNote": "Your email app will open with this summary already written; you decide what to send. You can write to us unencrypted.",
+    "mail": {
+      "subject": "Help with my site {{host}} (Veni OSINT)",
+      "intro": "Hi, I scanned {{host}} with Veni OSINT and would like help with the following:",
+      "noFindings": "- No problems showed up, but I would like a review.",
+      "results": "Results",
+      "outro": "Thanks."
+    },
+    "findings": {
+      "threats": {
+        "title": "The site is reported as dangerous",
+        "desc": "Security services flag it for phishing or malware. Browsers may warn visitors.",
+        "action": "Write to us as soon as possible: it usually means the site was compromised."
+      },
+      "blocklisted": {
+        "title": "The domain is blocked by: {{lists}}",
+        "desc": "Some networks and DNS filters prevent people from reaching your site.",
+        "action": "Check the site for malware, then request a review from each list. We can help."
+      },
+      "domainExpiry": {
+        "title": "The domain expires in {{days}} days",
+        "desc": "If it expires, the site and email stop working and someone else could register it.",
+        "action": "Renew it with your registrar and turn on auto-renewal."
+      },
+      "sslExpired": {
+        "title": "The HTTPS certificate has expired",
+        "desc": "Browsers show a \"not secure\" warning and many people won't be able to get in.",
+        "action": "Renew the certificate from your hosting (e.g. with Let's Encrypt, which is free)."
+      },
+      "sslExpiring": {
+        "title": "The HTTPS certificate expires in {{days}} days",
+        "desc": "When it expires, browsers will show a \"not secure\" warning.",
+        "action": "Make sure your hosting renews it automatically."
+      },
+      "wpUsers": {
+        "title": "WordPress shows the admin users: {{users}}",
+        "desc": "Anyone can see the usernames used to log in, which makes password-guessing attacks easier.",
+        "action": "Block the REST API user list (e.g. with a security plugin), use long passwords and turn on two-factor authentication."
+      },
+      "wpXmlrpc": {
+        "title": "xmlrpc.php is enabled",
+        "desc": "It is an old WordPress entry point widely used to try passwords at scale.",
+        "action": "Disable it if you don't use the WordPress mobile app or Jetpack."
+      },
+      "wpVersion": {
+        "title": "The WordPress version is visible ({{version}})",
+        "desc": "It helps anyone looking for sites running vulnerable versions.",
+        "action": "Keep WordPress updated and hide the version from the site's code."
+      },
+      "criticalPorts": {
+        "title": "Sensitive services open to the internet (ports {{ports}})",
+        "desc": "These are databases or remote desktops: they should not be reachable from anywhere.",
+        "action": "Ask your hosting to close them or allow only known addresses."
+      },
+      "openPorts": {
+        "title": "Open ports besides the web: {{ports}}",
+        "desc": "Every open service is one more door that has to be kept up to date.",
+        "action": "Check with your hosting whether you need them; close the ones you don't use."
+      },
+      "noDmarc": {
+        "title": "The domain has no DMARC for email",
+        "desc": "Without DMARC it is easy to send fake emails pretending to be your organization, for example for phishing.",
+        "action": "Add a TXT record at _dmarc.yourdomain. If you don't send email from the domain, use \"v=DMARC1; p=reject\"."
+      },
+      "noSpf": {
+        "title": "The domain has no SPF for email",
+        "desc": "SPF says which servers may send email on your behalf.",
+        "action": "Add a \"v=spf1 ...\" TXT record from your email provider, or \"v=spf1 -all\" if you don't send email."
+      },
+      "noHsts": {
+        "title": "The site doesn't enforce HTTPS (no HSTS)",
+        "desc": "A connection could be downgraded to the unencrypted version of the site, e.g. on public wifi.",
+        "action": "Add the Strict-Transport-Security header on your server or hosting."
+      },
+      "headers": {
+        "title": "Missing security headers: {{headers}}",
+        "desc": "They help the browser block attacks like clickjacking or code injection.",
+        "action": "Add them in your server or hosting configuration. The Check List explains how."
+      },
+      "noDnssec": {
+        "title": "The domain doesn't use DNSSEC",
+        "desc": "DNSSEC prevents forged DNS answers that send people to another site.",
+        "action": "Turn it on at your registrar or DNS provider; many do it with one click."
+      },
+      "noSecurityTxt": {
+        "title": "No security.txt",
+        "desc": "A file that tells people whom to contact if they find a security problem on your site.",
+        "action": "Publish /.well-known/security.txt with a contact email."
+      }
+    }
   }
 }
