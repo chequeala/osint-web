@@ -1,5 +1,6 @@
 
 import styled from 'styled-components';
+import { tl } from 'i18n';
 import { Card } from 'components/Form/Card';
 import Heading from 'components/Form/Heading';
 import colors from 'styles/colors';
@@ -99,7 +100,7 @@ return (
 
 <div>
 <p className="tech-description">{tech.description}</p>
-<p className="tech-website">Learn more at: <a href={tech.website}>{tech.website}</a></p>
+<p className="tech-website">{tl('Learn more at')}: <a href={tech.website}>{tech.website}</a></p>
 </div>
 </div>
 

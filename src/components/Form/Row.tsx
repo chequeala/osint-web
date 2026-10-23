@@ -2,6 +2,7 @@ import { ReactNode } from 'react';
 import styled from 'styled-components';
 import colors from 'styles/colors';
 import Heading from 'components/Form/Heading';
+import { dateLocale, tl } from 'i18n';
 
 export interface RowProps {
 lbl: string,
@@ -126,11 +127,13 @@ return false;
 
 
 const formatDate = (dateString: string): string => {
-return new Intl.DateTimeFormat('en-GB', {
+return new Intl.DateTimeFormat(dateLocale(), {
 day: 'numeric', month: 'long', year: 'numeric'
 }).format(new Date(dateString));
 }
 const formatValue = (value: any): string => {
+// Valores fijos como "✅ Not Blocked" se traducen; el resto (fechas, datos) no
+if (typeof value === 'string' && tl(value) !== value) return tl(value);
 if (isValidDate(new Date(value))) return formatDate(value);
 if (typeof value === 'boolean') return value ? '✅' : '❌';
 return value;
@@ -151,15 +154,15 @@ const { lbl, val, title, rowList, open } = props;
 return (
 <Details open={open}>
 <StyledExpandableRow key={`${lbl}-${val}`}>
-<span className="lbl" title={title?.toString()}>{lbl}</span>
-<span className="val" title={val?.toString()}>{val.toString()}</span>
+<span className="lbl" title={title?.toString()}>{tl(lbl)}</span>
+<span className="val" title={val?.toString()}>{tl(val.toString())}</span>
 </StyledExpandableRow>
 { rowList &&
 <SubRowList>
 { rowList?.map((row: RowProps, index: number) => {
 return (
 <SubRow key={`${row.lbl}-${index}`}>
-<span className="lbl" title={row.title}>{row.lbl}</span>
+<span className="lbl" title={row.title}>{tl(row.lbl)}</span>
 <span className="val" title={row.val} onClick={() => copyToClipboard(row.val)}>
 {formatValue(row.val)}
 </span>
@@ -182,7 +185,7 @@ export const ListRow = (props: { list: string[], title: string }) => {
 const { list, title } = props;
 return (
 <>
-    <Heading as="h4" size="small" align="left" color={colors.primary}>{title}</Heading>
+    <Heading as="h4" size="small" align="left" color={colors.primary}>{tl(title)}</Heading>
 { list.map((entry: string, index: number) => {
 return (
 <Row lbl="" val="" key={`${entry}-${title.toLocaleLowerCase()}-${index}`}>
@@ -199,7 +202,7 @@ const { lbl, val, title, plaintext, listResults, children } = props;
 if (children) return <StyledRow key={`${lbl}-${val}`}>{children}</StyledRow>;
 return (
 <StyledRow key={`${lbl}-${val}`}>
-{ lbl && <span className="lbl" title={title}>{lbl}</span> }
+{ lbl && <span className="lbl" title={title}>{tl(lbl)}</span> }
 <span className="val" title={val} onClick={() => copyToClipboard(val)}>
 {formatValue(val)}
 </span>

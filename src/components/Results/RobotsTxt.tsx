@@ -1,5 +1,6 @@
 
 import { Card } from 'components/Form/Card';
+import { tl } from 'i18n';
 import Row, { RowProps }  from 'components/Form/Row';
 
 const cardStyles = `
@@ -16,7 +17,7 @@ const RobotsTxtCard = ( props: { data: { robots: RowProps[]}, title: string, act
     <Card heading={props.title} actionButtons={props.actionButtons} styles={cardStyles}>
       <div className="content">
       {
-        robots.robots.length === 0 && <p>No crawl rules found.</p>
+        robots.robots.length === 0 && <p>{tl('No crawl rules found.')}</p>
       }
       {
         robots.robots.map((row: RowProps, index: number) => {

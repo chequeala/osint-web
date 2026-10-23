@@ -1,0 +1,444 @@
+{
+  "navbar": {
+    "brand": "chequea.la",
+    "description": "Atendemos incidentes web de organizações na América Latina.",
+    "languages": {
+      "es": "Espanhol",
+      "pt": "Português"
+    },
+    "contact": "Pedir ajuda",
+    "menu": "Abrir menu",
+    "language": "Idioma",
+    "checkList": "Check List",
+    "veniOSINT": "Veni OSINT",
+    "principles": "Nossos Princípios"
+  },
+  "footer": {
+    "part1": "Este é um projeto da comunidade",
+    "part2": "para a comunidade",
+    "highlight": "latino-americana",
+    "explore": "Explore",
+    "contactTitle": "Contato",
+    "aboutVeni": "Sobre o Veni OSINT",
+    "basedOn": "Baseado no",
+    "byAuthor": "de",
+    "sourceCode": "Código-fonte do Veni OSINT"
+  },
+  "home": {
+    "title": "Veni OSINT",
+    "defaultPlaceholder": "ex.: https://chequea.la/",
+    "errorEmptyField": "O campo não pode ficar vazio",
+    "errorInvalidUrl": "Deve ser uma URL válida, IPv4 ou IPv6",
+    "inputLabel": "Digite a URL do seu site",
+    "submitButton": "Chequear meu site",
+    "infotitle": "Por que é importante conhecer as informações públicas do seu site?",
+    "paragraph1": "Como pessoas defensoras de direitos humanos, jornalistas e ativistas, é fundamental tomarmos medidas para proteger nossas plataformas digitais. As informações públicas do seu site, como metadados ou configurações de segurança expostas, podem ser usadas por pessoas mal-intencionadas para comprometer a sua segurança ou a da sua comunidade.",
+    "paragraph2": "O \"Veni OSINT\" é uma ferramenta criada para ajudar você a visualizar essas informações públicas de forma simples e oferecer um panorama claro dos possíveis riscos. Sabendo quais dados estão acessíveis, você pode tomar decisões informadas para melhorar a segurança do seu site e fortalecer a sua proteção digital.",
+    "paragraph3": "Esta ferramenta é para quem luta por um mundo mais justo e seguro, oferecendo o controle e o conhecimento necessários para manter o seu trabalho digital fora de perigo.",
+    "eyebrow": "Uma ferramenta da chequea.la",
+    "lead": "Veja quais informações públicas o seu site expõe: DNS, certificados, cabeçalhos, portas e mais.",
+    "subLead": "Digite o endereço do seu site e em menos de um minuto você verá um panorama da configuração dele e dos possíveis pontos fracos.",
+    "inputHint": "Você pode digitar um domínio, uma URL ou um endereço IP.",
+    "privacyHint": "Não usamos analytics nem cookies. Alguns testes consultam serviços externos.",
+    "privacyLink": "Mais sobre privacidade",
+    "checksTitle": "O que o Veni OSINT verifica?",
+    "checks": {
+      "server": {
+        "title": "Servidor e DNS",
+        "desc": "Onde o seu site está hospedado, os registros DNS, as portas abertas e se ele responde corretamente."
+      },
+      "security": {
+        "title": "Segurança",
+        "desc": "Certificado SSL, cabeçalhos de segurança, HSTS, DNSSEC, firewall e listas de bloqueio."
+      },
+      "mail": {
+        "title": "E-mail",
+        "desc": "Se o seu domínio tem SPF, DKIM e DMARC para que ninguém envie e-mails se passando por você."
+      },
+      "exposure": {
+        "title": "O que se vê de fora",
+        "desc": "Tecnologias detectadas, cookies, robots.txt, security.txt, histórico em arquivos web e mais."
+      }
+    },
+    "helpTitle": "Encontrou algo que não entende ou que te preocupa?",
+    "helpDesc": "Escreva para nós com o resultado e ajudamos você a interpretar e resolver.",
+    "credit": "O Veni OSINT é baseado no Web Check, o projeto de código aberto de",
+    "moreAbout": "Mais sobre o Veni OSINT",
+    "responsibleUse": "Analise apenas sites próprios ou de organizações que te deem permissão.",
+    "responsibleLink": "Uso responsável"
+  },
+  "progressbar": {
+    "finishedIn": "Concluído em",
+    "running": "Executando",
+    "of": "de",
+    "job": "tarefa",
+    "jobs": "tarefas",
+    "skipped": "ignoradas",
+    "successful": "bem-sucedidas",
+    "failed": "com falha",
+    "loading": "Carregando {{loaded}} / {{total}} tarefas",
+    "completedSuccessfully": "{{count}} tarefas concluídas",
+    "error": {
+      "modal": {
+        "title": "Detalhes do erro em {{name}}",
+        "description": "A tarefa {{name}} terminou com status {{state}} depois de {{timeTaken}} ms.",
+        "serverResponse": "O servidor respondeu com o seguinte erro:"
+      },
+      "checkConsole": "Veja o console do navegador para logs e mais informações",
+      "explanation": "É normal que algumas tarefas falhem: o site não fornece essa informação, a função do servidor tem limites ou o limite de uma API foi atingido."
+    },
+    "button": {
+      "showLoadState": "Mostrar progresso",
+      "retry": "Tentar de novo",
+      "showError": "Mostrar erro",
+      "showReason": "Mostrar motivo",
+      "dismiss": "Fechar"
+    },
+    "details": {
+      "show": "Mostrar detalhes",
+      "took": "Levou"
+    },
+    "link": {
+      "learnMore": "Mais sobre o Veni OSINT"
+    },
+    "status": {
+      "loading": "Carregando",
+      "success": "Sucesso",
+      "error": "Erro",
+      "skipped": "Ignorado",
+      "timed-out": "Tempo esgotado"
+    }
+  },
+  "results": {
+    "filters": {
+      "label": {
+        "filterBy": "Filtrar por",
+        "search": "Buscar"
+      },
+      "tags": {
+        "server": "Servidor",
+        "client": "Cliente",
+        "meta": "Meta"
+      },
+      "clear": "Limpar filtros",
+      "placeholder": {
+        "filterResults": "Filtrar resultados"
+      },
+      "hide": "Ocultar",
+      "show": "Mostrar filtros",
+      "export": "Exportar dados",
+      "learnAboutResults": "Entender os resultados"
+    },
+    "actions": {
+      "info": "Informações sobre {{title}}",
+      "refetch": "Consultar {{title}} de novo"
+    },
+    "rateLimited": "Você fez muitas análises seguidas. Espere um minuto e tente de novo."
+  },
+  "additionalresources": {
+    "note": {
+      "heading": "Ferramentas externas para investigar mais",
+      "disclaimer": "Estas ferramentas não são afiliadas à chequea.la e, ao usá-las, o domínio é compartilhado com elas.",
+      "availability": "Quando as incluímos estavam disponíveis e eram gratuitas; se alguma mudou, avise-nos em"
+    },
+    "items": {
+      "ssllabs": "Analisa a configuração SSL/TLS do servidor e dá uma nota.",
+      "virustotal": "Verifica o domínio com dezenas de antivírus.",
+      "shodan": "Buscador de dispositivos e serviços conectados à internet.",
+      "archive": "Versões anteriores do site guardadas no Internet Archive.",
+      "urlscan": "Escaneia uma URL e mostra a quais recursos a página se conecta.",
+      "sucuri": "Procura malware conhecido e se o site está em listas negras.",
+      "domaintools": "Consulta WHOIS do domínio.",
+      "nslookup": "Mostra todos os registros DNS do domínio.",
+      "dnschecker": "Verifica a propagação DNS em servidores do mundo todo.",
+      "censys": "Hosts e certificados associados ao domínio.",
+      "pagespeed": "Desempenho, acessibilidade e SEO no celular e no computador.",
+      "builtwith": "Tecnologias com as quais o site é feito.",
+      "dnsdumpster": "Mapa de um domínio a partir dos registros DNS.",
+      "internetnl": "Verifica se o site usa padrões modernos: IPv6, DNSSEC, HTTPS e mais.",
+      "securityheaders": "Avalia os cabeçalhos de segurança HTTP do site.",
+      "radar": "Ranking e dados de tráfego do domínio segundo a Cloudflare."
+    }
+  },
+  "viewRaw": {
+    "heading": "Ver ou baixar os dados",
+    "download": "Baixar resultados",
+    "view": "Ver resultados",
+    "hide": "Ocultar resultados",
+    "info": "São os resultados completos da análise em formato JSON. Você pode guardá-los ou importá-los em outro programa."
+  },
+  "docContent": {
+    "about": "Sobre",
+    "useCases": "Para que serve",
+    "links": "Links",
+    "noDocsProvided": "Ainda não há documentação para este teste."
+  },
+  "loader": {
+    "crunchingData": "Processando dados...",
+    "loadTimeInfo": "Pode levar até um minuto para concluir todas as tarefas\nVocê pode ver os resultados parciais à medida que forem gerados"
+  },
+  "errorBoundary": {
+    "errorText": "Este componente falhou inesperadamente",
+    "errorDetails": "Detalhes do erro",
+    "errorInstructions": "Costuma acontecer quando o servidor responde algo que não esperávamos. Se acontecer de novo, escreva para nós."
+  },
+  "modal": {
+    "close": "Fechar"
+  },
+  "about": {
+    "viewOnGitHub": "Ver no GitHub",
+    "intro": "Introdução",
+    "features": "Funcionalidades",
+    "content": "Conteúdo",
+    "description": "Descrição",
+    "useCases": "Para que serve",
+    "usefulLinks": "Links úteis",
+    "fCap1": "Fig",
+    "fCap2": "Exemplo de",
+    "additionalResources": "Recursos adicionais",
+    "termsAndInfo": "Termos e informações",
+    "responsibleUse": "Uso responsável",
+    "privacy": "Privacidade",
+    "privacyDescription": "O Veni OSINT não usa ferramentas de analytics, cookies nem registros de erro de terceiros. Não guardamos os endereços que você analisa. Como em qualquer site, nosso provedor de hospedagem (Netlify) pode registrar temporariamente dados técnicos das requisições.",
+    "title": "Sobre o Veni OSINT",
+    "privacyThirdParties": "Para obter alguns resultados, nosso servidor consulta serviços externos (por exemplo Google DNS, Internet Archive, Tranco, ipwho.is ou listas de bloqueio), que recebem o domínio ou o IP analisado. O seu navegador só se conecta com veni.chequea.la."
+  },
+  "serverLocation": {
+    "city": "Cidade",
+    "country": "País",
+    "timezone": "Fuso horário",
+    "languages": "Idiomas",
+    "currency": "Moeda",
+    "latitude_longitude": "Latitude: {{latitude}}, Longitude: {{longitude}}"
+  },
+  "titles": {
+    "home": "Veni OSINT",
+    "results": "Resultados do Veni OSINT",
+    "about": "Sobre o Veni OSINT",
+    "notFound": "Página não encontrada"
+  },
+  "notFound": {
+    "title": "Não encontramos esta página",
+    "description": "Talvez o link esteja quebrado ou a página tenha mudado de lugar.",
+    "back": "Voltar ao início"
+  },
+  "selfScan": {
+    "title": "Você está analisando o Veni OSINT com o Veni OSINT!",
+    "text": "Se quiser ver como este site é feito, confira o",
+    "link": "código-fonte"
+  },
+  "cards": {
+    "location": "Localização do servidor",
+    "ssl": "Certificado SSL",
+    "domain": "Whois do domínio",
+    "quality": "Resumo de qualidade",
+    "tech-stack": "Tecnologias",
+    "server-info": "Informações do servidor",
+    "cookies": "Cookies",
+    "headers": "Cabeçalhos",
+    "dns": "Registros DNS",
+    "hosts": "Nomes de host",
+    "http-security": "Segurança HTTP",
+    "social-tags": "Tags sociais",
+    "trace-route": "Traceroute",
+    "security-txt": "Security.txt",
+    "dns-server": "Servidor DNS",
+    "firewall": "Firewall",
+    "dnssec": "DNSSEC",
+    "hsts": "HSTS",
+    "threats": "Ameaças",
+    "mail-config": "Configuração de e-mail",
+    "archives": "Histórico de arquivo",
+    "rank": "Ranking global",
+    "screenshot": "Captura de tela",
+    "redirects": "Redirecionamentos",
+    "linked-pages": "Páginas vinculadas",
+    "robots-txt": "Regras de rastreamento",
+    "status": "Status do servidor",
+    "ports": "Portas abertas",
+    "whois": "Informações do domínio",
+    "txt-records": "Registros TXT",
+    "block-lists": "Listas de bloqueio",
+    "features": "Funcionalidades do site",
+    "sitemap": "Páginas",
+    "carbon": "Pegada de carbono",
+    "wordpress": "WordPress",
+    "exposed-files": "Arquivos expostos",
+    "subdomains": "Subdomínios"
+  },
+  "mailConfig": {
+    "checklist": "Proteção contra falsificação",
+    "mx": "Registros MX",
+    "priority": "Prioridade",
+    "services": "Serviços de e-mail detectados",
+    "txt": "Registros TXT de e-mail",
+    "dkimNote": "O DKIM é procurado com os seletores mais comuns; se o seu provedor usa outro, ele pode existir mesmo que não apareça aqui."
+  },
+  "wordpress": {
+    "version": "Versão visível",
+    "hidden": "Oculta",
+    "usersExposed": "Usuários expostos",
+    "xmlrpc": "xmlrpc.php ativo",
+    "usersTitle": "Usuários visíveis na API",
+    "yes": "Sim",
+    "no": "Não"
+  },
+  "summary": {
+    "title": "O que verificar primeiro",
+    "loading": "O resumo é atualizado à medida que os testes terminam…",
+    "severity": {
+      "high": "Urgente",
+      "medium": "Importante",
+      "low": "Recomendado"
+    },
+    "passed_one": "{{count}} teste ok",
+    "passed_other": "{{count}} testes ok",
+    "whatToDo": "O que fazer:",
+    "allGood": "Muito bem! Não encontramos problemas nos testes principais. Mesmo assim, confira o Check List para continuar melhorando.",
+    "helpButton": "Pedir ajuda com este resultado",
+    "checklistButton": "Ver o Check List",
+    "helpNote": "O seu e-mail vai abrir com este resumo já escrito; você decide o que enviar. Você pode nos escrever sem criptografia.",
+    "mail": {
+      "subject": "Ajuda com o meu site {{host}} (Veni OSINT)",
+      "intro": "Olá, analisei {{host}} com o Veni OSINT e gostaria de ajuda com o seguinte:",
+      "noFindings": "- Não apareceram problemas, mas quero uma revisão.",
+      "results": "Resultados",
+      "outro": "Obrigado/a."
+    },
+    "findings": {
+      "threats": {
+        "title": "O site aparece como perigoso",
+        "desc": "Serviços de segurança o marcam por phishing ou malware. Os navegadores podem mostrar alertas a quem o visita.",
+        "action": "Escreva para nós o quanto antes: costuma significar que o site foi comprometido."
+      },
+      "blocklisted": {
+        "title": "O domínio está bloqueado em: {{lists}}",
+        "desc": "Algumas redes e filtros DNS impedem que as pessoas acessem o seu site.",
+        "action": "Verifique se o site tem malware e depois peça a revisão em cada lista. Podemos ajudar."
+      },
+      "domainExpiry": {
+        "title": "O domínio vence em {{days}} dias",
+        "desc": "Se vencer, o site e o e-mail param de funcionar e outra pessoa pode registrá-lo.",
+        "action": "Renove com o seu registrador e ative a renovação automática."
+      },
+      "sslExpired": {
+        "title": "O certificado HTTPS está vencido",
+        "desc": "Os navegadores mostram o aviso de \"site não seguro\" e muita gente não vai conseguir entrar.",
+        "action": "Renove o certificado na sua hospedagem (por exemplo com o Let's Encrypt, que é gratuito)."
+      },
+      "sslExpiring": {
+        "title": "O certificado HTTPS vence em {{days}} dias",
+        "desc": "Quando vencer, os navegadores vão mostrar o aviso de \"site não seguro\".",
+        "action": "Confirme que a sua hospedagem renova o certificado automaticamente."
+      },
+      "wpUsers": {
+        "title": "O WordPress mostra os usuários do painel: {{users}}",
+        "desc": "Qualquer pessoa pode ver os nomes usados para administrar o site, o que facilita ataques para adivinhar senhas.",
+        "action": "Bloqueie a lista de usuários da API REST (por exemplo com um plugin de segurança), use senhas longas e ative a verificação em duas etapas."
+      },
+      "wpXmlrpc": {
+        "title": "O xmlrpc.php está ativo",
+        "desc": "É uma porta antiga do WordPress muito usada para testar senhas em grande escala.",
+        "action": "Desative-o se você não usa o app do WordPress para celular nem o Jetpack."
+      },
+      "wpVersion": {
+        "title": "A versão do WordPress está visível ({{version}})",
+        "desc": "Ajuda quem procura sites com versões vulneráveis.",
+        "action": "Mantenha o WordPress atualizado e oculte a versão no código do site."
+      },
+      "criticalPorts": {
+        "title": "Serviços sensíveis abertos para a internet (portas {{ports}})",
+        "desc": "São bancos de dados ou acessos remotos: não deveriam ser alcançáveis de qualquer lugar.",
+        "action": "Peça à sua hospedagem para fechá-los ou para aceitar conexões só de endereços conhecidos."
+      },
+      "openPorts": {
+        "title": "Portas abertas além da web: {{ports}}",
+        "desc": "Cada serviço aberto é mais uma porta que precisa ser mantida atualizada.",
+        "action": "Verifique com a sua hospedagem se você precisa delas; feche as que não usa."
+      },
+      "noDmarc": {
+        "title": "Falta DMARC no e-mail do domínio",
+        "desc": "Sem DMARC é fácil enviar e-mails falsos se passando pela sua organização, por exemplo para phishing.",
+        "action": "Adicione um registro TXT em _dmarc.seudominio. Se você não envia e-mail pelo domínio, use \"v=DMARC1; p=reject\"."
+      },
+      "noSpf": {
+        "title": "Falta SPF no e-mail do domínio",
+        "desc": "O SPF indica quais servidores podem enviar e-mail em seu nome.",
+        "action": "Adicione um registro TXT \"v=spf1 ...\" com o seu provedor de e-mail, ou \"v=spf1 -all\" se você não envia e-mail."
+      },
+      "noHsts": {
+        "title": "O site não obriga o uso de HTTPS (falta HSTS)",
+        "desc": "Uma conexão poderia ser desviada para a versão sem criptografia do site, por exemplo em um wi-fi público.",
+        "action": "Adicione o cabeçalho Strict-Transport-Security no seu servidor ou hospedagem."
+      },
+      "headers": {
+        "title": "Faltam cabeçalhos de segurança: {{headers}}",
+        "desc": "Eles ajudam o navegador a bloquear ataques como clickjacking ou injeção de código.",
+        "action": "Adicione-os na configuração do seu servidor ou hospedagem. O Check List explica como."
+      },
+      "noDnssec": {
+        "title": "O domínio não usa DNSSEC",
+        "desc": "O DNSSEC impede que alguém falsifique as respostas do DNS e desvie as pessoas para outro site.",
+        "action": "Ative-o no seu registrador ou provedor de DNS; muitos fazem isso com um clique."
+      },
+      "noSecurityTxt": {
+        "title": "Não há security.txt",
+        "desc": "É um arquivo que indica quem avisar se alguém encontrar um problema de segurança no seu site.",
+        "action": "Publique /.well-known/security.txt com um e-mail de contato."
+      },
+      "exposedFiles": {
+        "title": "Há arquivos sensíveis à vista: {{paths}}",
+        "desc": "Podem conter senhas, o código do site ou cópias do banco de dados, e qualquer pessoa pode baixá-los.",
+        "action": "Apague-os do servidor ou bloqueie o acesso o quanto antes, e troque as senhas que eles contenham. Escreva para nós se precisar de ajuda."
+      },
+      "exposedInfo": {
+        "title": "Informações técnicas à vista: {{paths}}",
+        "desc": "Mostram detalhes da configuração do servidor ou a lista de arquivos de uma pasta.",
+        "action": "Remova essas páginas ou desative a listagem de pastas no seu servidor."
+      },
+      "danglingCname": {
+        "title": "Subdomínio apontando para um serviço que não existe: {{names}}",
+        "desc": "Ele aponta (CNAME) para um serviço que não existe mais. Alguém poderia criar esse serviço e publicar o que quiser no seu subdomínio.",
+        "action": "Apague esse registro CNAME no seu provedor de DNS se você não o usa mais."
+      },
+      "phpUnsupported": {
+        "title": "O servidor usa PHP {{version}}, que não recebe mais correções de segurança",
+        "desc": "As falhas descobertas nessa versão não serão corrigidas, e há ataques automáticos que procuram justamente versões antigas.",
+        "action": "Peça à sua hospedagem para atualizar para PHP 8.3 ou mais recente; antes, verifique se os seus plugins e o tema são compatíveis."
+      },
+      "versionExposed": {
+        "title": "O servidor mostra as versões do software: {{versions}}",
+        "desc": "Ajuda quem procura servidores com versões vulneráveis.",
+        "action": "Oculte as versões na configuração do servidor (por exemplo ServerTokens Prod no Apache, server_tokens off no nginx, expose_php = Off no PHP)."
+      }
+    }
+  },
+  "exposedFiles": {
+    "none": "Não encontramos arquivos sensíveis expostos ({{count}} verificados).",
+    "note": "Por segurança, o veni não mostra o conteúdo desses arquivos.",
+    "types": {
+      "git": "Repositório Git",
+      "env": "Arquivo .env",
+      "wpConfig": "Backup do wp-config.php",
+      "sql": "Dump do banco de dados",
+      "backup": "Backup do site",
+      "htpasswd": "Arquivo de senhas",
+      "phpinfo": "Página phpinfo",
+      "serverStatus": "Status do servidor Apache",
+      "dsStore": "Arquivo .DS_Store",
+      "dirListing": "Listagem de pasta"
+    }
+  },
+  "subdomains": {
+    "active": "Ativo",
+    "inactive": "Sem DNS",
+    "dangling": "CNAME pendente",
+    "note": "Segundo os registros públicos de certificados ({{source}}).",
+    "truncated": "Mostrando {{shown}} de {{total}}."
+  },
+  "toast": {
+    "pending": "Atualizando dados ({{job}})",
+    "success": "Pronto ({{job}})",
+    "error": "Não foi possível atualizar ({{job}})"
+  }
+}

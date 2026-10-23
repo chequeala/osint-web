@@ -1,5 +1,6 @@
 
 import { Card } from 'components/Form/Card';
+import { tl } from 'i18n';
 import Row, { Details } from 'components/Form/Row';
 import colors from 'styles/colors';
 
@@ -52,13 +53,13 @@ return (
 );
 })}
 <Details>
-<summary>View Full Policy</summary>
+<summary>{tl('View Full Policy')}</summary>
 <pre>{securityTxt.content}</pre>
 </Details>
 </>
 )}
 {!securityTxt.isPresent && (<small>
-Having a security.txt ensures security researchers know how and where to safely report vulnerabilities.
+{tl('Having a security.txt ensures security researchers know how and where to safely report vulnerabilities.')}
 </small>)}
 </Card>
 );

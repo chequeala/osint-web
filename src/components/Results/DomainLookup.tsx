@@ -1,5 +1,6 @@
 
 import colors from 'styles/colors';
+import { tl } from 'i18n';
 import { Card } from 'components/Form/Card';
 import Row from 'components/Form/Row';
 
@@ -21,7 +22,7 @@ const DomainLookupCard = (props: { data: any, title: string, actionButtons: any 
       { domain.Registry_Domain_ID && <Row lbl="Registry Domain ID" val={domain.Registry_Domain_ID} /> }
       { domain.Registrar_WHOIS_Server && <Row lbl="Registrar WHOIS Server" val={domain.Registrar_WHOIS_Server} /> }
       { domain.Registrar && <Row lbl="" val="">
-        <span className="lbl">Registrar</span>
+        <span className="lbl">{tl('Registrar')}</span>
         <span className="val"><a href={domain.Registrar_URL || '#'}>{domain.Registrar}</a></span>
       </Row> }
       { domain.Registrar_IANA_ID && <Row lbl="Registrar IANA ID" val={domain.Registrar_IANA_ID} /> }

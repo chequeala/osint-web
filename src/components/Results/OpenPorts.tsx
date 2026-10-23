@@ -1,4 +1,5 @@
 import { Card } from 'components/Form/Card';
+import { tl } from 'i18n';
 import Row from 'components/Form/Row';
 
 const cardStyles = `
@@ -17,7 +18,7 @@ const OpenPortsCard = (props: { data: any, title: string, actionButtons: any }):
       )}
       <br />
       <small>
-        Unable to establish connections to:<br />
+        {tl('Unable to establish connections to:')}<br />
         {portData.failedPorts.join(', ')}
       </small>
     </Card>

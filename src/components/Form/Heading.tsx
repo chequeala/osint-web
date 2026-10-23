@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { tl } from 'i18n';
 
 interface HeadingProps {
   as?: 'h1' | 'h2' | 'h3' | 'h4' | 'p';
@@ -54,7 +55,7 @@ const Heading = (props: HeadingProps): JSX.Element => {
   const { children, as, size, align, color, inline, id, className } = props;
   return (
     <StyledHeading as={as} size={size} align={align} color={color} inline={inline} className={className} id={id || makeAnchor((children || '')?.toString())}>
-      {children}
+      {typeof children === 'string' ? tl(children) : children}
     </StyledHeading>
   );
 }

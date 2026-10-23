@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { tl } from 'i18n';
 import colors from 'styles/colors';
 import { Card } from 'components/Form/Card';
 import Row from 'components/Form/Row';
@@ -27,8 +28,8 @@ return (
 }
 
 <Note>
-View historical versions of this page <a rel="noreferrer" target="_blank" href={`https://web.archive.org/web/*/${data.scanUrl}`}>here</a>,
-via the Internet Archive's Wayback Machine.
+{tl('View historical versions of this page')} <a rel="noreferrer" target="_blank" href={`https://web.archive.org/web/*/${data.scanUrl}`}>{tl('here')}</a>,
+{' '}{tl("via the Internet Archive's Wayback Machine.")}
 </Note>
 </Card>
 );

@@ -1,5 +1,6 @@
 
 import styled from 'styled-components';
+import { dateLocale } from 'i18n';
 import { Whois } from 'utils/result-processor';
 import colors from 'styles/colors';
 import { Card } from 'components/Form/Card';
@@ -21,7 +22,7 @@ const Row = styled.div`
 
 const formatDate = (dateString: string): string => {
 const date = new Date(dateString);
-const formatter = new Intl.DateTimeFormat('en-GB', {
+const formatter = new Intl.DateTimeFormat(dateLocale(), {
 day: 'numeric',
 month: 'long',
 year: 'numeric'

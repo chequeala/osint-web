@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import i18n from 'i18n';
 
 import { LoadingState } from 'components/misc/ProgressBar';
 import { AddressType } from 'utils/address-type-checker';
@@ -65,10 +66,9 @@ const useMotherOfAllHooks = <ResultType = any>(params: UseIpAddressProps<ResultT
       updateLoadingJobs(jobId, 'loading');
       const fetchyFetch = doTheFetch();
       const toastOptions = {
-        pending: `Updating Data (${jobId})`,
-        success: `Completed (${jobId})`,
-        error: `Failed to update (${jobId})`,
-        skipped: `Skipped job (${jobId}), as no valid results for host`,
+        pending: i18n.t('toast.pending', { job: jobId }),
+        success: i18n.t('toast.success', { job: jobId }),
+        error: i18n.t('toast.error', { job: jobId }),
       };
       // Initiate fetch, and show progress toast
       toast.promise(fetchyFetch, toastOptions).catch(() => {});

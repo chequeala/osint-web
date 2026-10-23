@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { tl } from 'i18n';
 import { Card } from 'components/Form/Card';
 import Row from 'components/Form/Row';
 
@@ -15,7 +16,7 @@ const FirewallCard = (props: { data: any, title: string, actionButtons: any }): 
       <Row lbl="Firewall" val={data.hasWaf ? '✅ Yes' : '❌ No*' } />
       { data.waf && <Row lbl="WAF" val={data.waf} /> }
       { !data.hasWaf && (<Note>
-        *The domain may be protected with a proprietary or custom WAF which we were unable to identify automatically
+        *{tl('The domain may be protected with a proprietary or custom WAF which we were unable to identify automatically')}
       </Note>) }
     </Card>
   );

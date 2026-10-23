@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import Heading from 'components/Form/Heading';
 import AdditionalResources from 'components/misc/AdditionalResources';
 import { StyledCard } from 'components/Form/Card';
-import docs, { about, featureIntro, fairUse } from 'utils/docs';
+import { getDocs } from 'utils/get-docs';
 import { REPO_URL } from 'config';
 
 const AboutContainer = styled.div`
@@ -100,7 +100,8 @@ const makeAnchor = (title: string): string => {
 };
 
 const About = (): JSX.Element => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const { docs, about, featureIntro, fairUse } = getDocs(i18n.language);
   return (
     <div className="container-fluid green-section">
     <AboutContainer className="container">

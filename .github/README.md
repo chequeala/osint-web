@@ -11,7 +11,7 @@ Está basada en [Web Check](https://github.com/lissy93/web-check), el proyecto d
 - **Resumen "Qué revisar primero"**: hallazgos priorizados en lenguaje sencillo, con qué hacer en cada caso, y un botón para pedir ayuda a la línea de ayuda con el resumen ya escrito.
 - **Pruebas nuevas**: WordPress (usuarios expuestos, `xmlrpc.php`, versión), archivos sensibles expuestos (`.git`, `.env`, respaldos…), subdominios y CNAME colgantes, PHP sin soporte, DMARC/DKIM reales.
 - **Privacidad**: el navegador solo habla con veni.chequea.la (lo garantiza la CSP de `netlify.toml`). Sin analítica ni cookies. Las consultas a servicios externos las hace el servidor.
-- Diseño de chequea.la, en español e inglés.
+- Diseño de chequea.la, en español y portugués (los términos técnicos quedan en inglés).
 
 ## Desarrollo
 

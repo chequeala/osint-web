@@ -1,5 +1,6 @@
 
 import styled from 'styled-components';
+import { tl } from 'i18n';
 import colors from 'styles/colors';
 import { Card } from 'components/Form/Card';
 import Row, { ExpandableRow } from 'components/Form/Row';
@@ -49,7 +50,7 @@ return (
 )}
 { phishTank.url0 && phishTank.url0.phish_detail_page && (
 <Row lbl="" val="">
-<span className="lbl">Phish Info</span>
+<span className="lbl">{tl('Phish Info')}</span>
 <span className="val"><a href={phishTank.url0.phish_detail_page}>{phishTank.url0.phish_id}</a></span>  
 </Row>
 )}
@@ -63,7 +64,7 @@ return (
 )}
 {urlHaus.urls && (
 <Expandable>
-<summary>Expand Results</summary>
+<summary>{tl('Expand Results')}</summary>
 { urlHaus.urls.map((urlResult: any, index: number) => {
 const rows = [
 { lbl: 'ID', val: urlResult.id },

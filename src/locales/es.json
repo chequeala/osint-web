@@ -4,7 +4,7 @@
     "description": "Atendemos incidentes web de organizaciones en Latinoamérica.",
     "languages": {
       "es": "Español",
-      "en": "English"
+      "pt": "Portugués"
     },
     "contact": "Pedir ayuda",
     "menu": "Abrir menú",
@@ -76,16 +76,16 @@
     "skipped": "omitidas",
     "successful": "exitosas",
     "failed": "fallidas",
-    "loading": "Cargando {{loaded}} / {{total}} Tareas",
-    "completedSuccessfully": "{{count}} Tareas Completadas Exitosamente",
+    "loading": "Cargando {{loaded}} / {{total}} tareas",
+    "completedSuccessfully": "{{count}} tareas completadas",
     "error": {
       "modal": {
         "title": "Detalles del error para {{name}}",
-        "description": "El trabajo {{name}} falló con un estado {{state}} después de {{timeTaken}} ms.",
+        "description": "La tarea {{name}} terminó con estado {{state}} después de {{timeTaken}} ms.",
         "serverResponse": "El servidor respondió con el siguiente error:"
       },
       "checkConsole": "Revisa la consola del navegador para logs y más información",
-      "explanation": "Es normal que algunos trabajos fallen, ya sea porque el host no devuelve la información requerida, o restricciones en la función lambda, o alcanzar un límite de API."
+      "explanation": "Es normal que algunas tareas fallen: el sitio no entrega esa información, la función del servidor tiene límites o se alcanzó el límite de una API."
     },
     "button": {
       "showLoadState": "Mostrar estado de carga",
@@ -99,7 +99,7 @@
       "took": "Tardó"
     },
     "link": {
-      "learnMore": "Aprende más sobre Vení OSINT"
+      "learnMore": "Más sobre Veni OSINT"
     },
     "status": {
       "loading": "Cargando",
@@ -127,9 +127,7 @@
       "hide": "Ocultar",
       "show": "Mostrar filtros",
       "export": "Exportar datos",
-      "learnAboutResults": "Aprender sobre los resultados",
-      "moreTools": "Más herramientas",
-      "viewGitHub": "Ver GitHub"
+      "learnAboutResults": "Aprender sobre los resultados"
     },
     "actions": {
       "info": "Información sobre {{title}}",
@@ -163,24 +161,17 @@
     }
   },
   "viewRaw": {
-    "heading": "Ver / Descargar Datos en Crudo",
-    "download": "Descargar Resultados",
-    "view": "Ver Resultados",
-    "update": "Actualizar Resultados",
-    "hide": "Ocultar Resultados",
-    "available": "Tus resultados están disponibles para ver",
-    "here": "aquí",
-    "iframeTitle": "Resultados, vía JSON Hero",
-    "error": "¡Error HTTP! Estado: {{status}}",
-    "info": "Estos son los resultados en bruto generados desde tu URL, en formato JSON. Puedes importarlos a tu propio programa para más análisis."
+    "heading": "Ver o descargar los datos",
+    "download": "Descargar resultados",
+    "view": "Ver resultados",
+    "hide": "Ocultar resultados",
+    "info": "Son los resultados completos del análisis en formato JSON. Puedes guardarlos o importarlos en otro programa."
   },
   "docContent": {
     "about": "Acerca de",
-    "useCases": "Casos de Uso",
+    "useCases": "Para qué sirve",
     "links": "Enlaces",
-    "example": "Ejemplo",
-    "screenshotAlt": "Captura de pantalla",
-    "noDocsProvided": "No se han proporcionado documentos para este widget aún"
+    "noDocsProvided": "Todavía no hay documentación para esta prueba."
   },
   "loader": {
     "crunchingData": "Procesando datos...",
@@ -189,7 +180,7 @@
   "errorBoundary": {
     "errorText": "Este componente ha fallado inesperadamente",
     "errorDetails": "Detalles del error",
-    "errorInstructions": "Esto suele suceder si el resultado del servidor no era lo que se esperaba. Revisa los registros para obtener más información. Si sigues experimentando este problema, por favor levanta un ticket en el repositorio."
+    "errorInstructions": "Suele pasar cuando el servidor responde algo que no esperábamos. Si se repite, escríbenos."
   },
   "modal": {
     "close": "Cerrar"
@@ -204,9 +195,9 @@
     "usefulLinks": "Enlaces útiles",
     "fCap1": "Fig",
     "fCap2": "Ejemplo de",
-    "additionalResources": "Recursos Adicionales",
-    "termsAndInfo": "Términos e Información",
-    "responsibleUse": "Uso Responsable",
+    "additionalResources": "Recursos adicionales",
+    "termsAndInfo": "Términos e información",
+    "responsibleUse": "Uso responsable",
     "privacy": "Privacidad",
     "privacyDescription": "Veni OSINT no usa herramientas de analítica, cookies ni registros de error de terceros. No guardamos las direcciones que analizas. Como en cualquier sitio web, nuestro proveedor de alojamiento (Netlify) puede registrar temporalmente datos técnicos de las solicitudes.",
     "title": "Sobre Veni OSINT",
@@ -260,9 +251,6 @@
     "archives": "Historial de archivo",
     "rank": "Ranking global",
     "screenshot": "Captura de pantalla",
-    "tls-cipher-suites": "Cifrados TLS",
-    "tls-security-config": "Problemas de seguridad TLS",
-    "tls-client-support": "Simulación de conexión TLS",
     "redirects": "Redirecciones",
     "linked-pages": "Páginas enlazadas",
     "robots-txt": "Reglas de rastreo",
@@ -447,5 +435,10 @@
     "dangling": "CNAME colgante",
     "note": "Según los registros públicos de certificados ({{source}}).",
     "truncated": "Se muestran {{shown}} de {{total}}."
+  },
+  "toast": {
+    "pending": "Actualizando datos ({{job}})",
+    "success": "Listo ({{job}})",
+    "error": "No se pudo actualizar ({{job}})"
   }
 }

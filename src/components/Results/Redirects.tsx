@@ -1,4 +1,5 @@
 import colors from 'styles/colors';
+import { tl } from 'i18n';
 import { Card } from 'components/Form/Card';
 import Row from 'components/Form/Row';
 
@@ -25,8 +26,7 @@ return (
 <Card heading={props.title} actionButtons={props.actionButtons} styles={cardStyles}>
 { !redirects?.redirects.length && <Row lbl="" val="No redirects" />}
 <p className="redirect-count">
-Followed {redirects.redirects.length}{' '}
-redirect{redirects.redirects.length === 1 ? '' : 's'} when contacting host
+{tl(redirects.redirects.length === 1 ? 'Followed 1 redirect' : 'Followed {{count}} redirects').replace('{{count}}', String(redirects.redirects.length))}
 </p>
 {redirects.redirects.map((redirect: any, index: number) => {
 return (

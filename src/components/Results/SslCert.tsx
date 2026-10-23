@@ -1,5 +1,6 @@
 
 import styled from 'styled-components';
+import { dateLocale, tl } from 'i18n';
 import colors from 'styles/colors';
 import { Card } from 'components/Form/Card';
 import Heading from 'components/Form/Heading';
@@ -20,7 +21,7 @@ const Row = styled.div`
 
 const formatDate = (dateString: string): string => {
 const date = new Date(dateString);
-const formatter = new Intl.DateTimeFormat('en-GB', {
+const formatter = new Intl.DateTimeFormat(dateLocale(), {
 day: 'numeric',
 month: 'long',
 year: 'numeric'
@@ -32,7 +33,7 @@ const DataRow = (props: { lbl: string, val: string }) => {
 const { lbl, val } = props;
 return (
 <Row>
-<span className="lbl">{lbl}</span>
+<span className="lbl">{tl(lbl)}</span>
 <span className="val" title={val}>{val}</span>
 </Row>
 );

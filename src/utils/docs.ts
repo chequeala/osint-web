@@ -594,7 +594,7 @@ const docs: Doc[] = [
 
 export const featureIntro = [
   'Cuando realizas una investigación OSINT en un sitio web o servidor, hay varias áreas clave que debes revisar. Cada una de ellas está documentada a continuación, junto con enlaces a las herramientas y técnicas que puedes usar para recopilar la información relevante.',
-  'Vení OSINT puede automatizar el proceso de recopilación de estos datos, pero será tu responsabilidad interpretar los resultados y sacar conclusiones.',
+  'Veni OSINT puede automatizar el proceso de recopilación de estos datos, pero será tu responsabilidad interpretar los resultados y sacar conclusiones.',
 ];
 
 

@@ -1,4 +1,5 @@
 import { Card } from 'components/Form/Card';
+import { tl } from 'i18n';
 import Row, { ExpandableRow, RowProps } from 'components/Form/Row';
 import Heading from 'components/Form/Heading';
 import colors from 'styles/colors';
@@ -184,21 +185,21 @@ const DnsSecCard = (props: { data: any, title: string, actionButtons: any }): JS
           return (<div key={`${key}-${index}`}>
           <Heading as="h3" size="small" color={colors.primary}>{key}</Heading>
           {(record.isFound && record.answer) && (<>
-              <Row lbl={`${key} - Present?`} val="✅ Yes" />
+              <Row lbl={`${key} - ${tl('Present?')}`} val="✅ Yes" />
               {
                 record.answer.map((answer: any, index: number) => {
                   const keyData = parseDNSKeyData(answer.data);
                   const dsData = parseDSData(answer.data);
                   const label = (keyData.flags && keyData.flags !== 'Unknown') ? keyData.flags : key;
                   return (
-                  <ExpandableRow lbl={`Record #${index+1}`} val={label} rowList={makeAnswerList({ ...answer, ...keyData, ...dsData })} open />
+                  <ExpandableRow lbl={`${tl('Record')} #${index+1}`} val={label} rowList={makeAnswerList({ ...answer, ...keyData, ...dsData })} open />
                 );
                 })
               }
           </>)}
 
             {(!record.isFound && record.response) && (
-              <ExpandableRow lbl={`${key} - Present?`} val={record.isFound ? '✅ Yes' : '❌ No'} rowList={makeResponseList(record.response)} />
+              <ExpandableRow lbl={`${key} - ${tl('Present?')}`} val={record.isFound ? '✅ Yes' : '❌ No'} rowList={makeResponseList(record.response)} />
             )}
           </div>)
         })

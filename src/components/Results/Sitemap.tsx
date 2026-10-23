@@ -1,5 +1,6 @@
 
 import { Card } from 'components/Form/Card';
+import { tl } from 'i18n';
 import Row, { ExpandableRow } from 'components/Form/Row';
 import colors from 'styles/colors';
 
@@ -46,7 +47,7 @@ return (<ExpandableRow lbl={getPathFromUrl(subpage.loc[0])} key={index} val="" r
 })
 }
 { siteMapIndex && <p>
-This site returns a sitemap index, which is a list of sitemaps.  
+{tl('This site returns a sitemap index, which is a list of sitemaps.')}
 </p>}
 {
 siteMapIndex && siteMapIndex.map((subpage: any, index: number) => {

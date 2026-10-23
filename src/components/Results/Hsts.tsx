@@ -1,4 +1,5 @@
 
+import { tl } from 'i18n';
 import { Card } from 'components/Form/Card';
 import Row, { RowProps } from 'components/Form/Row';
 
@@ -36,7 +37,7 @@ const HstsCard = (props: {data: any, title: string, actionButtons: any }): JSX.E
         );
       })
       }
-      {hstsResults.message && (<p>{hstsResults.message}</p>)}
+      {hstsResults.message && (<p>{tl(hstsResults.message)}</p>)}
     </Card>
   );
 }

@@ -1,5 +1,6 @@
 
 import styled from 'styled-components';
+import { tl } from 'i18n';
 import { ServerLocation } from 'utils/result-processor';
 import { Card } from 'components/Form/Card';
 import LocationMap from 'components/misc/LocationMap';
@@ -36,20 +37,21 @@ isp, timezone, languages, currency, currencyCode,
 
 return (
 <Card heading={props.title} actionButtons={props.actionButtons} styles={cardStyles}>
-    <Row lbl={t('city')} val={`${postCode}, ${city}, ${region}`} />
+    <Row lbl={t('serverLocation.city')} val={[postCode, city, region].filter(Boolean).join(', ')} />
     <Row lbl="" val="">
-        <b>{t('country')}</b>
+        <b>{t('serverLocation.country')}</b>
         <CountryValue>
             {country}
             { countryCode && <Flag countryCode={countryCode} width={28} /> }
         </CountryValue>
     </Row>
-    <Row lbl={t('timezone')} val={timezone} />
-    <Row lbl={t('languages')} val={languages} />
-    <Row lbl={t('currency')} val={`${currency} (${currencyCode})`} />
+    { timezone && <Row lbl={t('serverLocation.timezone')} val={timezone} /> }
+    {/* ipwho.is no entrega idiomas ni moneda en el plan gratuito */}
+    { languages && <Row lbl={t('serverLocation.languages')} val={languages} /> }
+    { currency && <Row lbl={t('serverLocation.currency')} val={`${currency} (${currencyCode})`} /> }
     <MapRow>
-        <LocationMap lat={coords.latitude} lon={coords.longitude} label={`Server (${isp})`} />
-        <SmallText>{t('latitude_longitude', { latitude: coords.latitude, longitude: coords.longitude })}</SmallText>
+        <LocationMap lat={coords.latitude} lon={coords.longitude} label={`${tl('Server')} (${isp})`} />
+        <SmallText>{t('serverLocation.latitude_longitude', { latitude: coords.latitude, longitude: coords.longitude })}</SmallText>
     </MapRow>
 </Card>
 );

@@ -40,7 +40,7 @@ const StyledNav = styled.nav`
 
 const languages: Record<string, string> = {
   es: 'ES',
-  en: 'EN',
+  pt: 'PT',
 };
 
 const NavBar = (): JSX.Element => {
@@ -50,11 +50,11 @@ const NavBar = (): JSX.Element => {
 
   const changeLanguage = (code: string) => {
     i18n.changeLanguage(code);
-    localStorage.setItem('language', code);
+    try { localStorage.setItem('language', code); } catch { /* sin acceso a localStorage */ }
   };
 
   useEffect(() => {
-    document.documentElement.lang = i18n.language;
+    document.documentElement.lang = i18n.language === 'pt' ? 'pt-BR' : 'es';
   }, [i18n.language]);
 
   // Cierra el menú móvil al navegar

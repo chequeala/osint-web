@@ -1,4 +1,5 @@
 import { Card } from 'components/Form/Card';
+import { dateLocale } from 'i18n';
 import colors from 'styles/colors';
 import Row from 'components/Form/Row';
 import Heading  from 'components/Form/Heading';
@@ -23,7 +24,7 @@ const formatDate = (timestamp: number): string => {
 
   if (isNaN(date.getTime())) return 'Unknown';
 
-  const formatter = new Intl.DateTimeFormat('en-GB', {
+  const formatter = new Intl.DateTimeFormat(dateLocale(), {
     day: 'numeric',
     month: 'long',
     year: 'numeric',

@@ -1,5 +1,6 @@
 
 import { Card } from 'components/Form/Card';
+import { tl } from 'i18n';
 import Row from 'components/Form/Row';
 import colors from 'styles/colors';
 
@@ -26,11 +27,11 @@ return (
 { tags.keywords && <Row lbl="Keywords" val={tags.keywords} /> }
 { tags.canonicalUrl && <Row lbl="Canonical URL" val={tags.canonicalUrl} /> }
 { tags.themeColor && <Row lbl="" val="">
-<span className="lbl">Theme Color</span>
+<span className="lbl">{tl('Theme Color')}</span>
 <span className="val color-field" style={{background: tags.themeColor}}>{tags.themeColor}</span>
 </Row> }
 { tags.twitterSite && <Row lbl="" val="">
-<span className="lbl">Twitter Site</span>
+<span className="lbl">{tl('Twitter Site')}</span>
 <span className="val"><a href={`https://x.com/${tags.twitterSite}`}>{tags.twitterSite}</a></span>
 </Row> }
 { tags.author && <Row lbl="Author" val={tags.author} />}
@@ -38,7 +39,7 @@ return (
 { tags.generator && <Row lbl="Generator" val={tags.generator} />}
 {/* No se carga la imagen del sitio analizado: le revelaría la IP de quien usa veni */}
 { tags.ogImage && <Row lbl="" val="">
-  <span className="lbl">Image</span>
+  <span className="lbl">{tl('Image')}</span>
   <span className="val"><a href={tags.ogImage} target="_blank" rel="noopener noreferrer nofollow">{tags.ogImage}</a></span>
 </Row> }
 </Card>
