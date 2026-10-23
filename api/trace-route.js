@@ -1,6 +1,7 @@
 const traceroute = require('traceroute');
 const url = require('url');
 const middleware = require('./_common/middleware');
+const { skipIfUnavailable } = require('./_common/unavailable');
 
 const handler = async (urlString, context) => {
   // Parse the URL and get the hostname
@@ -28,5 +29,7 @@ const handler = async (urlString, context) => {
   };
 };
 
-module.exports = middleware(handler);
-module.exports.handler = middleware(handler);
+const handlerOrSkip = skipIfUnavailable(handler, 'Este servidor no tiene traceroute instalado.');
+
+module.exports = middleware(handlerOrSkip);
+module.exports.handler = middleware(handlerOrSkip);

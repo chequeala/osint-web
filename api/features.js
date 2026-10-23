@@ -9,7 +9,7 @@ const handler = async (url) => {
   }
 
   if (!apiKey) {
-    throw new Error('Missing BuiltWith API key in environment variables');
+    return { skipped: 'Falta configurar BUILT_WITH_API_KEY para detectar funciones del sitio.' };
   }
 
   const apiUrl = `https://api.builtwith.com/free1/api.json?KEY=${apiKey}&LOOKUP=${encodeURIComponent(url)}`;

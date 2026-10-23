@@ -32,7 +32,7 @@ const handler = async (url) => {
   // If there were no links, then mark as skipped and show reasons
   if (internalLinks.length === 0 && externalLinks.length === 0) {
     return {
-      statusCode: 400,
+      statusCode: 200,
       body: JSON.stringify({
         skipped: 'No internal or external links found. '
           + 'This may be due to the website being dynamically rendered, using a client-side framework (like React), and without SSR enabled. '

@@ -587,36 +587,6 @@ const docs: Doc[] = [
 
 
   {
-    id: 'tls-cipher-suites',
-    title: 'Conjuntos de Cifrado TLS',
-    description: 'Estos son combinaciones de algoritmos criptográficos que utiliza tu servidor para establecer una conexión segura. Incluyen el algoritmo de intercambio de claves, el algoritmo de cifrado en bloque, el algoritmo de MAC y la PRF (función pseudorandom).',
-    use: 'Esta información es importante para evaluar la seguridad. Un conjunto de cifrado es tan seguro como los algoritmos que contiene. Si la versión de un algoritmo de cifrado o autenticación tiene vulnerabilidades conocidas, el conjunto de cifrado y la conexión TLS podrían estar expuestos a ataques como el downgrade.',
-    resources: [
-      { title: 'sslscan2 CLI', link: 'https://github.com/rbsec/sslscan' },
-      { title: 'ssl-enum-ciphers (script NPMAP)', link: 'https://nmap.org/nsedoc/scripts/ssl-enum-ciphers.html' }
-    ],
-    screenshot: 'https://i.ibb.co/6ydtH5R/Screenshot-from-2023-08-26-12-09-58.png',
-},
-{
-    id: 'tls-security-config',
-    title: 'Configuración de Seguridad TLS',
-    description: 'Este chequeo utiliza las pautas del TLS Observatory de Mozilla para revisar la seguridad de la configuración TLS. Verifica configuraciones inseguras que podrían dejar tu sitio vulnerable a ataques y brinda consejos para corregirlas. También sugiere configuraciones TLS modernas y obsoletas.',
-    use: 'Entender los problemas con la configuración TLS de tu sitio te ayudará a abordar vulnerabilidades potenciales y asegurarte de que tu sitio utilice la configuración TLS más segura y actualizada.',
-    resources: [],
-    screenshot: 'https://i.ibb.co/FmksZJt/Screenshot-from-2023-08-26-12-12-09.png',
-},
-{
-    id: 'tls-client-support',
-    title: 'Simulación de Handshake TLS',
-    description: 'Esta función simula cómo diferentes clientes (navegadores, sistemas operativos) realizarían un handshake TLS con tu servidor. Ayuda a identificar problemas de compatibilidad y configuraciones inseguras.',
-    use: '',
-    resources: [
-      { title: 'Handshakes TLS (a través de Cloudflare Learning)', link: 'https://www.cloudflare.com/learning/ssl/what-happens-in-a-tls-handshake/' },
-      { title: 'Prueba SSL (a través de SSL Labs)', link: 'https://www.ssllabs.com/ssltest/' },
-    ],
-    screenshot: 'https://i.ibb.co/F7qRZkh/Screenshot-from-2023-08-26-12-11-28.png',
-},
-{
     id: 'screenshot',
     title: 'Captura de Pantalla',
     description: 'Esta función toma una captura de pantalla de la página web a la que resuelve la URL/IP solicitada y la muestra.',

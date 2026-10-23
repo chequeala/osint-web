@@ -52,9 +52,6 @@ import ArchivesCard from 'components/Results/Archives';
 import RankCard from 'components/Results/Rank';
 import BlockListsCard from 'components/Results/BlockLists';
 import ThreatsCard from 'components/Results/Threats';
-import TlsCipherSuitesCard from 'components/Results/TlsCipherSuites';
-import TlsIssueAnalysisCard from 'components/Results/TlsIssueAnalysis';
-import TlsClientSupportCard from 'components/Results/TlsClientSupport';
 import { useTranslation } from 'react-i18next';
 
 import keys from 'utils/get-keys';
@@ -184,7 +181,7 @@ const Results = (): JSX.Element => {
     const timeTaken = now.getTime() - startTime;
     setLoadingJobs((prevJobs) => {
       const newJobs = prevJobs.map((loadingJob: LoadingJob) => {
-        if (job.includes(loadingJob.name)) {
+        if (job === loadingJob.name) {
           return { ...loadingJob, error, state: newState, timeTaken, retry };
         }
         return loadingJob;
@@ -292,7 +289,7 @@ const Results = (): JSX.Element => {
     addressInfo: { address, addressType, expectedAddressTypes: urlTypeOnly },
     fetchRequest: () => fetch(`${api}/quality?url=${address}`)
       .then(res => parseJson(res))
-      .then(res => res?.lighthouseResult || { error: 'No Data'}),
+      .then(res => res?.skipped ? res : (res?.lighthouseResult || { error: 'No Data'})),
   });
 
   // Get the technologies used to build site, using Wappalyzer
@@ -304,11 +301,12 @@ const Results = (): JSX.Element => {
   });
 
   // Get hostnames and associated domains from Shodan
-  const [shoadnResults, updateShodanResults] = useMotherHook<ShodanResults>({
+  const [shoadnResults, updateShodanResults] = useMotherHook<ShodanResults | { skipped: string }>({
     jobId: ['hosts', 'server-info'],
     updateLoadingJobs,
     addressInfo: { address: ipAddress, addressType: 'ipV4', expectedAddressTypes: ['ipV4', 'ipV6'] },
-    fetchRequest: () => fetch(`https://api.shodan.io/shodan/host/${ipAddress}?key=${keys.shodan}`)
+    // Sin clave no se consulta: evita enviar la IP a Shodan para recibir un 401
+    fetchRequest: () => !keys.shodan ? Promise.resolve({ skipped: 'Sin clave de Shodan configurada.' }) : fetch(`https://api.shodan.io/shodan/host/${ipAddress}?key=${keys.shodan}`)
       .then(res => parseJson(res))
       .then(res => parseShodanResults(res)),
   });
@@ -442,14 +440,6 @@ const Results = (): JSX.Element => {
     fetchRequest: () => fetch(`${api}/screenshot?url=${address}`).then(res => parseJson(res)),
   });
 
-  // Get TLS security info, from Mozilla Observatory
-  const [tlsResults, updateTlsResults] = useMotherHook({
-    jobId: ['tls-cipher-suites', 'tls-security-config', 'tls-client-support'],
-    updateLoadingJobs,
-    addressInfo: { address, addressType, expectedAddressTypes: urlTypeOnly },
-    fetchRequest: () => fetch(`${api}/tls?url=${address}`).then(res => parseJson(res)),
-  });
-
   // Fetches URL redirects
   const [redirectResults, updateRedirectResults] = useMotherHook({
     jobId: 'redirects',
@@ -493,11 +483,11 @@ const Results = (): JSX.Element => {
   });
 
   // Fetch and parse domain whois results
-  const [whoIsResults, updateWhoIsResults] = useMotherHook<Whois | { error: string }>({
+  const [whoIsResults, updateWhoIsResults] = useMotherHook<Whois | { error: string } | { skipped: string }>({
     jobId: 'whois',
     updateLoadingJobs,
     addressInfo: { address, addressType, expectedAddressTypes: urlTypeOnly },
-    fetchRequest: () => fetch(`https://api.whoapi.com/?domain=${address}&r=whois&apikey=${keys.whoApi}`)
+    fetchRequest: () => !keys.whoApi ? Promise.resolve({ skipped: 'Sin clave de WhoAPI configurada.' }) : fetch(`https://api.whoapi.com/?domain=${address}&r=whois&apikey=${keys.whoApi}`)
       .then(res => parseJson(res))
       .then(res => applyWhoIsResults(res)),
   });
@@ -735,27 +725,6 @@ const Results = (): JSX.Element => {
       Component: ScreenshotCard,
       refresh: updateScreenshotResult,
       tags: ['client', 'meta'],
-    }, {
-      id: 'tls-cipher-suites',
-      title: 'TLS Cipher Suites',
-      result: tlsResults,
-      Component: TlsCipherSuitesCard,
-      refresh: updateTlsResults,
-      tags: ['server', 'security'],
-    }, {
-      id: 'tls-security-config',
-      title: 'TLS Security Issues',
-      result: tlsResults,
-      Component: TlsIssueAnalysisCard,
-      refresh: updateTlsResults,
-      tags: ['security'],
-    }, {
-      id: 'tls-client-support',
-      title: 'TLS Handshake Simulation',
-      result: tlsResults,
-      Component: TlsClientSupportCard,
-      refresh: updateTlsResults,
-      tags: ['security'],
     }, {
       id: 'redirects',
       title: 'Redirects',

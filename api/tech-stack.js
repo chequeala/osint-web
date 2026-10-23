@@ -1,5 +1,6 @@
 const Wappalyzer = require('wappalyzer');
 const middleware = require('./_common/middleware');
+const { skipIfUnavailable } = require('./_common/unavailable');
 
 const handler = async (url) => {
   const options = {};
@@ -27,5 +28,7 @@ const handler = async (url) => {
   }
 };
 
-module.exports = middleware(handler);
-module.exports.handler = middleware(handler);
+const handlerOrSkip = skipIfUnavailable(handler, 'Este servidor no tiene un navegador para detectar tecnologías.');
+
+module.exports = middleware(handlerOrSkip);
+module.exports.handler = middleware(handlerOrSkip);

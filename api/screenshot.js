@@ -1,6 +1,7 @@
 const puppeteer = require('puppeteer-core');
 const chromium = require('chrome-aws-lambda');
 const middleware = require('./_common/middleware');
+const { skipIfUnavailable } = require('./_common/unavailable');
 
 const handler = async (targetUrl) => {
 
@@ -58,5 +59,7 @@ const handler = async (targetUrl) => {
   }
 };
 
-module.exports = middleware(handler);
-module.exports.handler = middleware(handler);
+const handlerOrSkip = skipIfUnavailable(handler, 'Este servidor no tiene un navegador para hacer capturas de pantalla.');
+
+module.exports = middleware(handlerOrSkip);
+module.exports.handler = middleware(handlerOrSkip);
