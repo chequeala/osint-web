@@ -9,7 +9,6 @@
 [build.environment]
   # Build configuration env vars (uncomment if you want to conigure these)
   # CI="false" # Set CI to false, to prevent warnings from exiting the build
-  CHROME_PATH='/usr/bin/chromium' # Path to Chromium binary
   NODE_VERSION = "20.18.0"  # Set the version of Node.js to use
 
   # Optional secrets and API keys (uncomment if you want to add these)
@@ -38,11 +37,8 @@
   to = "/index.html"
   status = 200  
 
-# Plugins
-[[plugins]]
-package = "netlify-plugin-chromium"
-  [plugins.inputs]
-  packageManager = "yarn"
+# Sin netlify-plugin-chromium: instalaba Chromium en cada build, pero en Netlify no
+# puede arrancar (faltan librerías del sistema). Captura y tecnologías se omiten ahí.
 
 # Set any security headers here
 # Mismas cabeceras de seguridad que chequea.la (chequeala_web/public/_headers).

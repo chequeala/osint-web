@@ -1,0 +1,41 @@
+# Pruebas y compilación en cada push y pull request.
+# El despliegue lo hace Netlify por su cuenta al recibir el push a main.
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      PUPPETEER_SKIP_DOWNLOAD: 'true'
+      PUPPETEER_SKIP_CHROMIUM_DOWNLOAD: 'true'
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20 # la misma que usa Netlify (netlify.toml)
+
+      - name: Activar Yarn 4
+        run: corepack enable
+
+      - name: Instalar dependencias
+        run: yarn install --immutable
+
+      - name: Pruebas
+        run: yarn test --watchAll=false
+        env:
+          CI: 'true'
+
+      - name: Compilar
+        run: yarn build
+        env:
+          CI: 'false' # CRA trata los avisos como errores con CI=true
