@@ -1,6 +1,6 @@
 {
-  "short_name": "Veni/OSINT",
-  "name": "Veni OSINT | Chequea.la",
+  "short_name": "Veni OSINT",
+  "name": "Veni OSINT · chequea.la",
   "icons": [
     {
       "src": "favicon.ico",
@@ -8,9 +8,14 @@
       "type": "image/x-icon"
     },
     {
-      "src": "apple-touch-icon.png",
+      "src": "android-chrome-192x192.png",
       "type": "image/png",
-      "sizes": "180x180"
+      "sizes": "192x192"
+    },
+    {
+      "src": "android-chrome-512x512.png",
+      "type": "image/png",
+      "sizes": "512x512"
     }
   ],
   "start_url": ".",
