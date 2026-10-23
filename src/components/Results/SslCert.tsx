@@ -1,5 +1,6 @@
 
 import styled from 'styled-components';
+import { useTranslation } from 'react-i18next';
 import { dateLocale, tl } from 'i18n';
 import colors from 'styles/colors';
 import { Card } from 'components/Form/Card';
@@ -17,6 +18,16 @@ const Row = styled.div`
    overflow: hidden;
    text-overflow: ellipsis;
  }
+`;
+
+const Problems = styled.div`
+  background: #f8e1e3;
+  color: var(--danger);
+  border-radius: 0.5rem;
+  padding: 0.6rem 0.9rem;
+  margin-bottom: 0.5rem;
+  ul { margin: 0.25rem 0 0; padding-left: 1.1rem; }
+  li { color: var(--ink); }
 `;
 
 const formatDate = (dateString: string): string => {
@@ -79,10 +90,20 @@ return (
 }
 
 const SslCertCard = (props: { data: any, title: string, actionButtons: any }): JSX.Element => {
+const { t } = useTranslation();
 const sslCert = props.data;
+const problems: string[] = sslCert.problems || [];
 const { subject, issuer, fingerprint, serialNumber, asn1Curve, nistCurve, valid_to, valid_from, ext_key_usage } = sslCert;
 return (
 <Card heading={props.title} actionButtons={props.actionButtons}>
+{ problems.length > 0 && <Problems role="alert">
+  <strong>❌ {t('sslCard.invalid')}</strong>
+  <ul>
+    {problems.map(p => <li key={p}>{t(`sslCard.problems.${p}`, { names: (sslCert.certNames || []).join(', ') })}</li>)}
+  </ul>
+</Problems> }
+{ problems.length === 0 && sslCert.valid && <DataRow lbl={t('sslCard.validLabel')} val={`✅ ${t('sslCard.valid')}`} /> }
+{ sslCert.httpRedirectsToHttps === false && <DataRow lbl={t('sslCard.httpRedirect')} val={`❌ ${t('wordpress.no')}`} /> }
 { subject && <DataRow lbl="Subject" val={subject?.CN} /> }
 { issuer?.O && <DataRow lbl="Issuer" val={issuer.O} /> }
 { asn1Curve && <DataRow lbl="ASN1 Curve" val={asn1Curve} /> }

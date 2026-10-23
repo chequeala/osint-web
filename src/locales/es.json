@@ -410,6 +410,31 @@
         "title": "El servidor muestra las versiones de su software: {{versions}}",
         "desc": "Ayuda a quien busca servidores con versiones vulnerables.",
         "action": "Oculta las versiones en la configuración del servidor (por ejemplo ServerTokens Prod en Apache, server_tokens off en nginx, expose_php = Off en PHP)."
+      },
+      "noHttps": {
+        "title": "El sitio no tiene HTTPS",
+        "desc": "Todo lo que se envía y recibe viaja sin cifrar: cualquiera en la misma red (un wifi público, el proveedor de internet) puede leerlo o modificarlo, y los navegadores lo marcan como \"no seguro\".",
+        "action": "Activa HTTPS en tu hosting; con Let's Encrypt el certificado es gratuito. Después redirige http:// a https://."
+      },
+      "sslNameMismatch": {
+        "title": "El certificado HTTPS es de otro dominio ({{names}})",
+        "desc": "Quien entra por https:// ve un error grave de seguridad y muchas personas no podrán abrir el sitio. Suele pasar cuando el servidor comparte el certificado de otro sitio o al cambiar de dominio.",
+        "action": "Pide a tu hosting un certificado para este dominio (con Let's Encrypt es gratuito) y redirige http:// a https://."
+      },
+      "sslUntrusted": {
+        "title": "Los navegadores no confían en el certificado HTTPS",
+        "desc": "Es autofirmado o de una autoridad no reconocida: quien entra ve un error de seguridad.",
+        "action": "Reemplázalo por un certificado de una autoridad reconocida, por ejemplo Let's Encrypt, que es gratuito."
+      },
+      "sslIncompleteChain": {
+        "title": "Falta el certificado intermedio (cadena incompleta)",
+        "desc": "Algunos navegadores lo completan solos, pero en Firefox, muchos celulares y otros programas el sitio da error de seguridad.",
+        "action": "Instala en el servidor la cadena completa (\"fullchain\") que te entregó tu proveedor de certificados."
+      },
+      "noHttpsRedirect": {
+        "title": "http:// no redirige a https://",
+        "desc": "Quien escribe tu dirección sin \"https\" navega sin cifrar, aunque el sitio sí tenga HTTPS.",
+        "action": "Configura en tu servidor o hosting una redirección permanente (301) de http:// a https://."
       }
     }
   },
@@ -440,5 +465,21 @@
     "pending": "Actualizando datos ({{job}})",
     "success": "Listo ({{job}})",
     "error": "No se pudo actualizar ({{job}})"
+  },
+  "sslCard": {
+    "invalid": "Los navegadores van a mostrar un error de seguridad al entrar por HTTPS",
+    "valid": "Válido",
+    "validLabel": "Certificado",
+    "httpRedirect": "¿http:// redirige a https://?",
+    "problems": {
+      "nameMismatch": "El certificado es de otro dominio: {{names}}",
+      "expired": "El certificado está vencido",
+      "notYetValid": "El certificado todavía no es válido (revisa la fecha del servidor)",
+      "selfSigned": "El certificado es autofirmado o de una autoridad no reconocida",
+      "untrusted": "Los navegadores no confían en el certificado",
+      "incompleteChain": "La cadena del certificado está incompleta (falta el certificado intermedio)",
+      "noHttps": "El sitio no responde por HTTPS (puerto 443)",
+      "noCertificate": "El servidor no entregó ningún certificado"
+    }
   }
 }

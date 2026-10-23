@@ -87,4 +87,16 @@ describe('getFindings', () => {
     ]);
     expect(getFindings({ headers: { server: 'nginx' } }, now).findings).toEqual([]);
   });
+
+  it('certificado de otro dominio: urgente, con los nombres que sí cubre', () => {
+    const r = getFindings({ ssl: { valid: false, problems: ['nameMismatch', 'incompleteChain'], certNames: ['aimexico.org.mx', 'www.aimexico.org.mx'], valid_to: 'May  9 23:59:59 2027 GMT' } }, now);
+    expect(r.findings).toEqual([{ id: 'sslNameMismatch', severity: 'high', params: { names: 'aimexico.org.mx, www.aimexico.org.mx' } }]);
+  });
+
+  it('sin HTTPS, cadena incompleta y http que no redirige', () => {
+    expect(ids({ ssl: { valid: false, problems: ['noHttps'] } })).toEqual(['noHttps']);
+    expect(getFindings({ ssl: { valid: false, problems: ['incompleteChain'] } }, now).findings[0]).toMatchObject({ id: 'sslIncompleteChain', severity: 'medium' });
+    expect(ids({ ssl: { valid: true, problems: [], httpRedirectsToHttps: false, valid_to: 'Dec  1 00:00:00 2027 GMT' } })).toEqual(['noHttpsRedirect']);
+    expect(ids({ ssl: { valid: true, problems: [], httpRedirectsToHttps: true, valid_to: 'Dec  1 00:00:00 2027 GMT' } })).toEqual([]);
+  });
 });

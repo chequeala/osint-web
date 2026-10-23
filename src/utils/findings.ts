@@ -87,7 +87,25 @@ export const getFindings = (r: FindingInputs, now: Date = new Date()): { finding
     if (days < 30) findings.push({ id: 'domainExpiry', severity: 'high', params: { days: Math.max(days, 0) } });
     else passed.push('domainExpiry');
   }
-  const sslExpiry = parseDate(r.ssl?.valid_to);
+  // Problemas del certificado (de otro dominio, autofirmado, sin HTTPS...)
+  const sslProblems: string[] = r.ssl?.problems || [];
+  if (sslProblems.includes('noHttps') || sslProblems.includes('noCertificate')) {
+    findings.push({ id: 'noHttps', severity: 'high' });
+  } else if (sslProblems.includes('nameMismatch')) {
+    findings.push({ id: 'sslNameMismatch', severity: 'high', params: { names: (r.ssl.certNames || []).join(', ') } });
+  } else if (sslProblems.includes('expired')) {
+    findings.push({ id: 'sslExpired', severity: 'high' });
+  } else if (sslProblems.includes('selfSigned') || sslProblems.includes('untrusted') || sslProblems.includes('notYetValid')) {
+    findings.push({ id: 'sslUntrusted', severity: 'high' });
+  } else if (sslProblems.includes('incompleteChain')) {
+    // Chrome suele completarla solo, pero Firefox, muchos celulares y otros programas fallan
+    findings.push({ id: 'sslIncompleteChain', severity: 'medium' });
+  }
+  if (r.ssl?.valid && r.ssl.httpRedirectsToHttps === false) {
+    findings.push({ id: 'noHttpsRedirect', severity: 'medium' });
+  }
+
+  const sslExpiry = sslProblems.length ? null : parseDate(r.ssl?.valid_to);
   if (sslExpiry) {
     const days = daysUntil(sslExpiry, now);
     if (days < 0) findings.push({ id: 'sslExpired', severity: 'high' });
