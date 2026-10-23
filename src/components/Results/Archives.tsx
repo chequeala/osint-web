@@ -21,7 +21,7 @@ return (
 <Row lbl="Last Scan" val={data.lastScan} />
 <Row lbl="Total Scans" val={data.totalScans} />
 <Row lbl="Change Count" val={data.changeCount} />
-<Row lbl="Avg Size" val={`${data.averagePageSize} bytes`} />
+{ data.averagePageSize && <Row lbl="Avg Size" val={`${data.averagePageSize} bytes`} /> }
 { data.scanFrequency?.scansPerDay > 1 ?
 <Row lbl="Avg Scans Per Day" val={data.scanFrequency.scansPerDay} /> :
 <Row lbl="Avg Days between Scans" val={data.scanFrequency.daysBetweenScans} />

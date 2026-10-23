@@ -25,9 +25,15 @@ const countPageChanges = (results) => {
   }, -1);
 }
 
+// Solo capturas reales (estado 200) con tamaño válido: antes entraban la fila de
+// encabezados, redirecciones y valores no numéricos, y el promedio salía negativo
 const getAveragePageSize = (scans) => {
-    const totalSize = scans.map(scan => parseInt(scan[3], 10)).reduce((sum, size) => sum + size, 0);
-    return Math.round(totalSize / scans.length);
+  const sizes = scans.slice(1)
+    .filter(scan => scan[1] === '200')
+    .map(scan => parseInt(scan[3], 10))
+    .filter(size => Number.isFinite(size) && size > 0);
+  if (!sizes.length) return null;
+  return Math.round(sizes.reduce((sum, size) => sum + size, 0) / sizes.length);
 };
 
 const getScanFrequency = (firstScan, lastScan, totalScans, changeCount) => {

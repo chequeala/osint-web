@@ -82,7 +82,7 @@ return (
 <Heading as="h3" size="small" align="left" color={colors.primary}>{title}</Heading>
 { list.map((entry: string, index: number) => {
 return (
-<Row key={`${title.toLocaleLowerCase()}-${index}`}><span>{ entry }</span></Row>
+<Row key={`${title.toLocaleLowerCase()}-${index}`}><span>{ tl(entry) }</span></Row>
 )}
 )}
 </>

@@ -69,15 +69,8 @@
   },
   "progressbar": {
     "finishedIn": "Finalizado en",
-    "running": "Ejecutando",
-    "of": "de",
-    "job": "tarea",
-    "jobs": "tareas",
-    "skipped": "omitidas",
-    "successful": "exitosas",
-    "failed": "fallidas",
+    "running": "Ejecutando {{done}} de {{total}} tareas",
     "loading": "Cargando {{loaded}} / {{total}} tareas",
-    "completedSuccessfully": "{{count}} tareas completadas",
     "error": {
       "modal": {
         "title": "Detalles del error para {{name}}",
@@ -107,7 +100,15 @@
       "error": "Error",
       "skipped": "Omitido",
       "timed-out": "Tiempo excedido"
-    }
+    },
+    "countSkipped_one": "{{count}} omitida",
+    "countSkipped_other": "{{count}} omitidas",
+    "countSuccess_one": "{{count}} exitosa",
+    "countSuccess_other": "{{count}} exitosas",
+    "countFailed_one": "{{count}} fallida",
+    "countFailed_other": "{{count}} fallidas",
+    "completedSuccessfully_one": "{{count}} tarea completada",
+    "completedSuccessfully_other": "{{count}} tareas completadas"
   },
   "results": {
     "filters": {
@@ -520,5 +521,34 @@
     },
     "help": "¿Necesitas ayuda para resolver algo de este informe? Escríbenos a {{email}}. Puedes escribirnos sin cifrar.",
     "disclaimer": "Informe generado con Veni OSINT ({{site}}) a partir de información pública del sitio. Es una revisión automática: no reemplaza una auditoría de seguridad."
+  },
+  "serverMessages": {
+    "noTraceroute": "Este servidor no tiene traceroute instalado.",
+    "noBrowserScreenshot": "Este servidor no tiene un navegador para hacer capturas de pantalla.",
+    "noBrowserTech": "Este servidor no tiene un navegador para detectar tecnologías.",
+    "missingKey": "Falta configurar la clave {{key}} en el servidor.",
+    "missingClientKey": "No hay una clave de {{service}} configurada.",
+    "hstsInvalidCert": "El certificado HTTPS no es válido, así que HSTS no tiene efecto. Revisa la tarjeta del certificado SSL.",
+    "noRobots": "El sitio no tiene robots.txt.",
+    "noSitemap": "El sitio no tiene sitemap.xml.",
+    "notWordPress": "El sitio no parece estar hecho con WordPress.",
+    "noSubdomains": "No hay subdominios de {{domain}} en los registros públicos de certificados.",
+    "noWhoisServer": "La terminación {{tld}} no tiene un servidor whois público.",
+    "whoisNotFound": "{{domain}} no aparece en {{server}}.",
+    "whoisNoData": "{{server}} no entrega datos de {{domain}}.",
+    "carbonUnavailable": "websitecarbon.com no respondió; no es un problema del sitio.",
+    "rateLimited": "Hiciste muchos análisis seguidos. Espera un minuto y vuelve a intentar.",
+    "noMail": "El dominio no usa correo propio (no tiene registros MX, SPF ni DMARC).",
+    "noCookies": "El sitio no crea cookies.",
+    "noMetadata": "El sitio no tiene etiquetas para redes sociales.",
+    "noLinks": "No encontramos enlaces en el HTML de la página; puede que se generen con JavaScript.",
+    "neverArchived": "El Internet Archive nunca guardó este sitio.",
+    "noCarbonData": "No hay suficientes datos para calcular la huella de carbono.",
+    "notRanked": "{{domain}} no está entre los sitios más visitados del mundo.",
+    "tlsError": "No se pudo conectar de forma segura: el certificado HTTPS no es válido.",
+    "dnsError": "No se pudo resolver el dominio o un servicio externo.",
+    "timeout": "El sitio o un servicio externo tardó demasiado en responder.",
+    "blocked403": "El sitio bloqueó la consulta (HTTP 403); puede tener protección contra bots.",
+    "rateLimitedRemote": "El sitio o un servicio externo limitó las consultas (HTTP 429); prueba de nuevo en unos minutos."
   }
 }

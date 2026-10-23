@@ -189,7 +189,7 @@ return (
 { list.map((entry: string, index: number) => {
 return (
 <Row lbl="" val="" key={`${entry}-${title.toLocaleLowerCase()}-${index}`}>
-<span>{ entry }</span>
+<span>{ tl(entry) }</span>
 </Row>
 )}
 )}

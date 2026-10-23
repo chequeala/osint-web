@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { translateServerMessage } from 'utils/server-messages';
 import Card from 'components/Form/Card';
 import Heading from 'components/Form/Heading';
 import { useState, useEffect, ReactNode } from 'react';
@@ -287,9 +288,9 @@ const RunningText = (props: { state: LoadingJob[], count: number }): JSX.Element
   const isDone = loadingTasksCount >= jobNames.length;
   return (
     <p className="run-status">
-    {isDone 
-        ? t('progressbar.finishedIn') 
-        : `${t('progressbar.running')} ${loadingTasksCount} ${t('progressbar.of')} ${jobNames.length} ${t('progressbar.jobs')} - `}
+    {isDone
+        ? `${t('progressbar.finishedIn')} `
+        : `${t('progressbar.running', { done: loadingTasksCount, total: jobNames.length })} - `}
       <MillisecondCounter isDone={isDone} />
     </p>
   );
@@ -305,12 +306,10 @@ const SummaryText = (props: { state: LoadingJob[], count: number }): JSX.Element
   let skippedTasksCount = props.state.filter((val: LoadingJob) => val.state === 'skipped').length;
   let successTasksCount = props.state.filter((val: LoadingJob) => val.state === 'success').length;
 
-  const jobz = (jobCount: number) => `${jobCount} ${jobCount === 1 ? t('progressbar.job') : t('progressbar.jobs')}`;
-
-  
-  const skippedInfo = skippedTasksCount > 0 ? (<span className="skipped">{jobz(skippedTasksCount)} {t('progressbar.skipped')}</span>) : null;
-  const successInfo = successTasksCount > 0 ? (<span className="success">{jobz(successTasksCount)} {t('progressbar.successful')}</span>) : null;
-  const failedInfo = failedTasksCount > 0 ? (<span className="error">{jobz(failedTasksCount)} {t('progressbar.failed')}</span>) : null;
+  // Frases completas con plural de i18n: antes salía "1 tarea fallidas"
+  const skippedInfo = skippedTasksCount > 0 ? (<span className="skipped">{t('progressbar.countSkipped', { count: skippedTasksCount })}</span>) : null;
+  const successInfo = successTasksCount > 0 ? (<span className="success">{t('progressbar.countSuccess', { count: successTasksCount })}</span>) : null;
+  const failedInfo = failedTasksCount > 0 ? (<span className="error">{t('progressbar.countFailed', { count: failedTasksCount })}</span>) : null;
 
 
   if (loadingTasksCount > 0) {
@@ -410,7 +409,8 @@ const ProgressLoader = (props: { loadStatus: LoadingJob[], showModal: (err: Reac
         {t('progressbar.error.modal.description', { name, state, timeTaken })}
         {t('progressbar.error.modal.serverResponse')}
       </p>
-      <pre className={isInfo ? 'info' : 'error'}>{error}</pre>
+      <pre className={isInfo ? 'info' : 'error'}>{translateServerMessage(error)}</pre>
+      {translateServerMessage(error) !== error && <small className="text-soft">{error}</small>}
     </ErrorModalContent>
     );
     props.showModal(errorContent);
