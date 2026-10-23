@@ -485,5 +485,40 @@
   "sslBanner": {
     "title": "El certificado HTTPS de {{host}} no es válido",
     "overHttp": "Quien entre por https:// verá un error de seguridad. Por eso las demás pruebas se hicieron por http://, que es como se ve el sitio hoy (sin cifrar)."
+  },
+  "report": {
+    "button": "Descargar informe (PDF)",
+    "title": "Informe de seguridad de {{host}}",
+    "generated": "Generado el {{date}}",
+    "factsTitle": "Datos del sitio",
+    "passedTitle": "Lo que está bien",
+    "facts": {
+      "hosting": "Alojamiento",
+      "server": "Servidor",
+      "https": "HTTPS",
+      "certExpiry": "El certificado vence",
+      "registrar": "Registrador del dominio",
+      "domainExpiry": "El dominio vence",
+      "dnssec": "DNSSEC"
+    },
+    "passed": {
+      "threats": "No aparece en listas de malware ni phishing",
+      "blocklisted": "No está bloqueado en filtros DNS",
+      "domainExpiry": "El dominio no vence pronto",
+      "ssl": "Certificado HTTPS válido",
+      "wpUsers": "WordPress no expone usuarios",
+      "wpXmlrpc": "xmlrpc.php desactivado",
+      "ports": "Solo están abiertos los puertos web",
+      "mail": "Correo protegido con SPF y DMARC",
+      "hsts": "HSTS activo",
+      "headers": "Cabeceras de seguridad presentes",
+      "dnssec": "DNSSEC activo",
+      "securityTxt": "Tiene security.txt",
+      "exposedFiles": "Sin archivos sensibles expuestos",
+      "subdomains": "Sin subdominios colgantes",
+      "versionExposed": "No muestra versiones de software"
+    },
+    "help": "¿Necesitas ayuda para resolver algo de este informe? Escríbenos a {{email}}. Puedes escribirnos sin cifrar.",
+    "disclaimer": "Informe generado con Veni OSINT ({{site}}) a partir de información pública del sitio. Es una revisión automática: no reemplaza una auditoría de seguridad."
   }
 }

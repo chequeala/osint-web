@@ -57,6 +57,7 @@ import ExposedFilesCard from 'components/Results/ExposedFiles';
 import SubdomainsCard from 'components/Results/Subdomains';
 import Summary from 'components/misc/Summary';
 import SslBanner from 'components/misc/SslBanner';
+import Report from 'components/misc/Report';
 import { useTranslation } from 'react-i18next';
 
 import keys from 'utils/get-keys';
@@ -884,7 +885,26 @@ const Results = (): JSX.Element => {
   
   return (
     <ResultsOuter className='container-fluid green-section'>
-      <div className="container">
+      { address && <Report
+        address={address}
+        location={locationResults}
+        ssl={sslResults}
+        domain={domainLookupResults}
+        mail={mailConfigResults}
+        mailSkipped={loadingJobs.some((job: LoadingJob) => job.name === 'mail-config' && job.state === 'skipped')}
+        hsts={hstsResults}
+        httpSecurity={httpSecurityResults}
+        dnssec={dnsSecResults}
+        securityTxt={securityTxtResults}
+        blockLists={blockListsResults}
+        threats={threatResults}
+        ports={portsResults}
+        wordpress={wordpressResults}
+        exposedFiles={exposedFilesResults}
+        subdomains={subdomainsResults}
+        headers={headersResults}
+      /> }
+      <div className="container results-screen">
         <Nav>
         { address &&
           <Heading className='display-6 tophead'>

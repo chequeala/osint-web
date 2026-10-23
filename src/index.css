@@ -173,3 +173,25 @@ pre {
   padding-right: 3.5rem;
   margin-top: 0;
 }
+
+/* informe para imprimir o guardar como PDF (components/misc/Report.tsx) */
+.print-report {
+  display: none;
+}
+@media print {
+  @page {
+    margin: 1.6cm 1.4cm;
+  }
+  body {
+    background: #fff !important;
+  }
+  nav.navbar,
+  #root > footer,
+  .results-screen,
+  .Toastify {
+    display: none !important;
+  }
+  .print-report {
+    display: block;
+  }
+}

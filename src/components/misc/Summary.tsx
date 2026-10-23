@@ -107,6 +107,19 @@ const Summary = (props: SummaryProps): JSX.Element => {
     return `mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
   };
 
+  // El navegador usa el título como nombre del PDF al guardarlo
+  const printReport = () => {
+    const previousTitle = document.title;
+    const today = new Date().toISOString().slice(0, 10);
+    document.title = `veni-osint-${host}-${today}`;
+    const restore = () => {
+      document.title = previousTitle;
+      window.removeEventListener('afterprint', restore);
+    };
+    window.addEventListener('afterprint', restore);
+    window.print();
+  };
+
   return (
     <SummaryCard aria-labelledby="resumen-titulo" aria-live="polite">
       <div className="d-flex flex-wrap justify-content-between align-items-center gap-2">
@@ -139,6 +152,10 @@ const Summary = (props: SummaryProps): JSX.Element => {
         <a className="btn btn-brand rounded-pill px-4" href={mailto()}>
           <i className="bi bi-envelope me-2" aria-hidden="true"></i>{t('summary.helpButton')}
         </a>
+        <button type="button" className="btn btn-outline-brand rounded-pill px-4" onClick={printReport} disabled={!isDone}
+          title={isDone ? undefined : t('summary.loading')}>
+          <i className="bi bi-file-earmark-pdf me-2" aria-hidden="true"></i>{t('report.button')}
+        </button>
         <a className="btn btn-outline-brand rounded-pill px-4" href={`${SITE_URL}/checklist`} target="_blank" rel="noopener noreferrer">
           <i className="bi bi-list-check me-2" aria-hidden="true"></i>{t('summary.checklistButton')}
         </a>
