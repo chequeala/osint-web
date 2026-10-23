@@ -31,4 +31,10 @@ describe('translateServerMessage', () => {
     await i18n.changeLanguage('pt');
     expect(i18n.t('progressbar.countSkipped', { count: 1 })).toBe('1 ignorada');
   });
+
+  it('explica el bloqueo de direcciones privadas', async () => {
+    await i18n.changeLanguage('pt');
+    expect(translateServerMessage('Dirección no permitida: 127.0.0.1 apunta a una red privada o local'))
+      .toBe('O Veni só analisa sites públicos: 127.0.0.1 aponta para uma rede privada ou local.');
+  });
 });

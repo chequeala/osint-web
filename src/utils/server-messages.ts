@@ -4,6 +4,7 @@ import i18n from 'i18n';
 // en español o, los heredados de Web Check, en inglés. Aquí se reconocen y se
 // muestran en el idioma activo; los que no coinciden se muestran tal cual.
 const PATTERNS: [RegExp, string][] = [
+  [/Dirección no permitida: (?<host>\S+) apunta a una red privada/, 'privateAddress'],
   [/^Este servidor no tiene un navegador para hacer capturas/, 'noBrowserScreenshot'],
   [/^Este servidor no tiene un navegador para detectar tecnologías/, 'noBrowserTech'],
   [/^Falta configurar (?<key>[A-Z_]+)/, 'missingKey'],

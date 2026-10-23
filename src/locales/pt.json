@@ -547,6 +547,7 @@
     "dnsError": "Não foi possível resolver o domínio ou um serviço externo.",
     "timeout": "O site ou um serviço externo demorou demais para responder.",
     "blocked403": "O site bloqueou a consulta (HTTP 403); pode ter proteção contra bots.",
-    "rateLimitedRemote": "O site ou um serviço externo limitou as consultas (HTTP 429); tente de novo em alguns minutos."
+    "rateLimitedRemote": "O site ou um serviço externo limitou as consultas (HTTP 429); tente de novo em alguns minutos.",
+    "privateAddress": "O Veni só analisa sites públicos: {{host}} aponta para uma rede privada ou local."
   }
 }
