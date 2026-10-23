@@ -564,6 +564,25 @@ const docs: Doc[] = [
     ],
   },
   {
+    id: 'exposed-files',
+    title: 'Archivos expuestos',
+    description: 'Busca archivos que nunca deberían estar en público: el repositorio .git, archivos .env, respaldos de wp-config.php, volcados de base de datos, respaldos .zip, phpinfo y listados de carpetas. Cada archivo se confirma por su contenido, y veni nunca muestra lo que encuentra.',
+    use: 'Estos archivos suelen contener contraseñas o una copia completa del sitio. Son un error común al migrar o respaldar un sitio, y de los primeros lugares que revisa quien ataca.',
+    resources: [
+      { title: 'OWASP - Revisar archivos viejos, de respaldo y sin referencia', link: 'https://owasp.org/www-project-web-security-testing-guide/latest/4-Web_Application_Security_Testing/02-Configuration_and_Deployment_Management_Testing/04-Review_Old_Backup_and_Unreferenced_Files_for_Sensitive_Information' },
+    ],
+  },
+  {
+    id: 'subdomains',
+    title: 'Subdominios',
+    description: 'Lista los subdominios que aparecen en los registros públicos de certificados (Certificate Transparency) y revisa si siguen activos. Avisa si alguno apunta (CNAME) a un servicio que ya no existe.',
+    use: 'Los subdominios olvidados suelen quedar sin actualizar. Un CNAME colgante permite que otra persona reclame el servicio y publique contenido en tu nombre.',
+    resources: [
+      { title: 'Certificate Transparency (Wikipedia)', link: 'https://es.wikipedia.org/wiki/Certificate_Transparency' },
+      { title: 'OWASP - Toma de subdominios', link: 'https://owasp.org/www-project-web-security-testing-guide/latest/4-Web_Application_Security_Testing/02-Configuration_and_Deployment_Management_Testing/10-Test_for_Subdomain_Takeover' },
+    ],
+  },
+  {
     id: 'screenshot',
     title: 'Captura de Pantalla',
     description: 'Esta función toma una captura de pantalla de la página web a la que resuelve la URL/IP solicitada y la muestra.',

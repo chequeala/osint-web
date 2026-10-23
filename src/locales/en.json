@@ -245,7 +245,9 @@
     "dkimNote": "DKIM is checked using the most common selectors; if your provider uses another one it may exist even if it doesn't show here."
   },
   "cards": {
-    "wordpress": "WordPress"
+    "wordpress": "WordPress",
+    "exposed-files": "Exposed files",
+    "subdomains": "Subdomains"
   },
   "wordpress": {
     "version": "Visible version",
@@ -358,7 +360,45 @@
         "title": "No security.txt",
         "desc": "A file that tells people whom to contact if they find a security problem on your site.",
         "action": "Publish /.well-known/security.txt with a contact email."
+      },
+      "exposedFiles": {
+        "title": "Sensitive files are publicly visible: {{paths}}",
+        "desc": "They may contain passwords, the site source code or database copies, and anyone can download them.",
+        "action": "Delete them from the server or block access as soon as possible, and change any passwords they contain. Write to us if you need help."
+      },
+      "exposedInfo": {
+        "title": "Technical information is visible: {{paths}}",
+        "desc": "It shows server configuration details or the file list of a folder.",
+        "action": "Remove those pages or turn off directory listing on your server."
+      },
+      "danglingCname": {
+        "title": "Subdomain pointing to a service that no longer exists: {{names}}",
+        "desc": "It points (CNAME) to a service that no longer exists. Someone could create that service and publish anything on your subdomain.",
+        "action": "Delete that CNAME record at your DNS provider if you no longer use it."
       }
     }
+  },
+  "exposedFiles": {
+    "none": "No sensitive files found exposed ({{count}} checked).",
+    "note": "For safety, veni never shows the contents of these files.",
+    "types": {
+      "git": "Git repository",
+      "env": ".env file",
+      "wpConfig": "wp-config.php backup",
+      "sql": "Database dump",
+      "backup": "Site backup",
+      "htpasswd": "Password file",
+      "phpinfo": "phpinfo page",
+      "serverStatus": "Apache server status",
+      "dsStore": ".DS_Store file",
+      "dirListing": "Directory listing"
+    }
+  },
+  "subdomains": {
+    "active": "Active",
+    "inactive": "No DNS",
+    "dangling": "Dangling CNAME",
+    "note": "From public certificate logs ({{source}}).",
+    "truncated": "Showing {{shown}} of {{total}}."
   }
 }

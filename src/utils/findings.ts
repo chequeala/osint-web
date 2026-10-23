@@ -22,6 +22,8 @@ export interface FindingInputs {
   threats?: any;
   ports?: any;
   wordpress?: any;
+  exposedFiles?: any;
+  subdomains?: any;
 }
 
 const DAY_MS = 24 * 60 * 60 * 1000;
@@ -84,6 +86,27 @@ export const getFindings = (r: FindingInputs, now: Date = new Date()): { finding
     if (wp.xmlrpcEnabled) findings.push({ id: 'wpXmlrpc', severity: 'medium' });
     else passed.push('wpXmlrpc');
     if (wp.version) findings.push({ id: 'wpVersion', severity: 'low', params: { version: wp.version } });
+  }
+
+  // Archivos expuestos: los de severidad alta (código, contraseñas, respaldos) van aparte
+  if (r.exposedFiles?.found) {
+    const found: { path: string, severity: Severity }[] = r.exposedFiles.found;
+    const secrets = found.filter(f => f.severity === 'high');
+    const info = found.filter(f => f.severity !== 'high');
+    if (secrets.length) findings.push({ id: 'exposedFiles', severity: 'high', params: { paths: secrets.map(f => f.path).join(', ') } });
+    if (info.length) {
+      const severity = info.some(f => f.severity === 'medium') ? 'medium' : 'low';
+      findings.push({ id: 'exposedInfo', severity, params: { paths: info.map(f => f.path).join(', ') } });
+    }
+    if (!found.length) passed.push('exposedFiles');
+  }
+
+  // Subdominios que apuntan a servicios que ya no existen
+  if (r.subdomains?.subdomains) {
+    const dangling = r.subdomains.subdomains.filter((s: any) => s.dangling).map((s: any) => s.name);
+    dangling.length
+      ? findings.push({ id: 'danglingCname', severity: 'high', params: { names: dangling.join(', ') } })
+      : passed.push('subdomains');
   }
 
   // Puertos abiertos además de la web

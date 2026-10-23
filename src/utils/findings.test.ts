@@ -53,4 +53,21 @@ describe('getFindings', () => {
   it('no marca nada mientras no hay datos', () => {
     expect(getFindings({}, now)).toEqual({ findings: [], passed: [] });
   });
+
+  it('separa archivos con secretos de la información técnica', () => {
+    const r = getFindings({ exposedFiles: { found: [
+      { path: '/.env', severity: 'high' }, { path: '/.git/HEAD', severity: 'high' }, { path: '/uploads/', severity: 'medium' },
+    ] } }, now);
+    expect(r.findings.map(f => [f.id, f.severity, f.params?.paths])).toEqual([
+      ['exposedFiles', 'high', '/.env, /.git/HEAD'], ['exposedInfo', 'medium', '/uploads/'],
+    ]);
+    expect(getFindings({ exposedFiles: { found: [] } }, now).passed).toContain('exposedFiles');
+  });
+
+  it('un CNAME colgante es urgente', () => {
+    const r = getFindings({ subdomains: { subdomains: [
+      { name: 'viejo.ejemplo.org', dangling: true }, { name: 'vivo.ejemplo.org', dangling: false },
+    ] } }, now);
+    expect(r.findings).toEqual([{ id: 'danglingCname', severity: 'high', params: { names: 'viejo.ejemplo.org' } }]);
+  });
 });

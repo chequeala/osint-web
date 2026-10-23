@@ -208,6 +208,8 @@ const jobNames = [
   'rank',
   'screenshot',
   'wordpress',
+  'exposed-files',
+  'subdomains',
   'redirects',
   'linked-pages',
   'robots-txt',

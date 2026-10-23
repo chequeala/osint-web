@@ -53,6 +53,8 @@ import RankCard from 'components/Results/Rank';
 import BlockListsCard from 'components/Results/BlockLists';
 import ThreatsCard from 'components/Results/Threats';
 import WordPressCard from 'components/Results/WordPress';
+import ExposedFilesCard from 'components/Results/ExposedFiles';
+import SubdomainsCard from 'components/Results/Subdomains';
 import Summary from 'components/misc/Summary';
 import { useTranslation } from 'react-i18next';
 
@@ -451,6 +453,22 @@ const Results = (): JSX.Element => {
     fetchRequest: () => fetch(`${api}/wordpress?url=${address}`).then(res => parseJson(res)),
   });
 
+  // Archivos que no deberían ser públicos (.git, .env, respaldos...)
+  const [exposedFilesResults, updateExposedFilesResults] = useMotherHook({
+    jobId: 'exposed-files',
+    updateLoadingJobs,
+    addressInfo: { address, addressType, expectedAddressTypes: urlTypeOnly },
+    fetchRequest: () => fetch(`${api}/exposed-files?url=${address}`).then(res => parseJson(res)),
+  });
+
+  // Subdominios según los registros públicos de certificados
+  const [subdomainsResults, updateSubdomainsResults] = useMotherHook({
+    jobId: 'subdomains',
+    updateLoadingJobs,
+    addressInfo: { address, addressType, expectedAddressTypes: urlTypeOnly },
+    fetchRequest: () => fetch(`${api}/subdomains?url=${address}`).then(res => parseJson(res)),
+  });
+
   // Fetches URL redirects
   const [redirectResults, updateRedirectResults] = useMotherHook({
     jobId: 'redirects',
@@ -744,6 +762,20 @@ const Results = (): JSX.Element => {
       refresh: updateWordpressResults,
       tags: ['security'],
     }, {
+      id: 'exposed-files',
+      title: 'Exposed Files',
+      result: exposedFilesResults,
+      Component: ExposedFilesCard,
+      refresh: updateExposedFilesResults,
+      tags: ['security'],
+    }, {
+      id: 'subdomains',
+      title: 'Subdomains',
+      result: subdomainsResults,
+      Component: SubdomainsCard,
+      refresh: updateSubdomainsResults,
+      tags: ['server', 'security'],
+    }, {
       id: 'redirects',
       title: 'Redirects',
       result: redirectResults,
@@ -881,6 +913,8 @@ const Results = (): JSX.Element => {
           threats={threatResults}
           ports={portsResults}
           wordpress={wordpressResults}
+          exposedFiles={exposedFilesResults}
+          subdomains={subdomainsResults}
         /> }
           <Loader show={loadingJobs.filter((job: LoadingJob) => job.state !== 'loading').length < 5} />
         <FilterButtons>{ showFilters ? <>

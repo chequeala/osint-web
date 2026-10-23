@@ -274,7 +274,9 @@
     "features": "Funciones del sitio",
     "sitemap": "Páginas",
     "carbon": "Huella de carbono",
-    "wordpress": "WordPress"
+    "wordpress": "WordPress",
+    "exposed-files": "Archivos expuestos",
+    "subdomains": "Subdominios"
   },
   "mailConfig": {
     "checklist": "Protección contra suplantación",
@@ -395,7 +397,45 @@
         "title": "No hay security.txt",
         "desc": "Es un archivo que indica a quién avisar si alguien encuentra un problema de seguridad en tu sitio.",
         "action": "Publica /.well-known/security.txt con un correo de contacto."
+      },
+      "exposedFiles": {
+        "title": "Hay archivos sensibles a la vista: {{paths}}",
+        "desc": "Pueden contener contraseñas, el código del sitio o copias de la base de datos, y cualquiera puede descargarlos.",
+        "action": "Bórralos del servidor o bloquea su acceso cuanto antes, y cambia las contraseñas que contengan. Escríbenos si necesitas ayuda."
+      },
+      "exposedInfo": {
+        "title": "Información técnica a la vista: {{paths}}",
+        "desc": "Muestra detalles de la configuración del servidor o la lista de archivos de una carpeta.",
+        "action": "Elimina esas páginas o desactiva el listado de carpetas en tu servidor."
+      },
+      "danglingCname": {
+        "title": "Subdominio que apunta a un servicio inexistente: {{names}}",
+        "desc": "Apunta (CNAME) a un servicio que ya no existe. Alguien podría crear ese servicio y publicar lo que quiera en tu subdominio.",
+        "action": "Borra ese registro CNAME en tu proveedor de DNS si ya no lo usas."
       }
     }
+  },
+  "exposedFiles": {
+    "none": "No encontramos archivos sensibles expuestos ({{count}} revisados).",
+    "note": "Por seguridad, veni no muestra el contenido de estos archivos.",
+    "types": {
+      "git": "Repositorio Git",
+      "env": "Archivo .env",
+      "wpConfig": "Respaldo de wp-config.php",
+      "sql": "Volcado de base de datos",
+      "backup": "Respaldo del sitio",
+      "htpasswd": "Archivo de contraseñas",
+      "phpinfo": "Página phpinfo",
+      "serverStatus": "Estado del servidor Apache",
+      "dsStore": "Archivo .DS_Store",
+      "dirListing": "Listado de carpeta"
+    }
+  },
+  "subdomains": {
+    "active": "Activo",
+    "inactive": "Sin DNS",
+    "dangling": "CNAME colgante",
+    "note": "Según los registros públicos de certificados ({{source}}).",
+    "truncated": "Se muestran {{shown}} de {{total}}."
   }
 }
