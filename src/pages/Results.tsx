@@ -243,6 +243,21 @@ const Results = (): JSX.Element => {
 
   const api = process.env.REACT_APP_API_ENDPOINT || '/api'; // Where is the API hosted?
 
+  // Qué pruebas puede correr el servidor (claves de API, navegador). Hasta saberlo,
+  // esas tareas esperan; si no están disponibles se omiten sin consultar al servidor.
+  const [capabilities, setCapabilities] = useState<{ quality: boolean, features: boolean, browser: boolean } | null>(null);
+  useEffect(() => {
+    fetch(`${api}/capabilities`)
+      .then(res => res.json())
+      .then(setCapabilities)
+      .catch(() => setCapabilities({ quality: true, features: true, browser: true })); // ante la duda, intentarlas
+  }, [api]);
+  const gatedAddressInfo = (available: boolean | undefined) => ({
+    address,
+    addressType: capabilities ? addressType : 'empt' as AddressType,
+    expectedAddressTypes: available ? urlTypeOnly : [],
+  });
+
   // Fetch and parse IP address for given URL
   const [ipAddress, setIpAddress] = useMotherHook({
     jobId: 'get-ip',
@@ -292,7 +307,8 @@ const Results = (): JSX.Element => {
   const [lighthouseResults, updateLighthouseResults] = useMotherHook({
     jobId: 'quality',
     updateLoadingJobs,
-    addressInfo: { address, addressType, expectedAddressTypes: urlTypeOnly },
+    addressInfo: gatedAddressInfo(capabilities?.quality),
+    skipReason: 'Falta configurar GOOGLE_CLOUD_API_KEY para el análisis de calidad (Lighthouse).',
     fetchRequest: () => fetch(`${api}/quality?url=${address}`)
       .then(res => parseJson(res))
       .then(res => res?.skipped ? res : (res?.lighthouseResult || { error: 'No Data'})),
@@ -302,7 +318,8 @@ const Results = (): JSX.Element => {
   const [techStackResults, updateTechStackResults] = useMotherHook({
     jobId: 'tech-stack',
     updateLoadingJobs,
-    addressInfo: { address, addressType, expectedAddressTypes: urlTypeOnly },
+    addressInfo: gatedAddressInfo(capabilities?.browser),
+    skipReason: 'Este servidor no tiene un navegador para detectar tecnologías.',
     fetchRequest: () => fetch(`${api}/tech-stack?url=${address}`).then(res => parseJson(res)),
   });
 
@@ -434,7 +451,8 @@ const Results = (): JSX.Element => {
   const [screenshotResult, updateScreenshotResult] = useMotherHook({
     jobId: 'screenshot',
     updateLoadingJobs,
-    addressInfo: { address, addressType, expectedAddressTypes: urlTypeOnly },
+    addressInfo: gatedAddressInfo(capabilities?.browser),
+    skipReason: 'Este servidor no tiene un navegador para hacer capturas de pantalla.',
     fetchRequest: () => fetch(`${api}/screenshot?url=${address}`).then(res => parseJson(res)),
   });
 
@@ -550,7 +568,8 @@ const Results = (): JSX.Element => {
   const [siteFeaturesResults, updateSiteFeaturesResults] = useMotherHook({
     jobId: 'features',
     updateLoadingJobs,
-    addressInfo: { address, addressType, expectedAddressTypes: urlTypeOnly },
+    addressInfo: gatedAddressInfo(capabilities?.features),
+    skipReason: 'Falta configurar BUILT_WITH_API_KEY para detectar funciones del sitio.',
     fetchRequest: () => fetch(`${api}/features?url=${address}`)
     .then(res => parseJson(res))
     .then(res => {

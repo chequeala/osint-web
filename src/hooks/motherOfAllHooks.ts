@@ -21,6 +21,8 @@ interface UseIpAddressProps<ResultType = any> {
     // The valid address types for this job
     expectedAddressTypes: AddressType[];
   };
+  // Motivo que se muestra si la tarea se omite sin consultar al servidor
+  skipReason?: string;
 }
 
 type ResultType = any;
@@ -29,7 +31,7 @@ type ReturnType = [ResultType | undefined, (data?: any) => void];
 
 const useMotherOfAllHooks = <ResultType = any>(params: UseIpAddressProps<ResultType>): ReturnType => {
   // Destructure params
-  const { addressInfo, fetchRequest, jobId, updateLoadingJobs } = params;
+  const { addressInfo, fetchRequest, jobId, updateLoadingJobs, skipReason } = params;
   const { address, addressType, expectedAddressTypes } = addressInfo;
 
   // Build useState that will be returned
@@ -82,7 +84,7 @@ const useMotherOfAllHooks = <ResultType = any>(params: UseIpAddressProps<ResultT
     }
     // This job isn't needed for this address type, cancel job
     if (!expectedAddressTypes.includes(addressType)) {
-      if (addressType !== 'empt') updateLoadingJobs(jobId, 'skipped');
+      if (addressType !== 'empt') updateLoadingJobs(jobId, 'skipped', skipReason);
       return;
     }
 

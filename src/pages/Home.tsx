@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { ChangeEvent, FormEvent, useState } from 'react';
+import { ChangeEvent, FormEvent, useEffect, useState } from 'react';
 import { Link, useNavigate, NavigateOptions } from 'react-router-dom';
 
 import { useTranslation } from 'react-i18next';
@@ -66,6 +66,13 @@ const Home = (): JSX.Element => {
   const [userInput, setUserInput] = useState('');
   const [errorMsg, setErrMsg] = useState('');
   const navigate = useNavigate();
+
+  // Precarga la página de resultados cuando la portada ya terminó de cargar,
+  // mientras la persona escribe su dominio
+  useEffect(() => {
+    const timer = setTimeout(() => { import('pages/Results'); }, 2500);
+    return () => clearTimeout(timer);
+  }, []);
 
   /* Check is valid address, either show err or redirect to results page */
   const submit = () => {
