@@ -5,7 +5,7 @@ const handler = async (url) => {
 
   // First, get the size of the website's HTML
   const getHtmlSize = (url) => new Promise((resolve, reject) => {
-    https.get(url, res => {
+    https.get(url, { timeout: 8000 }, res => {
       let data = '';
       res.on('data', chunk => {
         data += chunk;
@@ -14,7 +14,8 @@ const handler = async (url) => {
         const sizeInBytes = Buffer.byteLength(data, 'utf8');
         resolve(sizeInBytes);
       });
-    }).on('error', reject);
+    }).on('timeout', function () { this.destroy(new Error('El sitio no respondió en 8 segundos')); })
+      .on('error', reject);
   });
 
   try {
@@ -23,15 +24,21 @@ const handler = async (url) => {
 
     // Then use that size to get the carbon data
     const carbonData = await new Promise((resolve, reject) => {
-      https.get(apiUrl, res => {
+      https.get(apiUrl, { timeout: 8000 }, res => {
         let data = '';
         res.on('data', chunk => {
           data += chunk;
         });
         res.on('end', () => {
-          resolve(JSON.parse(data));
+          // Un throw aquí no lo atrapa nadie y tumba la función (502)
+          try {
+            resolve(JSON.parse(data));
+          } catch {
+            reject(new Error(`websitecarbon.com respondió algo que no es JSON (HTTP ${res.statusCode})`));
+          }
         });
-      }).on('error', reject);
+      }).on('timeout', function () { this.destroy(new Error('websitecarbon.com no respondió en 8 segundos')); })
+        .on('error', reject);
     });
 
     if (!carbonData.statistics || (carbonData.statistics.adjustedBytes === 0 && carbonData.statistics.energy === 0)) {

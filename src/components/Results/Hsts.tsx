@@ -25,9 +25,11 @@ const HstsCard = (props: {data: any, title: string, actionButtons: any }): JSX.E
   const hstsHeaders = hstsResults?.hstsHeader ? parseHeader(hstsResults.hstsHeader) : [];
   return (
     <Card heading={props.title} actionButtons={props.actionButtons} styles={cardStyles}>
-      {typeof hstsResults.compatible === 'boolean' && (
-        <Row lbl="HSTS Enabled?" val={hstsResults.compatible ? '✅ Yes' : '❌ No'} />
-      )}
+      {/* compatible solo indica si cumple los requisitos de la lista de precarga, no si HSTS está activo */}
+      {typeof hstsResults.compatible === 'boolean' && <>
+        <Row lbl="HSTS Enabled?" val={hstsResults.hstsHeader ? '✅ Yes' : '❌ No'} />
+        <Row lbl="Preload list ready?" val={hstsResults.compatible ? '✅ Yes' : '❌ No'} />
+      </>}
       {hstsHeaders.length > 0 && hstsHeaders.map((header: RowProps, index: number) => {
         return (
           <Row lbl={header.lbl} val={header.val} key={`hsts-${index}`} />
