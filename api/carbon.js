@@ -1,11 +1,12 @@
 const https = require('https');
+const http = require('http');
 const middleware = require('./_common/middleware');
 
 const handler = async (url) => {
 
   // First, get the size of the website's HTML
   const getHtmlSize = (url) => new Promise((resolve, reject) => {
-    https.get(url, { timeout: 8000 }, res => {
+    (url.startsWith('http:') ? http : https).get(url, { timeout: 8000 }, res => {
       let data = '';
       res.on('data', chunk => {
         data += chunk;
@@ -51,6 +52,8 @@ const handler = async (url) => {
     carbonData.scanUrl = url;
     return carbonData;
   } catch (error) {
+    // websitecarbon.com a veces bloquea o limita las consultas: no es un problema del sitio
+    if (/websitecarbon\.com/.test(error.message)) return { skipped: error.message };
     throw new Error(`Error: ${error.message}`);
   }
 };

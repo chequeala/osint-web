@@ -481,5 +481,9 @@
       "noHttps": "O site não responde por HTTPS (porta 443)",
       "noCertificate": "O servidor não entregou nenhum certificado"
     }
+  },
+  "sslBanner": {
+    "title": "O certificado HTTPS de {{host}} não é válido",
+    "overHttp": "Quem acessar por https:// verá um erro de segurança. Por isso os outros testes foram feitos por http://, que é como o site aparece hoje (sem criptografia)."
   }
 }

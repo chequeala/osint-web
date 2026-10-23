@@ -1,4 +1,5 @@
 const https = require('https');
+const http = require('http');
 const { performance, PerformanceObserver } = require('perf_hooks');
 const middleware = require('./_common/middleware');
 
@@ -23,7 +24,7 @@ const handler = async (url) => {
   try {
     startTime = performance.now();
     const response = await new Promise((resolve, reject) => {
-      const req = https.get(url, res => {
+      const req = (url.startsWith('http:') ? http : https).get(url, res => {
         let data = '';
         responseCode = res.statusCode;
         res.on('data', chunk => {

@@ -56,7 +56,7 @@ const handler = async (url) => {
   } catch (error) {
     return {
       statusCode: 500,
-      body: JSON.stringify({ error: 'Failed fetching data' }),
+      body: JSON.stringify({ error: `Failed fetching data: ${error.message}` }),
     };
   }
 };

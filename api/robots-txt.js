@@ -60,6 +60,8 @@ const handler = async function(url) {
       };
     }
   } catch (error) {
+    // Muchos sitios no tienen robots.txt: no es un error de la prueba
+    if (error.response?.status === 404) return { skipped: 'El sitio no tiene robots.txt' };
     return {
       statusCode: 500,
       body: JSON.stringify({ error: `Error fetching robots.txt: ${error.message}` }),

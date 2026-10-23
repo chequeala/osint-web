@@ -56,6 +56,7 @@ import WordPressCard from 'components/Results/WordPress';
 import ExposedFilesCard from 'components/Results/ExposedFiles';
 import SubdomainsCard from 'components/Results/Subdomains';
 import Summary from 'components/misc/Summary';
+import SslBanner from 'components/misc/SslBanner';
 import { useTranslation } from 'react-i18next';
 
 import keys from 'utils/get-keys';
@@ -898,6 +899,7 @@ const Results = (): JSX.Element => {
           <ProgressBar loadStatus={loadingJobs} showModal={showErrorModal} showJobDocs={showInfo} />
           { address?.includes(window?.location?.hostname || 'web-check.xyz') && <SelfScanMsg />}
         </div>
+        { address && <SslBanner ssl={sslResults} host={makeSiteName(address)} /> }
         { address && <Summary
           address={address}
           isDone={loadingJobs.every((job: LoadingJob) => job.state !== 'loading')}

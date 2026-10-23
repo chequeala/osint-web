@@ -1,4 +1,4 @@
-const { https } = require('follow-redirects');
+const { http, https } = require('follow-redirects');
 const { URL } = require('url');
 const middleware = require('./_common/middleware');
 
@@ -73,7 +73,7 @@ const handler = async (urlParam) => {
 async function fetchSecurityTxt(baseURL, path) {
   return new Promise((resolve, reject) => {
     const url = new URL(path, baseURL);
-    https.get(url.toString(), (res) => {
+    (url.protocol === 'http:' ? http : https).get(url.toString(), (res) => {
       if (res.statusCode === 200) {
         let data = '';
         res.on('data', (chunk) => {

@@ -49,6 +49,10 @@ const handler = async (url, event, context) => {
     });
 
     req.on('error', (error) => {
+      // Sin un HTTPS válido el navegador ignora HSTS; el problema real lo muestra la prueba ssl
+      if (/certificate|self[- ]signed|UNABLE_TO_VERIFY|CERT_|altname|EPROTO/i.test(error.message)) {
+        return resolve({ skipped: 'El certificado HTTPS no es válido, así que HSTS no tiene efecto. Revisa la tarjeta del certificado SSL.' });
+      }
       resolve(errorResponse(`Error making request: ${error.message}`));
     });
 

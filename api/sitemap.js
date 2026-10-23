@@ -40,7 +40,8 @@ const handler = async (url) => {
     return sitemap;
   } catch (error) {
     // If error occurs
-    console.log(error.message);
+    // Sin sitemap (404): es un resultado, no un error de la prueba
+    if (error.response?.status === 404) return { skipped: 'El sitio no tiene sitemap.xml' };
     if (error.code === 'ECONNABORTED') {
       return { error: 'Request timed out' };
     } else {

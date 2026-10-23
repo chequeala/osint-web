@@ -38,14 +38,26 @@ const CHECKS = [
     .map(path => ({ path, type: 'dirListing', severity: 'medium', match: b => /<title>\s*Index of \//i.test(text(b)) })),
 ];
 
+const TLS_ERROR = /certificate|self[- ]signed|UNABLE_TO_VERIFY|CERT_|altname|EPROTO/i;
+
 const handler = async (url) => {
-  const base = new URL(url).origin;
+  let base = new URL(url).origin;
 
   // Línea base: lo que responde el sitio a una dirección que no existe.
   // Cualquier respuesta igual a esa es su página por defecto, no un archivo expuesto.
-  const baseline = await http.get(`${base}/veni-no-existe-${Date.now()}.txt`)
-    .then(res => Buffer.from(res.data || []))
-    .catch(() => null);
+  const fetchBaseline = () => http.get(`${base}/veni-no-existe-${Date.now()}.txt`).then(res => Buffer.from(res.data || []));
+  let baseline = null;
+  let fetchedOverHttp = false;
+  try {
+    baseline = await fetchBaseline();
+  } catch (error) {
+    // Con un certificado inválido cada prueba fallaría y parecería que no hay nada expuesto
+    if (TLS_ERROR.test(error.message || '') && base.startsWith('https:')) {
+      base = base.replace(/^https:/, 'http:');
+      fetchedOverHttp = true;
+      baseline = await fetchBaseline().catch(() => null);
+    }
+  }
 
   const results = await Promise.all(CHECKS.map(async (check) => {
     try {
@@ -59,7 +71,7 @@ const handler = async (url) => {
     }
   }));
 
-  return { found: results.filter(Boolean), checked: CHECKS.length };
+  return { found: results.filter(Boolean), checked: CHECKS.length, ...(fetchedOverHttp && { fetchedOverHttp }) };
 };
 
 module.exports = middleware(handler);

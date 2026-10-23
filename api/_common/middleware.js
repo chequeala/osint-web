@@ -8,7 +8,40 @@ const headers = {
   'Content-Type': 'application/json;charset=UTF-8',
 };
 
-const commonMiddleware = (handler) => {
+// Errores de certificado: el sitio tiene HTTPS pero el certificado no es válido
+// (de otro dominio, autofirmado, cadena incompleta...). La prueba ssl ya lo informa.
+const TLS_ERROR = /certificate|self[- ]signed|UNABLE_TO_VERIFY|CERT_|altname|Hostname\/IP does not match|wrong version number|EPROTO|SSL routines/i;
+
+const errorText = (response) => {
+  if (!response || typeof response !== 'object') return '';
+  if (typeof response.error === 'string') return response.error; // algunas pruebas responden 200 con { error }
+  if (!response.statusCode || response.statusCode < 400) return '';
+  return typeof response.body === 'string' ? response.body : JSON.stringify(response.body || '');
+};
+
+// Si una prueba falla solo por el certificado, se repite por http://, que es como la
+// gente está viendo ese sitio. Nunca se desactiva la verificación de certificados.
+const withHttpFallback = (handler) => async (url, ...rest) => {
+  const retryOverHttp = async () => {
+    const result = await handler(url.replace(/^https:\/\//i, 'http://'), ...rest);
+    if (result && typeof result === 'object' && !result.statusCode && !Array.isArray(result)) {
+      return { ...result, fetchedOverHttp: true };
+    }
+    return result;
+  };
+  if (!/^https:\/\//i.test(url)) return handler(url, ...rest);
+  let result;
+  try {
+    result = await handler(url, ...rest);
+  } catch (error) {
+    if (TLS_ERROR.test(error.message || '')) return retryOverHttp();
+    throw error;
+  }
+  return TLS_ERROR.test(errorText(result)) ? retryOverHttp() : result;
+};
+
+const commonMiddleware = (rawHandler) => {
+  const handler = withHttpFallback(rawHandler);
   // Vercel
   const vercelHandler = async (request, response) => {
     const queryParams = request.query || {};
