@@ -499,6 +499,11 @@
         "title": "O e-mail entre servidores pode trafegar sem criptografia (falta MTA-STS)",
         "desc": "Sem MTA-STS, alguém no caminho poderia fazer com que os e-mails recebidos pelo seu domínio sejam entregues sem criptografia e lê-los.",
         "action": "Publique uma política MTA-STS em modo enforce e um registro TLS-RPT para receber relatórios. Muitos provedores de e-mail explicam como fazer."
+      },
+      "dmarcNone": {
+        "title": "O DMARC só observa (p=none): não protege contra falsificação",
+        "desc": "Com p=none, os e-mails falsos em nome do seu domínio continuam sendo entregues; o DMARC só envia relatórios.",
+        "action": "Se os relatórios mostrarem que o seu e-mail legítimo passa no SPF e no DKIM, mude para p=quarantine e, depois, para p=reject."
       }
     }
   },
@@ -723,5 +728,85 @@
     "title": "Glossário",
     "reportTitle": "Glossário dos termos deste relatório",
     "intro": "Os termos técnicos ficam em inglês, como aparecem nas ferramentas e na documentação."
+  },
+  "generators": {
+    "open": "Gerar configuração",
+    "close": "Fechar",
+    "copy": "Copiar",
+    "copied": "Copiado",
+    "download": "Baixar {{filename}}",
+    "local": "É gerado no seu navegador com o que o Veni detectou; revise os dados antes de usar.",
+    "securityTxt": {
+      "contact": "E-mail (ou página) para relatar problemas de segurança",
+      "languages": "Idiomas em que podem escrever para você",
+      "pgp": "Chave PGP (opcional)",
+      "where": "Publique em https://{{domain}}/.well-known/security.txt. Vence em 11 meses: crie um lembrete para atualizar a data de Expires."
+    },
+    "mail": {
+      "sendsMail": "Você envia e-mail por este domínio?",
+      "providers": "Serviços que enviam e-mail em seu nome",
+      "reportEmail": "E-mail para receber relatórios DMARC (opcional)",
+      "provider": {
+        "google": "Google Workspace",
+        "microsoft": "Microsoft 365",
+        "proton": "Proton Mail",
+        "tuta": "Tuta",
+        "zoho": "Zoho Mail",
+        "hosting": "E-mail da hospedagem",
+        "sendgrid": "SendGrid",
+        "mailchimp": "Mailchimp",
+        "godaddy": "GoDaddy"
+      },
+      "spfTitle": "SPF: registro TXT em {{domain}}",
+      "dmarcTitle": "DMARC: registro TXT em _dmarc",
+      "spfWhere": "No seu provedor de DNS, crie (ou substitua) um registro TXT na raiz do domínio (@). Só pode haver um registro SPF: se já tiver um, junte os include no mesmo.",
+      "dmarcWhere": "Crie um registro TXT com o nome _dmarc. Comece com p=none (só observa); quando confirmar que o seu e-mail legítimo passa, mude para p=quarantine e depois para p=reject.",
+      "dmarcWhereNoMail": "Crie um registro TXT com o nome _dmarc. Como o domínio não envia e-mail, tudo o que disser vir dele é rejeitado.",
+      "policy": "O que fazer com os e-mails falsos (política DMARC)",
+      "policies": {
+        "none": "none: só observar (para começar)",
+        "quarantine": "quarantine: mandar para o spam",
+        "reject": "reject: rejeitar"
+      },
+      "currentSpf": "O seu registro SPF atual. O de baixo o mantém completo e acrescenta o que você marcar:"
+    },
+    "headers": {
+      "server": "Servidor ou serviço onde está o seu site",
+      "includeHsts": "Incluir HSTS (só se todo o site e os subdomínios funcionarem por HTTPS)",
+      "title": "Cabeçalhos de segurança",
+      "servers": {
+        "apache": "Apache / LiteSpeed (hospedagem compartilhada, cPanel)",
+        "nginx": "nginx",
+        "netlify": "Netlify",
+        "cloudflare": "Cloudflare"
+      },
+      "where": {
+        "apache": "Adicione no começo do arquivo .htaccess na pasta principal do site (não substitua o arquivo se já existir).",
+        "nginx": "Adicione dentro do bloco server { } do seu site e recarregue o nginx (nginx -t && systemctl reload nginx).",
+        "netlify": "Adicione ao arquivo _headers na pasta que o Netlify publica (public/ ou a raiz).",
+        "cloudflare": "No Cloudflare: Regras > Regras de transformação > Modificar cabeçalho de resposta > \"Definir estático\", uma por cabeçalho."
+      }
+    },
+    "caa": {
+      "issuers": "Autoridades que podem emitir certificados",
+      "current": "a que você usa hoje",
+      "email": "E-mail para avisos de emissões não autorizadas (opcional)",
+      "title": "Registros CAA em {{domain}}",
+      "where": "No seu provedor de DNS, crie um registro do tipo CAA na raiz (@) para cada linha. Se trocar de provedor de certificados, adicione-o antes."
+    },
+    "mtaSts": {
+      "email": "E-mail para receber relatórios TLS",
+      "recordTitle": "Registro TXT em _mta-sts",
+      "policyTitle": "Arquivo de política",
+      "tlsRptTitle": "Registro TXT em _smtp._tls",
+      "recordWhere": "Crie um registro TXT com o nome _mta-sts. Troque o id sempre que alterar a política.",
+      "policyWhere": "Publique em https://mta-sts.{{domain}}/.well-known/mta-sts.txt (o subdomínio mta-sts precisa de HTTPS válido). Comece com mode: testing e, depois de algumas semanas sem erros nos relatórios, mude para enforce.",
+      "tlsRptWhere": "Crie um registro TXT com o nome _smtp._tls para receber os relatórios."
+    },
+    "wordpress": {
+      "intro": "Pequeno plugin que oculta os usuários da API REST para quem não fez login, desativa o xmlrpc.php e remove a versão do WordPress do código.",
+      "title": "Plugin de proteção",
+      "where": "Envie para a pasta wp-content/mu-plugins/ (crie se não existir): ele se ativa sozinho e não pode ser desativado por engano. Se você usa um plugin de segurança como Wordfence ou Solid Security, eles também têm essas opções."
+    }
   }
 }

@@ -5,6 +5,9 @@ import { Finding, FindingInputs, getFindings, Severity } from 'utils/findings';
 import { CONTACT_EMAIL, SITE_URL } from 'config';
 import { findingParams } from 'utils/countries';
 import { Glossed } from 'components/misc/Glossary';
+import GeneratorPanel, { GENERATOR_FOR, GeneratorContext } from 'components/misc/Generators';
+import { currentDmarcPolicy } from 'utils/generators';
+import { useState } from 'react';
 import { buildIcs, reminderDate } from 'utils/reminder';
 import { dateLocale } from 'i18n';
 
@@ -92,6 +95,19 @@ const Summary = (props: SummaryProps): JSX.Element => {
     try { return new URL(address).hostname; } catch { return address; }
   })();
 
+  // Generadores "Arréglalo tú": qué paneles están abiertos y los datos que ya detectó veni
+  const [openGenerators, setOpenGenerators] = useState<string[]>([]);
+  const toggleGenerator = (id: string) => setOpenGenerators(l => (l.includes(id) ? l.filter(x => x !== id) : [...l, id]));
+  const generatorContext: GeneratorContext = {
+    domain: host.replace(/^www\./, ''),
+    mxHosts: (inputs.mail?.mxRecords || []).map((mx: any) => mx.exchange).filter(Boolean),
+    headers: inputs.headers,
+    sslIssuer: inputs.ssl?.issuer?.O,
+    httpsValid: !!inputs.ssl?.valid,
+    dmarcPolicy: currentDmarcPolicy(inputs.mail?.txtRecords),
+    currentSpf: (inputs.mail?.txtRecords || []).map((r: any) => [].concat(r).join('')).find((r: string) => /^v=spf1/i.test(r)) || null,
+  };
+
   const findingText = (f: Finding, part: 'title' | 'desc' | 'action') =>
     t(`summary.findings.${f.id}.${part}`, findingParams(f.params));
 
@@ -164,6 +180,13 @@ const Summary = (props: SummaryProps): JSX.Element => {
               <h3><span className="badge-sev">{t(`summary.severity.${f.severity}`)}</span><Glossed text={findingText(f, 'title')} seen={seen} /></h3>
               <p className="text-soft"><Glossed text={findingText(f, 'desc')} seen={seen} /></p>
               <p className="action"><strong>{t('summary.whatToDo')}</strong> <Glossed text={findingText(f, 'action')} seen={seen} /></p>
+              {GENERATOR_FOR[f.id] && <>
+                <button type="button" className="btn btn-sm btn-brand rounded-pill px-3 mt-2" aria-expanded={openGenerators.includes(f.id)} onClick={() => toggleGenerator(f.id)}>
+                  <i className={`bi ${openGenerators.includes(f.id) ? 'bi-chevron-up' : 'bi-magic'} me-1`} aria-hidden="true"></i>
+                  {openGenerators.includes(f.id) ? t('generators.close') : t('generators.open')}
+                </button>
+                {openGenerators.includes(f.id) && <GeneratorPanel kind={GENERATOR_FOR[f.id]} ctx={generatorContext} />}
+              </>}
             </li>
           ); })}
         </ul>

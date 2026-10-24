@@ -152,4 +152,11 @@ describe('getFindings', () => {
     expect(ok.findings).toEqual([]);
     expect(ok.passed).toEqual(expect.arrayContaining(['caa', 'mtaSts']));
   });
+
+  it('DMARC en p=none solo observa: importante, no cuenta como bien', () => {
+    const r = getFindings({ mail: { txtRecords: [['v=spf1 include:_spf.google.com ~all'], ['v=DMARC1; p=none;']] } }, now);
+    expect(r.findings).toEqual([{ id: 'dmarcNone', severity: 'medium' }]);
+    expect(r.passed).not.toContain('mail');
+    expect(ids({ mail: { txtRecords: [['v=spf1 -all'], ['v=DMARC1; p=quarantine']] } })).toEqual([]);
+  });
 });

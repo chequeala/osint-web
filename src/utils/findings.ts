@@ -250,8 +250,10 @@ export const getFindings = (r: FindingInputs, now: Date = new Date()): { finding
     const hasSpf = txt.includes('v=spf1');
     const hasDmarc = txt.includes('v=dmarc1');
     if (!hasDmarc) findings.push({ id: 'noDmarc', severity: 'high' });
+    // p=none solo observa: cualquiera puede seguir enviando correos a nombre del dominio
+    else if (/v=dmarc1[^]*?;\s*p=none/.test(txt)) findings.push({ id: 'dmarcNone', severity: 'medium' });
     if (!hasSpf) findings.push({ id: 'noSpf', severity: 'medium' });
-    if (hasSpf && hasDmarc) passed.push('mail');
+    if (hasSpf && hasDmarc && !/v=dmarc1[^]*?;\s*p=none/.test(txt)) passed.push('mail');
   }
 
   // Cabeceras y HTTPS
