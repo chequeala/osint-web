@@ -23,7 +23,23 @@ yarn build && PLATFORM=node node server.js   # interfaz y API en http://localhos
 yarn test --watchAll=false                   # pruebas
 ```
 
-Las claves de API opcionales (Google para Lighthouse, BuiltWith, Shodan…) van en `.env`; sin ellas esas pruebas aparecen como omitidas.
+Copia `.env.example` a `.env` para desarrollo local (`.env` no se versiona: nunca pongas claves reales en `.env.example`).
+
+## Claves de API (opcionales y gratuitas)
+
+Sin ellas, esas pruebas aparecen como omitidas. En producción se cargan en Netlify (*Site configuration → Environment variables*) o con la CLI, y se aplican en el siguiente deploy:
+
+```sh
+yarn netlify env:set GOOGLE_CLOUD_API_KEY "..." --scope functions
+```
+
+| Variable | Enciende | Cómo conseguirla |
+|---|---|---|
+| `GOOGLE_CLOUD_API_KEY` | Calidad (Lighthouse) y Google Safe Browsing en Amenazas | En [console.cloud.google.com](https://console.cloud.google.com/) crea un proyecto, activa **PageSpeed Insights API** y **Safe Browsing API**, y crea una clave en *Credenciales*. Restríngela a esas dos APIs. |
+| `URLHAUS_AUTH_KEY` | URLhaus (malware) en Amenazas | Crea una cuenta en [auth.abuse.ch](https://auth.abuse.ch/) y copia tu *Auth-Key*. |
+| `BUILT_WITH_API_KEY` | Funciones del sitio | Cuenta gratuita en [api.builtwith.com](https://api.builtwith.com/). |
+
+`REACT_APP_SHODAN_API_KEY` y `REACT_APP_WHO_API_KEY` se consultan desde el navegador y quedarían visibles en el código público del sitio: no las configures en producción.
 
 ## Despliegue
 

@@ -23,6 +23,18 @@ const CensorshipCard = (props: { data: any, title: string, actionButtons: any, o
         <span className="lbl">{t('censorship.tor')}</span>
         <span className="val" title={props.onion || undefined}>{props.onion ? `🧅 ${t('censorship.torYes')}` : t('censorship.torNo')}</span>
       </Row>
+      {/* OONI Run v2 se crea a mano en run.ooni.org (con cuenta): se explica cómo medir con OONI Probe */}
+      {countries.some(c => c.status !== 'ok') && (
+        <div className="small mt-2 p-2 rounded" style={{ background: 'var(--vt-purple-tint)' }}>
+          <strong>{t('censorship.measure.title')}</strong>
+          <ol className="mb-1 ps-3">
+            <li>{t('censorship.measure.step1')} <a href="https://ooni.org/install/" target="_blank" rel="noopener noreferrer">ooni.org/install</a></li>
+            <li>{t('censorship.measure.step2')} <code>{`https://${props.data.domain}/`}</code></li>
+            <li>{t('censorship.measure.step3')}</li>
+          </ol>
+          <span>{t('censorship.measure.run')}</span>
+        </div>
+      )}
       <p className="small text-soft mt-2 mb-0">
         {t('censorship.note', { days: props.data.days })}{' '}
         <a href={`https://explorer.ooni.org/search?domain=${encodeURIComponent(props.data.domain)}`} target="_blank" rel="noopener noreferrer">OONI Explorer</a>

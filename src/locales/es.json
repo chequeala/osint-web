@@ -645,7 +645,14 @@
     "note": "Mediciones de OONI de los últimos {{days}} días. Una anomalía puede ser un bloqueo o una falla de red; más detalle en",
     "tor": "Acceso por Tor",
     "torYes": "Tiene dirección .onion",
-    "torNo": "Sin dirección .onion"
+    "torNo": "Sin dirección .onion",
+    "measure": {
+      "title": "Confírmalo desde el país",
+      "step1": "Pide a alguien que esté allí que instale OONI Probe:",
+      "step2": "En la app, abre la prueba de «Sitios web», elige probar una URL propia y escribe:",
+      "step3": "El resultado se publica en OONI Explorer y queda como evidencia del bloqueo.",
+      "run": "Para que varias personas lo midan con un solo enlace (OONI Run, en Android), escríbenos y lo creamos."
+    }
   },
   "compare": {
     "title": "Comparar con un análisis anterior",
