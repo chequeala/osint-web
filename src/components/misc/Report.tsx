@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import { useTranslation } from 'react-i18next';
 
 import { FindingInputs, getFindings, parseDate } from 'utils/findings';
+import { Comparison } from 'utils/compare';
 import { dateLocale } from 'i18n';
 import { CONTACT_EMAIL, SITE_URL } from 'config';
 import { findingParams } from 'utils/countries';
@@ -109,11 +110,12 @@ const ReportSheet = styled.article`
 interface ReportProps extends FindingInputs {
   address: string;
   location?: any;
+  comparison?: { comparison: Comparison, previousDate: string | null } | null;
 }
 
 const Report = (props: ReportProps): JSX.Element => {
   const { t } = useTranslation();
-  const { address, location, ...inputs } = props;
+  const { address, location, comparison, ...inputs } = props;
   const { findings, passed } = getFindings(inputs);
   const host = (() => { try { return new URL(address).hostname; } catch { return address; } })();
 
@@ -171,6 +173,17 @@ const Report = (props: ReportProps): JSX.Element => {
           <p><strong>{t('summary.whatToDo')}</strong> {t(`summary.findings.${f.id}.action`, findingParams(f.params))}</p>
         </div>
       ))}
+
+      {comparison && <>
+        <h2>{t('compare.reportTitle', { date: comparison.previousDate ? new Intl.DateTimeFormat(dateLocale(), { dateStyle: 'long' }).format(new Date(comparison.previousDate)) : '' })}</h2>
+        {[['fixed', '✅'], ['added', '⚠️'], ['remaining', '⏳']].map(([group, icon]) => {
+          const list = comparison.comparison[group as 'fixed' | 'added' | 'remaining'];
+          return list.length > 0 && (
+            <p key={group}><strong>{icon} {t(`compare.${group}`, { count: list.length })}:</strong>{' '}
+              {list.map(f => t(`summary.findings.${f.id}.title`, findingParams(f.params))).join(' · ')}</p>
+          );
+        })}
+      </>}
 
       <h2>{t('report.factsTitle')}</h2>
       <table>

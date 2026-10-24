@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import styled from 'styled-components';
 import { Card } from 'components/Form/Card';
+import { buildExport } from 'utils/export';
 
 import { useTranslation } from 'react-i18next';
 
@@ -35,22 +36,16 @@ const RawJson = styled.pre`
 `;
 
 // Antes "Ver resultados" subía todo el análisis a jsonhero.io; ahora se muestra aquí mismo
-const ViewRaw = (props: { everything: { id: string, result: any}[], address?: string }) => {
+const ViewRaw = (props: { everything: { id: string, result: any}[], address?: string, skipped?: string[] }) => {
   const { t } = useTranslation();
   const [showRaw, setShowRaw] = useState(false);
 
-  const makeResults = () => {
-    const result: {[key: string]: any} = {};
-    props.everything.forEach((item: {id: string, result: any}) => {
-      result[item.id] = item.result;
-    });
-    return JSON.stringify(result, null, 2);
-  };
+  const makeResults = () => JSON.stringify(buildExport(props.everything, props.address, props.skipped || []), null, 2);
 
   const fileName = () => {
     let host = 'resultados';
     try { host = new URL(props.address || '').hostname || host; } catch { /* nombre por defecto */ }
-    return `veni-osint-${host}.json`;
+    return `veni-osint-${host}-${new Date().toISOString().slice(0, 10)}.json`;
   };
 
   const handleDownload = () => {

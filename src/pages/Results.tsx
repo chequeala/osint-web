@@ -58,6 +58,9 @@ import CensorshipCard from 'components/Results/Censorship';
 import Summary from 'components/misc/Summary';
 import SslBanner from 'components/misc/SslBanner';
 import Report from 'components/misc/Report';
+import Compare from 'components/misc/Compare';
+import { buildExport } from 'utils/export';
+import { Comparison } from 'utils/compare';
 import { useTranslation } from 'react-i18next';
 
 import keys from 'utils/get-keys';
@@ -168,6 +171,7 @@ const Results = (): JSX.Element => {
   const [modalOpen, setModalOpen] = useState(false);
   const [modalContent, setModalContent] = useState<ReactNode>(<></>);
   const [showFilters, setShowFilters] = useState(false);
+  const [comparison, setComparison] = useState<{ comparison: Comparison, previousDate: string | null } | null>(null);
   const [searchTerm, setSearchTerm] = useState<string>('');
   const [tags, setTags] = useState<string[]>([]);
 
@@ -902,6 +906,10 @@ const Results = (): JSX.Element => {
 
 
   
+  const skippedJobs = loadingJobs.filter((job: LoadingJob) => job.state === 'skipped').map((job: LoadingJob) => job.name);
+  const isDone = loadingJobs.every((job: LoadingJob) => job.state !== 'loading');
+  const currentExport = buildExport(resultCardData, address, skippedJobs);
+
   return (
     <ResultsOuter className='container-fluid green-section'>
       { address && <Report
@@ -924,6 +932,7 @@ const Results = (): JSX.Element => {
         headers={headersResults}
         censorship={censorshipResults}
         firewall={firewallResults}
+        comparison={comparison}
       /> }
       <div className="container results-screen">
         <Nav>
@@ -943,7 +952,7 @@ const Results = (): JSX.Element => {
         { address && <SslBanner ssl={sslResults} host={makeSiteName(address)} /> }
         { address && <Summary
           address={address}
-          isDone={loadingJobs.every((job: LoadingJob) => job.state !== 'loading')}
+          isDone={isDone}
           ssl={sslResults}
           domain={domainLookupResults}
           mail={mailConfigResults}
@@ -962,6 +971,7 @@ const Results = (): JSX.Element => {
           censorship={censorshipResults}
           firewall={firewallResults}
         /> }
+        { address && <Compare current={currentExport} host={makeSiteName(address)} isDone={isDone} onCompare={setComparison} /> }
           <Loader show={loadingJobs.filter((job: LoadingJob) => job.state !== 'loading').length < 5} />
         <FilterButtons>{ showFilters ? <>
           <div className="one-half">
@@ -1027,7 +1037,7 @@ const Results = (): JSX.Element => {
             }
             </Masonry>
         </ResultsContent>
-        <ViewRaw everything={resultCardData} address={address} />
+        <ViewRaw everything={resultCardData} address={address} skipped={skippedJobs} />
         <AdditionalResources url={address} />
         <Modal isOpen={modalOpen} closeModal={()=> setModalOpen(false)}>{modalContent}</Modal>
         <ToastContainer limit={3} draggablePercent={60} autoClose={2500} theme="light" position="bottom-right" />

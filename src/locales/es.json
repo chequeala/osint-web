@@ -577,5 +577,30 @@
     },
     "detail": "{{anomalies}} anomalías en {{measurements}} mediciones",
     "note": "Mediciones de OONI de los últimos {{days}} días. Una anomalía puede ser un bloqueo o una falla de red; más detalle en"
+  },
+  "compare": {
+    "title": "Comparar con un análisis anterior",
+    "intro": "¿Ya analizaste este sitio antes? Carga el archivo que descargaste con «Descargar resultados» y verás qué se resolvió y qué sigue pendiente.",
+    "comparedWith": "Comparado con el análisis del {{date}}.",
+    "load": "Cargar análisis anterior",
+    "loadAnother": "Cargar otro",
+    "clear": "Quitar comparación",
+    "invalidFile": "Ese archivo no parece ser un análisis de Veni OSINT. Usa el JSON de «Descargar resultados».",
+    "otherDomain": "Ojo: el archivo es de otro dominio ({{domain}}), así que la comparación puede no tener sentido.",
+    "oldFormat": "Es un archivo de una versión anterior de Veni: solo se comparan las pruebas que aparecen en los dos análisis.",
+    "before_one": "Antes: {{count}} problema ({{high}} urgentes)",
+    "before_other": "Antes: {{count}} problemas ({{high}} urgentes)",
+    "after_one": "Ahora: {{count}} problema ({{high}} urgentes)",
+    "after_other": "Ahora: {{count}} problemas ({{high}} urgentes)",
+    "fixed_one": "{{count}} resuelto",
+    "fixed_other": "{{count}} resueltos",
+    "added_one": "{{count}} nuevo",
+    "added_other": "{{count}} nuevos",
+    "remaining_one": "{{count}} sigue pendiente",
+    "remaining_other": "{{count}} siguen pendientes",
+    "nothingInCommon": "Los dos análisis no tienen pruebas en común para comparar.",
+    "noIssues": "Ninguno de los dos análisis tiene problemas en las pruebas que comparten.",
+    "privacy": "La comparación se hace en tu navegador: el archivo no se sube a ningún lado.",
+    "reportTitle": "Cambios desde el análisis del {{date}}"
   }
 }
