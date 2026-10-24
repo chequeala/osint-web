@@ -35,13 +35,18 @@ const getGoogleSafeBrowsingResult = async (url) => {
   }
 };
 
+// URLhaus (abuse.ch) pide desde 2025 una clave gratuita: https://auth.abuse.ch/
 const getUrlHausResult = async (url) => {
+  const authKey = process.env.URLHAUS_AUTH_KEY;
+  if (!authKey) return { error: 'Falta configurar URLHAUS_AUTH_KEY' };
   let domain = new URL(url).hostname;
   return await axios({
     method: 'post',
     url: 'https://urlhaus-api.abuse.ch/v1/host/',
+    timeout: 6000,
     headers: {
-      'Content-Type': 'application/x-www-form-urlencoded'
+      'Content-Type': 'application/x-www-form-urlencoded',
+      'Auth-Key': authKey,
     },
     data: `host=${domain}`
   })
