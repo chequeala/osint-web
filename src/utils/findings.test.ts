@@ -136,4 +136,12 @@ describe('getFindings', () => {
     expect(getFindings({ lookalikes: { label: 'r3d', registered: [{ name: 'rd3.mx', kind: 'typo', hasMx: true }] } }, now).findings[0].severity).toBe('low');
     expect(getFindings({ lookalikes: { label: 'amnistia', registered: [] } }, now).passed).toContain('lookalikes');
   });
+
+  it('Tor: con .onion cuenta como bien; sin .onion solo se sugiere si hay bloqueo', () => {
+    const blocked = { countries: [{ country: 'VE', status: 'likely' }] };
+    expect(getFindings({ headers: { 'onion-location': 'http://abc.onion/' }, censorship: blocked }, now).passed).toContain('onion');
+    expect(getFindings({ mixedContent: { activeCount: 0, passiveCount: 0, onionLocation: 'http://abc.onion/' } }, now).passed).toContain('onion');
+    expect(ids({ headers: { server: 'nginx' }, censorship: blocked })).toEqual(['censoredLikely', 'noOnion']);
+    expect(ids({ headers: { server: 'nginx' } })).toEqual([]);
+  });
 });

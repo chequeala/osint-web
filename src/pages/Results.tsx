@@ -63,6 +63,7 @@ import Report from 'components/misc/Report';
 import Compare from 'components/misc/Compare';
 import { buildExport } from 'utils/export';
 import { Comparison } from 'utils/compare';
+import { onionAddress } from 'utils/findings';
 import { useTranslation } from 'react-i18next';
 
 import keys from 'utils/get-keys';
@@ -841,6 +842,7 @@ const Results = (): JSX.Element => {
       result: censorshipResults,
       Component: CensorshipCard,
       refresh: updateCensorshipResults,
+      extraProps: { onion: onionAddress({ headers: headersResults, mixedContent: mixedContentResults }) },
       tags: ['security'],
     }, {
       id: 'exposed-files',

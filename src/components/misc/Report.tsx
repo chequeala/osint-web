@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { useTranslation } from 'react-i18next';
 
-import { FindingInputs, getFindings, parseDate } from 'utils/findings';
+import { FindingInputs, getFindings, onionAddress, parseDate } from 'utils/findings';
 import { Comparison } from 'utils/compare';
 import { dateLocale } from 'i18n';
 import { CONTACT_EMAIL, SITE_URL } from 'config';
@@ -142,6 +142,7 @@ const Report = (props: ReportProps): JSX.Element => {
     ['SPF', hasMailData ? yesNo(mailTxt.includes('v=spf1')) : null],
     ['DMARC', hasMailData ? yesNo(mailTxt.includes('v=dmarc1')) : null],
     ['WordPress', inputs.wordpress?.isWordPress ? (inputs.wordpress.version || t('wordpress.hidden')) : null],
+    [t('censorship.tor'), onionAddress(inputs) || t('censorship.torNo')],
     [t('report.facts.ddos'), inputs.firewall ? (inputs.firewall.hasWaf ? inputs.firewall.waf : t('wordpress.no')) : null],
   ];
 

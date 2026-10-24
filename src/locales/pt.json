@@ -483,6 +483,11 @@
         "title": "Há {{count}} domínios parecidos com o seu registrados: {{names}}",
         "desc": "Domínios quase iguais ao seu são usados para enviar e-mails falsos ou publicar páginas que se passam pela sua organização.",
         "action": "Veja se algum é seu. Se não, fique de olho; se algum for usado para se passar por você, escreva para nós e ajudamos a denunciar. Considere registrar as variantes mais óbvias."
+      },
+      "noOnion": {
+        "title": "O site não tem um endereço para o Tor (.onion)",
+        "desc": "Há sinais de bloqueio em algum país. Um endereço .onion permite que as pessoas de lá leiam o site com o navegador Tor, mesmo bloqueado.",
+        "action": "Publique uma versão .onion do site e anuncie-a com o cabeçalho Onion-Location. Podemos ajudar a configurar."
       }
     }
   },
@@ -570,7 +575,8 @@
       "ddos": "Protegido contra DDoS",
       "cookies": "Cookies com Secure e HttpOnly",
       "mixedContent": "Sem conteúdo misto",
-      "lookalikes": "Sem domínios parecidos registrados"
+      "lookalikes": "Sem domínios parecidos registrados",
+      "onion": "Tem endereço para o Tor (.onion)"
     },
     "help": "Precisa de ajuda para resolver algo deste relatório? Escreva para {{email}}. Você pode nos escrever sem criptografia.",
     "disclaimer": "Relatório gerado com o Veni OSINT ({{site}}) a partir de informações públicas do site. É uma revisão automática: não substitui uma auditoria de segurança."
@@ -611,7 +617,10 @@
       "ok": "Sem bloqueio"
     },
     "detail": "{{anomalies}} anomalias em {{measurements}} medições",
-    "note": "Medições do OONI dos últimos {{days}} dias. Uma anomalia pode ser um bloqueio ou uma falha de rede; mais detalhes em"
+    "note": "Medições do OONI dos últimos {{days}} dias. Uma anomalia pode ser um bloqueio ou uma falha de rede; mais detalhes em",
+    "tor": "Acesso pelo Tor",
+    "torYes": "Tem endereço .onion",
+    "torNo": "Sem endereço .onion"
   },
   "compare": {
     "title": "Comparar com uma análise anterior",

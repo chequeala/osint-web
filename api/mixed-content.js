@@ -45,7 +45,10 @@ const handler = async (url) => {
 
   const active = collect(ACTIVE);
   const passive = collect(PASSIVE);
+  // De paso: dirección .onion declarada en el HTML (la cabecera la ve la prueba de cabeceras)
+  const onionMeta = $('meta').filter((_, el) => /^onion-location$/i.test($(el).attr('http-equiv') || '')).attr('content');
   return {
+    ...(onionMeta && /\.onion(\/|$)/i.test(onionMeta) && { onionLocation: onionMeta }),
     active: active.slice(0, MAX_ITEMS),
     passive: passive.slice(0, MAX_ITEMS),
     activeCount: active.length,

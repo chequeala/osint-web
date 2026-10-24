@@ -69,6 +69,12 @@ export const parseSetCookie = (header: string): CookieFlags => {
   return { name, secure: lower.includes('secure'), httpOnly: lower.includes('httponly'), sameSite: sameSite ? sameSite.split('=')[1] : null };
 };
 
+// Dirección .onion del sitio: cabecera Onion-Location o <meta http-equiv="onion-location">
+export const onionAddress = (r: FindingInputs): string | null => {
+  const value = r.headers?.['onion-location'] || r.mixedContent?.onionLocation;
+  return typeof value === 'string' && /\.onion(\/|$)/i.test(value) ? value : null;
+};
+
 // Fechas de whois en formatos variados, incluido 20270307 (registro.br)
 export const parseDate = (value: string | undefined): Date | null => {
   if (!value) return null;
@@ -106,6 +112,14 @@ export const getFindings = (r: FindingInputs, now: Date = new Date()): { finding
     if (confirmed.length) findings.push({ id: 'censored', severity: 'high', params: { countryCodes: confirmed.join(',') } });
     if (likely.length) findings.push({ id: 'censoredLikely', severity: 'high', params: { countryCodes: likely.join(',') } });
     if (!confirmed.length && !likely.length) passed.push('censorship');
+  }
+
+  // Acceso por Tor: solo se sugiere si hay señales de bloqueo, para no meter ruido
+  const onion = onionAddress(r);
+  if (onion) passed.push('onion');
+  else if (r.headers && findings.some(f => f.id === 'censored' || f.id === 'censoredLikely')) {
+    // sin cabeceras no se sabe si tiene .onion: no concluir
+    findings.push({ id: 'noOnion', severity: 'medium' });
   }
 
   // Protección contra ataques de denegación de servicio (DDoS)

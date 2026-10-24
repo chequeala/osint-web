@@ -483,6 +483,11 @@
         "title": "Hay {{count}} dominios parecidos al tuyo registrados: {{names}}",
         "desc": "Dominios casi iguales al tuyo se usan para enviar correos falsos o publicar páginas que se hacen pasar por tu organización.",
         "action": "Revisa si alguno es tuyo. Si no, vigílalos; si uno se usa para suplantarte, escríbenos y te ayudamos a reportarlo. Considera registrar las variantes más obvias."
+      },
+      "noOnion": {
+        "title": "El sitio no tiene una dirección para Tor (.onion)",
+        "desc": "Hay señales de bloqueo en algún país. Una dirección .onion permite que la gente allí lea el sitio con el navegador Tor, aunque esté bloqueado.",
+        "action": "Publica una versión .onion del sitio y anúnciala con la cabecera Onion-Location. Podemos ayudarte a configurarla."
       }
     }
   },
@@ -570,7 +575,8 @@
       "ddos": "Protegido contra DDoS",
       "cookies": "Cookies con Secure y HttpOnly",
       "mixedContent": "Sin contenido mixto",
-      "lookalikes": "Sin dominios parecidos registrados"
+      "lookalikes": "Sin dominios parecidos registrados",
+      "onion": "Tiene dirección para Tor (.onion)"
     },
     "help": "¿Necesitas ayuda para resolver algo de este informe? Escríbenos a {{email}}. Puedes escribirnos sin cifrar.",
     "disclaimer": "Informe generado con Veni OSINT ({{site}}) a partir de información pública del sitio. Es una revisión automática: no reemplaza una auditoría de seguridad."
@@ -611,7 +617,10 @@
       "ok": "Sin bloqueo"
     },
     "detail": "{{anomalies}} anomalías en {{measurements}} mediciones",
-    "note": "Mediciones de OONI de los últimos {{days}} días. Una anomalía puede ser un bloqueo o una falla de red; más detalle en"
+    "note": "Mediciones de OONI de los últimos {{days}} días. Una anomalía puede ser un bloqueo o una falla de red; más detalle en",
+    "tor": "Acceso por Tor",
+    "torYes": "Tiene dirección .onion",
+    "torNo": "Sin dirección .onion"
   },
   "compare": {
     "title": "Comparar con un análisis anterior",
