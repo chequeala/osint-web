@@ -429,6 +429,16 @@ const docs: Doc[] = [
     ],
   },
   {
+    id: 'lookalikes',
+    title: 'Domínios parecidos',
+    description: 'Gera variantes do domínio como as usadas para enganar (letras omitidas, repetidas ou trocadas, caracteres que se confundem como 0 e o, hifens e outras terminações) e verifica por DNS quais estão registradas e quais podem receber e-mail.',
+    use: 'Quem quer se passar por uma organização costuma registrar um domínio quase igual para enviar e-mails falsos ou publicar páginas falsas. Saber quais existem ajuda a detectar a tempo uma campanha de phishing.',
+    resources: [
+      { title: 'Typosquatting (Wikipédia)', link: 'https://pt.wikipedia.org/wiki/Typosquatting' },
+      { title: 'dnstwist: ferramenta para buscar domínios parecidos', link: 'https://github.com/elceef/dnstwist' },
+    ],
+  },
+  {
     id: 'mixed-content',
     title: 'Conteúdo misto',
     description: 'Verifica o HTML da página inicial em busca de recursos carregados por http:// dentro de uma página https://. Os ativos (scripts, estilos, iframes, formulários) são bloqueados pelo navegador; os passivos (imagens, áudio, vídeo) geram um aviso de "não seguro".',

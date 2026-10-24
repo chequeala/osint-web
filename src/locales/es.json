@@ -272,7 +272,8 @@
     "exposed-files": "Archivos expuestos",
     "subdomains": "Subdominios",
     "censorship": "Censura",
-    "mixed-content": "Contenido mixto"
+    "mixed-content": "Contenido mixto",
+    "lookalikes": "Dominios parecidos"
   },
   "mailConfig": {
     "checklist": "Protección contra suplantación",
@@ -477,6 +478,11 @@
         "title": "La página carga {{count}} imágenes o medios por http://",
         "desc": "El navegador muestra un aviso de \"no seguro\" y esos archivos pueden ser reemplazados en el camino.",
         "action": "Cambia esas direcciones a https://; en WordPress, un plugin como Better Search Replace ayuda a hacerlo en todo el sitio."
+      },
+      "lookalikes": {
+        "title": "Hay {{count}} dominios parecidos al tuyo registrados: {{names}}",
+        "desc": "Dominios casi iguales al tuyo se usan para enviar correos falsos o publicar páginas que se hacen pasar por tu organización.",
+        "action": "Revisa si alguno es tuyo. Si no, vigílalos; si uno se usa para suplantarte, escríbenos y te ayudamos a reportarlo. Considera registrar las variantes más obvias."
       }
     }
   },
@@ -563,7 +569,8 @@
       "censorship": "Sin señales de bloqueo según OONI",
       "ddos": "Protegido contra DDoS",
       "cookies": "Cookies con Secure y HttpOnly",
-      "mixedContent": "Sin contenido mixto"
+      "mixedContent": "Sin contenido mixto",
+      "lookalikes": "Sin dominios parecidos registrados"
     },
     "help": "¿Necesitas ayuda para resolver algo de este informe? Escríbenos a {{email}}. Puedes escribirnos sin cifrar.",
     "disclaimer": "Informe generado con Veni OSINT ({{site}}) a partir de información pública del sitio. Es una revisión automática: no reemplaza una auditoría de seguridad."
@@ -638,5 +645,12 @@
     "passive_one": "{{count}} recurso pasivo por http://",
     "passive_other": "{{count}} recursos pasivos por http://",
     "note": "Se revisó el HTML de la portada. Activos: scripts, estilos, iframes y formularios; pasivos: imágenes, audio y video."
+  },
+  "lookalikes": {
+    "none": "No encontramos dominios parecidos registrados ({{count}} revisados).",
+    "typo": "Con error de tipeo",
+    "tld": "Otra terminación",
+    "mail": "puede recibir correo",
+    "note": "Revisamos {{checked}} variantes del nombre. Algunas pueden ser tuyas o de otras personas sin mala intención; las de tipeo con correo son las que más se usan para phishing."
   }
 }

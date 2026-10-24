@@ -18,7 +18,7 @@ const SOURCES: [string, keyof FindingInputs][] = [
   ['http-security', 'httpSecurity'], ['dnssec', 'dnssec'], ['security-txt', 'securityTxt'],
   ['block-lists', 'blockLists'], ['threats', 'threats'], ['ports', 'ports'], ['wordpress', 'wordpress'],
   ['exposed-files', 'exposedFiles'], ['subdomains', 'subdomains'], ['headers', 'headers'],
-  ['censorship', 'censorship'], ['firewall', 'firewall'], ['cookies', 'cookies'], ['mixed-content', 'mixedContent'],
+  ['censorship', 'censorship'], ['firewall', 'firewall'], ['cookies', 'cookies'], ['mixed-content', 'mixedContent'], ['lookalikes', 'lookalikes'],
 ];
 
 const isPresent = (value: any) => value !== undefined && value !== null && !(typeof value === 'object' && value.error);

@@ -125,4 +125,15 @@ describe('getFindings', () => {
     expect(ids({ mixedContent: { activeCount: 2, passiveCount: 1 } })).toEqual(['mixedActive', 'mixedPassive']);
     expect(getFindings({ mixedContent: { activeCount: 0, passiveCount: 0 } }, now).passed).toContain('mixedContent');
   });
+
+  it('dominios parecidos: tipeo con correo es importante; solo otras terminaciones, recomendado', () => {
+    const typo = getFindings({ lookalikes: { label: 'amnistia', registered: [
+      { name: 'arnnistia.org.mx', kind: 'typo', hasMx: true }, { name: 'amnistia.com', kind: 'tld', hasMx: true },
+    ] } }, now).findings[0];
+    expect(typo).toMatchObject({ id: 'lookalikes', severity: 'medium', params: { count: 2 } });
+    expect(getFindings({ lookalikes: { label: 'r3d', registered: [{ name: 'r3d.com', kind: 'tld', hasMx: true }] } }, now).findings[0].severity).toBe('low');
+    // nombre corto: aunque haya tipeo con correo, es fácil que coincida con otros
+    expect(getFindings({ lookalikes: { label: 'r3d', registered: [{ name: 'rd3.mx', kind: 'typo', hasMx: true }] } }, now).findings[0].severity).toBe('low');
+    expect(getFindings({ lookalikes: { label: 'amnistia', registered: [] } }, now).passed).toContain('lookalikes');
+  });
 });

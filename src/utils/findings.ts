@@ -29,6 +29,7 @@ export interface FindingInputs {
   firewall?: any;
   cookies?: any;
   mixedContent?: any;
+  lookalikes?: any;
 }
 
 const DAY_MS = 24 * 60 * 60 * 1000;
@@ -206,6 +207,16 @@ export const getFindings = (r: FindingInputs, now: Date = new Date()): { finding
     if (activeCount) findings.push({ id: 'mixedActive', severity: 'medium', params: { count: activeCount } });
     if (passiveCount) findings.push({ id: 'mixedPassive', severity: 'low', params: { count: passiveCount } });
     if (!activeCount && !passiveCount) passed.push('mixedContent');
+  }
+
+  // Dominios parecidos registrados. Los de tipeo con correo son la señal fuerte; con
+  // nombres cortos o comunes, que existan otras terminaciones es normal (ruido)
+  if (Array.isArray(r.lookalikes?.registered)) {
+    const list: { name: string, kind: string, hasMx: boolean }[] = r.lookalikes.registered;
+    if (list.length) {
+      const strong = list.some(d => d.kind === 'typo' && d.hasMx) && (r.lookalikes.label || '').length >= 5;
+      findings.push({ id: 'lookalikes', severity: strong ? 'medium' : 'low', params: { count: list.length, names: list.slice(0, 5).map(d => d.name).join(', ') } });
+    } else passed.push('lookalikes');
   }
 
   // Puertos abiertos además de la web

@@ -272,7 +272,8 @@
     "exposed-files": "Arquivos expostos",
     "subdomains": "Subdomínios",
     "censorship": "Censura",
-    "mixed-content": "Conteúdo misto"
+    "mixed-content": "Conteúdo misto",
+    "lookalikes": "Domínios parecidos"
   },
   "mailConfig": {
     "checklist": "Proteção contra falsificação",
@@ -477,6 +478,11 @@
         "title": "A página carrega {{count}} imagens ou mídias por http://",
         "desc": "O navegador mostra o aviso de \"não seguro\" e esses arquivos podem ser trocados no caminho.",
         "action": "Troque esses endereços por https://; no WordPress, um plugin como o Better Search Replace ajuda a fazer isso no site todo."
+      },
+      "lookalikes": {
+        "title": "Há {{count}} domínios parecidos com o seu registrados: {{names}}",
+        "desc": "Domínios quase iguais ao seu são usados para enviar e-mails falsos ou publicar páginas que se passam pela sua organização.",
+        "action": "Veja se algum é seu. Se não, fique de olho; se algum for usado para se passar por você, escreva para nós e ajudamos a denunciar. Considere registrar as variantes mais óbvias."
       }
     }
   },
@@ -563,7 +569,8 @@
       "censorship": "Sem sinais de bloqueio segundo o OONI",
       "ddos": "Protegido contra DDoS",
       "cookies": "Cookies com Secure e HttpOnly",
-      "mixedContent": "Sem conteúdo misto"
+      "mixedContent": "Sem conteúdo misto",
+      "lookalikes": "Sem domínios parecidos registrados"
     },
     "help": "Precisa de ajuda para resolver algo deste relatório? Escreva para {{email}}. Você pode nos escrever sem criptografia.",
     "disclaimer": "Relatório gerado com o Veni OSINT ({{site}}) a partir de informações públicas do site. É uma revisão automática: não substitui uma auditoria de segurança."
@@ -638,5 +645,12 @@
     "passive_one": "{{count}} recurso passivo por http://",
     "passive_other": "{{count}} recursos passivos por http://",
     "note": "Foi verificado o HTML da página inicial. Ativos: scripts, estilos, iframes e formulários; passivos: imagens, áudio e vídeo."
+  },
+  "lookalikes": {
+    "none": "Não encontramos domínios parecidos registrados ({{count}} verificados).",
+    "typo": "Com erro de digitação",
+    "tld": "Outra terminação",
+    "mail": "pode receber e-mail",
+    "note": "Verificamos {{checked}} variantes do nome. Algumas podem ser suas ou de outras pessoas sem má intenção; as de digitação com e-mail são as mais usadas para phishing."
   }
 }

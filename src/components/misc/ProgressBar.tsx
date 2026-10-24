@@ -212,6 +212,7 @@ const jobNames = [
   'subdomains',
   'censorship',
   'mixed-content',
+  'lookalikes',
   'redirects',
   'linked-pages',
   'robots-txt',
