@@ -6,6 +6,7 @@ import { Comparison } from 'utils/compare';
 import { dateLocale } from 'i18n';
 import { CONTACT_EMAIL, SITE_URL } from 'config';
 import { findingParams } from 'utils/countries';
+import { termsIn, TERMS } from 'utils/glossary';
 
 // Informe para imprimir o "Guardar como PDF" desde el navegador. Solo se ve al
 // imprimir (ver @media print en index.css); en pantalla está oculto.
@@ -201,6 +202,18 @@ const Report = (props: ReportProps): JSX.Element => {
           {passed.map(id => <li key={id}>{t(`report.passed.${id}`)}</li>)}
         </ul>
       </>}
+
+      {(() => {
+        // En papel no hay cursor: los términos de este informe van explicados al final
+        const texts = findings.flatMap(f => ['title', 'desc', 'action'].map(part => t(`summary.findings.${f.id}.${part}`, findingParams(f.params))));
+        const keys = termsIn(texts);
+        return keys.length > 0 && <>
+          <h2>{t('glossaryUi.reportTitle')}</h2>
+          <table><tbody>
+            {keys.map(key => <tr key={key}><th>{TERMS.filter(([k]) => k === key).map(([, term]) => term).pop()}</th><td>{t(`glossary.${key}`)}</td></tr>)}
+          </tbody></table>
+        </>;
+      })()}
 
       <footer>
         <p>{t('report.help', { email: CONTACT_EMAIL })}</p>

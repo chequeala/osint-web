@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { useTranslation } from 'react-i18next';
+import { Glossed } from 'components/misc/Glossary';
 
 // Aviso arriba de los resultados cuando el certificado no sirve: es lo primero
 // que verá quien entre al sitio por https://, así que no puede quedar escondido
@@ -40,8 +41,8 @@ const SslBanner = (props: { ssl: any, host: string }): JSX.Element | null => {
       <i className="bi bi-shield-exclamation icon me-0" aria-hidden="true"></i>
       <div>
         <h2>{t('sslBanner.title', { host: props.host })}</h2>
-        {problems.map(p => <p key={p}>{t(`sslCard.problems.${p}`, { names })}</p>)}
-        <p className="small text-soft">{t('sslBanner.overHttp')}</p>
+        {problems.map(p => <p key={p}><Glossed text={t(`sslCard.problems.${p}`, { names })} /></p>)}
+        <p className="small text-soft"><Glossed text={t('sslBanner.overHttp')} /></p>
       </div>
     </Banner>
   );

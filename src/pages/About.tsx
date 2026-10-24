@@ -5,6 +5,7 @@ import AdditionalResources from 'components/misc/AdditionalResources';
 import { StyledCard } from 'components/Form/Card';
 import { getDocs } from 'utils/get-docs';
 import { REPO_URL } from 'config';
+import { allTermKeys, TERMS } from 'utils/glossary';
 
 const AboutContainer = styled.div`
   max-width: 1000px;
@@ -55,6 +56,13 @@ const Section = styled(StyledCard)`
     width: fit-content;
   }
   small { opacity: 0.7; }
+  .glossary {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(18rem, 1fr));
+    gap: 0.75rem 1.5rem;
+    dt { color: var(--vt-purple-deep); }
+    dd { margin: 0.1rem 0 0; color: var(--ink-soft); }
+  }
   .contents {
     ul {
       list-style: none;
@@ -169,6 +177,22 @@ const About = (): JSX.Element => {
             </>}
           </section>
         ))}
+      </Section>
+
+      <Heading as="h2" size="medium" id="glosario">{t('glossaryUi.title')}</Heading>
+      <Section>
+        <p className="text-soft">{t('glossaryUi.intro')}</p>
+        <dl className="glossary mb-0">
+          {allTermKeys()
+            .map(key => ({ key, term: TERMS.filter(([k]) => k === key).map(([, term]) => term).pop() as string }))
+            .sort((a, b) => a.term.localeCompare(b.term))
+            .map(({ key, term }) => (
+              <div key={key}>
+                <dt>{term}</dt>
+                <dd>{t(`glossary.${key}`)}</dd>
+              </div>
+            ))}
+        </dl>
       </Section>
 
       <Heading as="h2" size="medium">{t('about.additionalResources')}</Heading>

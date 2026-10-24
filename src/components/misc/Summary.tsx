@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { Finding, FindingInputs, getFindings, Severity } from 'utils/findings';
 import { CONTACT_EMAIL, SITE_URL } from 'config';
 import { findingParams } from 'utils/countries';
+import { Glossed } from 'components/misc/Glossary';
 import { buildIcs, reminderDate } from 'utils/reminder';
 import { dateLocale } from 'i18n';
 
@@ -158,13 +159,13 @@ const Summary = (props: SummaryProps): JSX.Element => {
 
       {findings.length > 0 ? (
         <ul className="findings">
-          {findings.map(f => (
+          {findings.map(f => { const seen = new Set<string>(); return (
             <li key={f.id} className={`finding sev-${f.severity}`}>
-              <h3><span className="badge-sev">{t(`summary.severity.${f.severity}`)}</span>{findingText(f, 'title')}</h3>
-              <p className="text-soft">{findingText(f, 'desc')}</p>
-              <p className="action"><strong>{t('summary.whatToDo')}</strong> {findingText(f, 'action')}</p>
+              <h3><span className="badge-sev">{t(`summary.severity.${f.severity}`)}</span><Glossed text={findingText(f, 'title')} seen={seen} /></h3>
+              <p className="text-soft"><Glossed text={findingText(f, 'desc')} seen={seen} /></p>
+              <p className="action"><strong>{t('summary.whatToDo')}</strong> <Glossed text={findingText(f, 'action')} seen={seen} /></p>
             </li>
-          ))}
+          ); })}
         </ul>
       ) : isDone && (
         <p className="mt-3 mb-0">{t('summary.allGood')}</p>

@@ -687,5 +687,41 @@
     "domainExpiry": "O domínio vence em {{date}}: lembre-se de renová-lo.",
     "hint": "Baixa um evento de calendário para {{date}}.",
     "hintExpiry": "Baixa um evento de calendário para {{date}}, 30 dias antes de o domínio vencer."
+  },
+  "glossary": {
+    "csp": "Cabeçalho que diz ao navegador de quais sites ele pode carregar scripts, estilos e imagens; impede a injeção de código.",
+    "xfo": "Cabeçalho que impede que o seu site seja exibido dentro de outro (clickjacking: clicar no seu site sem perceber).",
+    "xcto": "Cabeçalho que impede o navegador de \"adivinhar\" o tipo de um arquivo e executar algo que não devia.",
+    "hsts": "HTTP Strict Transport Security: obriga o navegador a entrar sempre por HTTPS, mesmo que alguém digite http://.",
+    "apiRest": "Forma como o WordPress entrega dados a outros programas; por padrão expõe a lista de usuários.",
+    "tlsRpt": "Registro DNS com um e-mail para receber relatórios quando a criptografia do e-mail entre servidores falha.",
+    "mtaSts": "Política que obriga o e-mail recebido pelo seu domínio a trafegar criptografado entre servidores.",
+    "dnssec": "Assinatura digital dos registros DNS: impede que alguém falsifique as respostas e desvie as pessoas para outro site.",
+    "securityTxt": "Arquivo público que indica quem avisar se alguém encontrar um problema de segurança no seu site.",
+    "xmlrpc": "Entrada antiga do WordPress para apps externos; muito usada para testar senhas em grande escala.",
+    "onion": "Endereço que só abre com o navegador Tor; permite ler o site mesmo que esteja bloqueado em um país.",
+    "https": "Versão criptografada da web: o que é enviado não pode ser lido nem alterado no caminho. Aparece como um cadeado.",
+    "dmarc": "Registro DNS que diz o que fazer com e-mails que dizem ser do seu domínio e não são; impede a falsificação.",
+    "dkim": "Assinatura digital em cada e-mail enviado, para comprovar que saiu do seu domínio e não foi alterado.",
+    "spf": "Registro DNS com a lista de servidores que podem enviar e-mail em nome do seu domínio.",
+    "cname": "Registro DNS que faz um subdomínio apontar para outro nome (por exemplo, para um serviço externo).",
+    "caa": "Registro DNS que indica quais autoridades podem emitir certificados HTTPS para o seu domínio.",
+    "dns": "A \"lista telefônica\" da internet: traduz um nome como chequea.la no endereço IP do servidor.",
+    "ddos": "Ataque de negação de serviço: milhares de máquinas sobrecarregam o site até deixá-lo fora do ar.",
+    "waf": "Firewall de aplicações web: filtra o tráfego malicioso antes que chegue ao seu site.",
+    "ooni": "Observatório aberto que mede a censura na internet a partir de redes do mundo todo.",
+    "tor": "Rede e navegador que protegem o anonimato e permitem contornar bloqueios.",
+    "tls": "O protocolo que criptografa as conexões (o que faz o HTTPS funcionar); sucessor do SSL.",
+    "ssl": "Nome antigo do TLS; ainda é usado para falar dos certificados HTTPS.",
+    "whois": "Registro público com os dados de um domínio: quando foi criado, quando vence e com quem foi registrado.",
+    "phishing": "Golpe para roubar senhas ou dados, com e-mails ou páginas que se passam por alguém de confiança.",
+    "malware": "Programa malicioso: vírus, trojans ou código que rouba dados ou danifica equipamentos.",
+    "httpOnly": "Atributo que impede que os scripts da página leiam um cookie; protege as sessões se injetarem código.",
+    "ip": "Endereço numérico de uma máquina na internet, como 185.196.61.178."
+  },
+  "glossaryUi": {
+    "title": "Glossário",
+    "reportTitle": "Glossário dos termos deste relatório",
+    "intro": "Os termos técnicos ficam em inglês, como aparecem nas ferramentas e na documentação."
   }
 }
