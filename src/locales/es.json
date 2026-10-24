@@ -265,7 +265,8 @@
     "wordpress": "WordPress",
     "exposed-files": "Archivos expuestos",
     "subdomains": "Subdominios",
-    "censorship": "Censura"
+    "censorship": "Censura",
+    "mixed-content": "Contenido mixto"
   },
   "mailConfig": {
     "checklist": "Protección contra suplantación",
@@ -451,6 +452,21 @@
         "title": "El sitio no parece tener protección contra ataques DDoS",
         "desc": "Un ataque de denegación de servicio puede dejar el sitio fuera de línea justo cuando más se necesita, por ejemplo después de publicar una denuncia.",
         "action": "Organizaciones de sociedad civil y medios pueden usar gratis Deflect (deflect.ca) o Project Shield de Google. Podemos ayudarte a configurarlo."
+      },
+      "insecureCookies": {
+        "title": "Cookies sin protección: {{names}}",
+        "desc": "Les falta Secure (pueden viajar sin cifrar) o, si son de sesión, HttpOnly (un script malicioso podría robarlas y entrar como la persona usuaria).",
+        "action": "Configura las cookies con los atributos Secure, HttpOnly y SameSite=Lax en tu sitio o plugin de seguridad."
+      },
+      "mixedActive": {
+        "title": "La página carga {{count}} recursos activos por http://",
+        "desc": "Scripts, estilos, iframes o formularios por http:// en una página https://: el navegador los bloquea (la página puede verse rota) y, si no, podrían ser alterados en el camino.",
+        "action": "Cambia esas direcciones a https:// (o a rutas relativas) en el tema, los plugins o el contenido."
+      },
+      "mixedPassive": {
+        "title": "La página carga {{count}} imágenes o medios por http://",
+        "desc": "El navegador muestra un aviso de \"no seguro\" y esos archivos pueden ser reemplazados en el camino.",
+        "action": "Cambia esas direcciones a https://; en WordPress, un plugin como Better Search Replace ayuda a hacerlo en todo el sitio."
       }
     }
   },
@@ -535,7 +551,9 @@
       "subdomains": "Sin subdominios colgantes",
       "versionExposed": "No muestra versiones de software",
       "censorship": "Sin señales de bloqueo según OONI",
-      "ddos": "Protegido contra DDoS"
+      "ddos": "Protegido contra DDoS",
+      "cookies": "Cookies con Secure y HttpOnly",
+      "mixedContent": "Sin contenido mixto"
     },
     "help": "¿Necesitas ayuda para resolver algo de este informe? Escríbenos a {{email}}. Puedes escribirnos sin cifrar.",
     "disclaimer": "Informe generado con Veni OSINT ({{site}}) a partir de información pública del sitio. Es una revisión automática: no reemplaza una auditoría de seguridad."
@@ -602,5 +620,13 @@
     "noIssues": "Ninguno de los dos análisis tiene problemas en las pruebas que comparten.",
     "privacy": "La comparación se hace en tu navegador: el archivo no se sube a ningún lado.",
     "reportTitle": "Cambios desde el análisis del {{date}}"
+  },
+  "mixedContent": {
+    "none": "Todos los recursos de la página se cargan por HTTPS.",
+    "active_one": "{{count}} recurso activo por http://",
+    "active_other": "{{count}} recursos activos por http://",
+    "passive_one": "{{count}} recurso pasivo por http://",
+    "passive_other": "{{count}} recursos pasivos por http://",
+    "note": "Se revisó el HTML de la portada. Activos: scripts, estilos, iframes y formularios; pasivos: imágenes, audio y video."
   }
 }

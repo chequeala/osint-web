@@ -55,6 +55,7 @@ import WordPressCard from 'components/Results/WordPress';
 import ExposedFilesCard from 'components/Results/ExposedFiles';
 import SubdomainsCard from 'components/Results/Subdomains';
 import CensorshipCard from 'components/Results/Censorship';
+import MixedContentCard from 'components/Results/MixedContent';
 import Summary from 'components/misc/Summary';
 import SslBanner from 'components/misc/SslBanner';
 import Report from 'components/misc/Report';
@@ -485,6 +486,14 @@ const Results = (): JSX.Element => {
     fetchRequest: () => fetch(`${api}/subdomains?url=${address}`).then(res => parseJson(res)),
   });
 
+  // Recursos http:// dentro de la página https://
+  const [mixedContentResults, updateMixedContentResults] = useMotherHook({
+    jobId: 'mixed-content',
+    updateLoadingJobs,
+    addressInfo: { address, addressType, expectedAddressTypes: urlTypeOnly },
+    fetchRequest: () => fetch(`${api}/mixed-content?url=${address}`).then(res => parseJson(res)),
+  });
+
   // Bloqueos por país según las mediciones abiertas de OONI
   const [censorshipResults, updateCensorshipResults] = useMotherHook({
     jobId: 'censorship',
@@ -780,6 +789,13 @@ const Results = (): JSX.Element => {
       refresh: updateWordpressResults,
       tags: ['security'],
     }, {
+      id: 'mixed-content',
+      title: 'Mixed Content',
+      result: mixedContentResults,
+      Component: MixedContentCard,
+      refresh: updateMixedContentResults,
+      tags: ['security'],
+    }, {
       id: 'censorship',
       title: 'Censorship',
       result: censorshipResults,
@@ -932,6 +948,8 @@ const Results = (): JSX.Element => {
         headers={headersResults}
         censorship={censorshipResults}
         firewall={firewallResults}
+        cookies={cookieResults}
+        mixedContent={mixedContentResults}
         comparison={comparison}
       /> }
       <div className="container results-screen">
@@ -970,6 +988,8 @@ const Results = (): JSX.Element => {
           headers={headersResults}
           censorship={censorshipResults}
           firewall={firewallResults}
+          cookies={cookieResults}
+          mixedContent={mixedContentResults}
         /> }
         { address && <Compare current={currentExport} host={makeSiteName(address)} isDone={isDone} onCompare={setComparison} /> }
           <Loader show={loadingJobs.filter((job: LoadingJob) => job.state !== 'loading').length < 5} />

@@ -211,6 +211,7 @@ const jobNames = [
   'exposed-files',
   'subdomains',
   'censorship',
+  'mixed-content',
   'redirects',
   'linked-pages',
   'robots-txt',

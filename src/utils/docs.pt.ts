@@ -429,6 +429,16 @@ const docs: Doc[] = [
     ],
   },
   {
+    id: 'mixed-content',
+    title: 'Conteúdo misto',
+    description: 'Verifica o HTML da página inicial em busca de recursos carregados por http:// dentro de uma página https://. Os ativos (scripts, estilos, iframes, formulários) são bloqueados pelo navegador; os passivos (imagens, áudio, vídeo) geram um aviso de "não seguro".',
+    use: 'É um problema comum depois de passar um site para HTTPS: ficam endereços antigos no tema, nos plugins ou no conteúdo. Além de ficar feio, permite que alguém na mesma rede altere esses arquivos.',
+    resources: [
+      { title: 'Conteúdo misto (MDN)', link: 'https://developer.mozilla.org/pt-BR/docs/Web/Security/Mixed_content' },
+      { title: 'Corrigir conteúdo misto (web.dev)', link: 'https://web.dev/articles/fixing-mixed-content' },
+    ],
+  },
+  {
     id: 'censorship',
     title: 'Censura',
     description: 'Verifica se o site está bloqueado em algum país usando os dados abertos do OONI (Open Observatory of Network Interference), medições feitas por pessoas voluntárias em redes do mundo todo. Mostra, por país, que parte das medições dos últimos 90 dias teve anomalias.',

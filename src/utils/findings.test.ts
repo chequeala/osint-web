@@ -1,4 +1,4 @@
-import { getFindings, isPhpUnsupported, parseDate } from 'utils/findings';
+import { getFindings, isPhpUnsupported, parseDate, parseSetCookie } from 'utils/findings';
 
 const now = new Date('2026-10-23T00:00:00Z');
 const ids = (r: Parameters<typeof getFindings>[0]) => getFindings(r, now).findings.map(f => f.id);
@@ -111,5 +111,18 @@ describe('getFindings', () => {
   it('sin protección DDoS es importante', () => {
     expect(getFindings({ firewall: { hasWaf: false } }, now).findings).toEqual([{ id: 'noDdosProtection', severity: 'medium' }]);
     expect(getFindings({ firewall: { hasWaf: true, waf: 'Deflect (eQualitie)' } }, now).passed).toContain('ddos');
+  });
+
+  it('cookies: de sesión sin HttpOnly es importante; sin Secure, recomendado', () => {
+    expect(parseSetCookie('PHPSESSID=abc; path=/; Secure; SameSite=Lax')).toEqual({ name: 'PHPSESSID', secure: true, httpOnly: false, sameSite: 'lax' });
+    expect(getFindings({ cookies: { headerCookies: ['PHPSESSID=abc; path=/; Secure'] } }, now).findings)
+      .toEqual([{ id: 'insecureCookies', severity: 'medium', params: { names: 'PHPSESSID' } }]);
+    expect(getFindings({ cookies: { headerCookies: ['lang=es; path=/'] } }, now).findings[0]).toMatchObject({ id: 'insecureCookies', severity: 'low' });
+    expect(getFindings({ cookies: { headerCookies: ['wordpress_logged_in_x=1; Secure; HttpOnly'] } }, now).passed).toContain('cookies');
+  });
+
+  it('contenido mixto activo y pasivo', () => {
+    expect(ids({ mixedContent: { activeCount: 2, passiveCount: 1 } })).toEqual(['mixedActive', 'mixedPassive']);
+    expect(getFindings({ mixedContent: { activeCount: 0, passiveCount: 0 } }, now).passed).toContain('mixedContent');
   });
 });

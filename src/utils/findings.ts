@@ -27,6 +27,8 @@ export interface FindingInputs {
   headers?: any;
   censorship?: any;
   firewall?: any;
+  cookies?: any;
+  mixedContent?: any;
 }
 
 const DAY_MS = 24 * 60 * 60 * 1000;
@@ -51,6 +53,19 @@ export const isPhpUnsupported = (version: string, now: Date): boolean => {
   const until = PHP_SECURITY_UNTIL[`${major}.${minor}`];
   if (until) return now > new Date(`${until}T23:59:59Z`);
   return major < 8 || (major === 8 && minor < 2);
+};
+
+// Cookies de sesión o de login: si se roban, alguien puede entrar como esa persona
+const SESSION_COOKIE = /sess|auth|token|login|logged_in|sid$|^sid|jwt|remember/i;
+
+export interface CookieFlags { name: string; secure: boolean; httpOnly: boolean; sameSite: string | null; }
+
+export const parseSetCookie = (header: string): CookieFlags => {
+  const [pair, ...attrs] = header.split(';').map(s => s.trim());
+  const name = pair.split('=')[0];
+  const lower = attrs.map(a => a.toLowerCase());
+  const sameSite = lower.find(a => a.startsWith('samesite='));
+  return { name, secure: lower.includes('secure'), httpOnly: lower.includes('httponly'), sameSite: sameSite ? sameSite.split('=')[1] : null };
 };
 
 // Fechas de whois en formatos variados, incluido 20270307 (registro.br)
@@ -173,6 +188,24 @@ export const getFindings = (r: FindingInputs, now: Date = new Date()): { finding
     versions.length
       ? findings.push({ id: 'versionExposed', severity: 'low', params: { versions: [...new Set(versions)].join(', ') } })
       : passed.push('versionExposed');
+  }
+
+  // Cookies sin Secure o, si son de sesión, sin HttpOnly
+  if (Array.isArray(r.cookies?.headerCookies) && !r.cookies.fetchedOverHttp) {
+    const cookies: CookieFlags[] = r.cookies.headerCookies.map(parseSetCookie);
+    const weak = cookies.filter(c => !c.secure || (SESSION_COOKIE.test(c.name) && !c.httpOnly));
+    if (weak.length) {
+      const severity = weak.some(c => SESSION_COOKIE.test(c.name)) ? 'medium' : 'low';
+      findings.push({ id: 'insecureCookies', severity, params: { names: weak.map(c => c.name).join(', ') } });
+    } else if (cookies.length) passed.push('cookies');
+  }
+
+  // Contenido mixto: recursos http:// en una página https://
+  if (r.mixedContent && typeof r.mixedContent.activeCount === 'number') {
+    const { activeCount, passiveCount } = r.mixedContent;
+    if (activeCount) findings.push({ id: 'mixedActive', severity: 'medium', params: { count: activeCount } });
+    if (passiveCount) findings.push({ id: 'mixedPassive', severity: 'low', params: { count: passiveCount } });
+    if (!activeCount && !passiveCount) passed.push('mixedContent');
   }
 
   // Puertos abiertos además de la web
