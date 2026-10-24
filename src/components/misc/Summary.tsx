@@ -4,6 +4,8 @@ import { useTranslation } from 'react-i18next';
 import { Finding, FindingInputs, getFindings, Severity } from 'utils/findings';
 import { CONTACT_EMAIL, SITE_URL } from 'config';
 import { findingParams } from 'utils/countries';
+import { buildIcs, reminderDate } from 'utils/reminder';
+import { dateLocale } from 'i18n';
 
 const SummaryCard = styled.section`
   background: var(--surface);
@@ -108,6 +110,25 @@ const Summary = (props: SummaryProps): JSX.Element => {
     return `mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
   };
 
+  // Recordatorio de calendario para volver a analizar (en 3 meses o antes de que venza el dominio)
+  const domainExpiry = inputs.domain?.internicData?.Registry_Expiry_Date;
+  const reminder = reminderDate(domainExpiry);
+  const formatDay = (date: Date) => new Intl.DateTimeFormat(dateLocale(), { dateStyle: 'long' }).format(date);
+  const downloadReminder = () => {
+    const description = [
+      t('reminder.description', { host, count: findings.length, date: formatDay(new Date()) }),
+      reminder.reason === 'domainExpiry' ? t('reminder.domainExpiry', { date: formatDay(new Date(domainExpiry as string)) }) : '',
+      window.location.href,
+    ].filter(Boolean).join('\n\n');
+    const ics = buildIcs({ title: t('reminder.title', { host }), description, url: window.location.href, date: reminder.date });
+    const url = URL.createObjectURL(new Blob([ics], { type: 'text/calendar;charset=utf-8' }));
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = `veni-osint-recordatorio-${host}.ics`;
+    link.click();
+    URL.revokeObjectURL(url);
+  };
+
   // El navegador usa el título como nombre del PDF al guardarlo
   const printReport = () => {
     const previousTitle = document.title;
@@ -156,6 +177,10 @@ const Summary = (props: SummaryProps): JSX.Element => {
         <button type="button" className="btn btn-outline-brand rounded-pill px-4" onClick={printReport} disabled={!isDone}
           title={isDone ? undefined : t('summary.loading')}>
           <i className="bi bi-file-earmark-pdf me-2" aria-hidden="true"></i>{t('report.button')}
+        </button>
+        <button type="button" className="btn btn-outline-brand rounded-pill px-4" onClick={downloadReminder} disabled={!isDone}
+          title={t(reminder.reason === 'domainExpiry' ? 'reminder.hintExpiry' : 'reminder.hint', { date: formatDay(reminder.date) })}>
+          <i className="bi bi-calendar-plus me-2" aria-hidden="true"></i>{t('reminder.button')}
         </button>
         <a className="btn btn-outline-brand rounded-pill px-4" href={`${SITE_URL}/checklist`} target="_blank" rel="noopener noreferrer">
           <i className="bi bi-list-check me-2" aria-hidden="true"></i>{t('summary.checklistButton')}

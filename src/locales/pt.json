@@ -679,5 +679,13 @@
     "caaPresent": "Configurado",
     "noPolicy": "sem política publicada",
     "noMail": "O domínio não recebe e-mail, então MTA-STS e TLS-RPT não se aplicam."
+  },
+  "reminder": {
+    "button": "Lembrar de analisar de novo",
+    "title": "Analisar {{host}} de novo com o Veni OSINT",
+    "description": "Veja se foram resolvidos os problemas que o Veni OSINT encontrou em {{host}}. Última análise: {{date}} ({{count}} problemas). Você pode comparar carregando o arquivo de «Baixar resultados».",
+    "domainExpiry": "O domínio vence em {{date}}: lembre-se de renová-lo.",
+    "hint": "Baixa um evento de calendário para {{date}}.",
+    "hintExpiry": "Baixa um evento de calendário para {{date}}, 30 dias antes de o domínio vencer."
   }
 }
