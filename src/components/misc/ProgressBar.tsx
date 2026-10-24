@@ -213,6 +213,7 @@ const jobNames = [
   'censorship',
   'mixed-content',
   'lookalikes',
+  'dns-security',
   'redirects',
   'linked-pages',
   'robots-txt',

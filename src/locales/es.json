@@ -273,7 +273,8 @@
     "subdomains": "Subdominios",
     "censorship": "Censura",
     "mixed-content": "Contenido mixto",
-    "lookalikes": "Dominios parecidos"
+    "lookalikes": "Dominios parecidos",
+    "dns-security": "CAA y MTA-STS"
   },
   "mailConfig": {
     "checklist": "Protección contra suplantación",
@@ -488,6 +489,16 @@
         "title": "El sitio no tiene una dirección para Tor (.onion)",
         "desc": "Hay señales de bloqueo en algún país. Una dirección .onion permite que la gente allí lea el sitio con el navegador Tor, aunque esté bloqueado.",
         "action": "Publica una versión .onion del sitio y anúnciala con la cabecera Onion-Location. Podemos ayudarte a configurarla."
+      },
+      "noCaa": {
+        "title": "No hay registro CAA",
+        "desc": "El registro CAA indica qué autoridades pueden emitir certificados para tu dominio; sin él, cualquiera podría emitir uno si logra engañar a una autoridad.",
+        "action": "Agrega en tu DNS un registro CAA con la autoridad que usas, por ejemplo: 0 issue \"letsencrypt.org\"."
+      },
+      "noMtaSts": {
+        "title": "El correo entre servidores puede viajar sin cifrar (falta MTA-STS)",
+        "desc": "Sin MTA-STS, alguien en el camino podría hacer que los correos que recibe tu dominio se entreguen sin cifrado y leerlos.",
+        "action": "Publica una política MTA-STS en modo enforce y un registro TLS-RPT para recibir reportes. Muchos proveedores de correo explican cómo hacerlo."
       }
     }
   },
@@ -576,7 +587,9 @@
       "cookies": "Cookies con Secure y HttpOnly",
       "mixedContent": "Sin contenido mixto",
       "lookalikes": "Sin dominios parecidos registrados",
-      "onion": "Tiene dirección para Tor (.onion)"
+      "onion": "Tiene dirección para Tor (.onion)",
+      "caa": "Registro CAA configurado",
+      "mtaSts": "Correo entre servidores cifrado (MTA-STS)"
     },
     "help": "¿Necesitas ayuda para resolver algo de este informe? Escríbenos a {{email}}. Puedes escribirnos sin cifrar.",
     "disclaimer": "Informe generado con Veni OSINT ({{site}}) a partir de información pública del sitio. Es una revisión automática: no reemplaza una auditoría de seguridad."
@@ -661,5 +674,10 @@
     "tld": "Otra terminación",
     "mail": "puede recibir correo",
     "note": "Revisamos {{checked}} variantes del nombre. Algunas pueden ser tuyas o de otras personas sin mala intención; las de tipeo con correo son las que más se usan para phishing."
+  },
+  "dnsSecurity": {
+    "caaPresent": "Configurado",
+    "noPolicy": "sin política publicada",
+    "noMail": "El dominio no recibe correo, así que MTA-STS y TLS-RPT no aplican."
   }
 }

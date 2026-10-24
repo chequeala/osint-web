@@ -57,6 +57,7 @@ import SubdomainsCard from 'components/Results/Subdomains';
 import CensorshipCard from 'components/Results/Censorship';
 import MixedContentCard from 'components/Results/MixedContent';
 import LookalikesCard from 'components/Results/Lookalikes';
+import DnsSecurityCard from 'components/Results/DnsSecurity';
 import Summary from 'components/misc/Summary';
 import SslBanner from 'components/misc/SslBanner';
 import Report from 'components/misc/Report';
@@ -506,6 +507,14 @@ const Results = (): JSX.Element => {
     fetchRequest: () => fetch(`${api}/subdomains?url=${address}`).then(res => parseJson(res)),
   });
 
+  // CAA, MTA-STS y TLS-RPT
+  const [dnsSecurityResults, updateDnsSecurityResults] = useMotherHook({
+    jobId: 'dns-security',
+    updateLoadingJobs,
+    addressInfo: { address, addressType, expectedAddressTypes: urlTypeOnly },
+    fetchRequest: () => fetch(`${api}/dns-security?url=${address}`).then(res => parseJson(res)),
+  });
+
   // Dominios parecidos registrados (posible phishing)
   const [lookalikesResults, updateLookalikesResults] = useMotherHook({
     jobId: 'lookalikes',
@@ -823,6 +832,13 @@ const Results = (): JSX.Element => {
       refresh: updateWordpressResults,
       tags: ['security'],
     }, {
+      id: 'dns-security',
+      title: 'CAA and MTA-STS',
+      result: dnsSecurityResults,
+      Component: DnsSecurityCard,
+      refresh: updateDnsSecurityResults,
+      tags: ['server', 'security'],
+    }, {
       id: 'lookalikes',
       title: 'Lookalike Domains',
       result: lookalikesResults,
@@ -993,6 +1009,7 @@ const Results = (): JSX.Element => {
         cookies={cookieResults}
         mixedContent={mixedContentResults}
         lookalikes={lookalikesResults}
+        dnsSecurity={dnsSecurityResults}
         comparison={comparison}
       /> }
       <div className="container results-screen">
@@ -1034,6 +1051,7 @@ const Results = (): JSX.Element => {
           cookies={cookieResults}
           mixedContent={mixedContentResults}
           lookalikes={lookalikesResults}
+          dnsSecurity={dnsSecurityResults}
         /> }
         { address && <Compare current={currentExport} host={makeSiteName(address)} isDone={isDone} onCompare={setComparison} /> }
           <Loader show={loadingJobs.filter((job: LoadingJob) => job.state !== 'loading').length < 5} />

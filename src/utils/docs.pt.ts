@@ -429,6 +429,17 @@ const docs: Doc[] = [
     ],
   },
   {
+    id: 'dns-security',
+    title: 'CAA e MTA-STS',
+    description: 'Verifica três registros DNS de segurança: CAA (quais autoridades podem emitir certificados para o domínio), MTA-STS (obriga que o e-mail recebido pelo domínio trafegue criptografado) e TLS-RPT (endereço para receber relatórios quando essa criptografia falha).',
+    use: 'O CAA dificulta que alguém obtenha um certificado falso para o seu domínio. O MTA-STS evita que o e-mail da sua organização seja entregue sem criptografia a alguém que o intercepte.',
+    resources: [
+      { title: 'Registro CAA (Let\'s Encrypt)', link: 'https://letsencrypt.org/pt-br/docs/caa/' },
+      { title: 'RFC-8461 - MTA-STS', link: 'https://datatracker.ietf.org/doc/html/rfc8461' },
+      { title: 'RFC-8460 - TLS-RPT', link: 'https://datatracker.ietf.org/doc/html/rfc8460' },
+    ],
+  },
+  {
     id: 'lookalikes',
     title: 'Domínios parecidos',
     description: 'Gera variantes do domínio como as usadas para enganar (letras omitidas, repetidas ou trocadas, caracteres que se confundem como 0 e o, hifens e outras terminações) e verifica por DNS quais estão registradas e quais podem receber e-mail.',

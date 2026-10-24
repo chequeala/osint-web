@@ -144,4 +144,12 @@ describe('getFindings', () => {
     expect(ids({ headers: { server: 'nginx' }, censorship: blocked })).toEqual(['censoredLikely', 'noOnion']);
     expect(ids({ headers: { server: 'nginx' } })).toEqual([]);
   });
+
+  it('CAA siempre; MTA-STS solo si el dominio recibe correo', () => {
+    expect(ids({ dnsSecurity: { caa: [], receivesMail: false } })).toEqual(['noCaa']);
+    expect(ids({ dnsSecurity: { caa: [], receivesMail: true, mtaSts: { mode: 'testing' } } })).toEqual(['noCaa', 'noMtaSts']);
+    const ok = getFindings({ dnsSecurity: { caa: [{ tag: 'issue', value: 'letsencrypt.org' }], receivesMail: true, mtaSts: { mode: 'enforce' } } }, now);
+    expect(ok.findings).toEqual([]);
+    expect(ok.passed).toEqual(expect.arrayContaining(['caa', 'mtaSts']));
+  });
 });

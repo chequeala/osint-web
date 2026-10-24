@@ -30,6 +30,7 @@ export interface FindingInputs {
   cookies?: any;
   mixedContent?: any;
   lookalikes?: any;
+  dnsSecurity?: any;
 }
 
 const DAY_MS = 24 * 60 * 60 * 1000;
@@ -267,6 +268,14 @@ export const getFindings = (r: FindingInputs, now: Date = new Date()): { finding
     missing.length
       ? findings.push({ id: 'headers', severity: missing.length >= 2 ? 'medium' : 'low', params: { headers: missing.join(', ') } })
       : passed.push('headers');
+  }
+
+  // CAA (quién puede emitir certificados) y MTA-STS (correo cifrado entre servidores)
+  if (r.dnsSecurity && Array.isArray(r.dnsSecurity.caa)) {
+    r.dnsSecurity.caa.length ? passed.push('caa') : findings.push({ id: 'noCaa', severity: 'low' });
+    if (r.dnsSecurity.receivesMail) {
+      r.dnsSecurity.mtaSts?.mode === 'enforce' ? passed.push('mtaSts') : findings.push({ id: 'noMtaSts', severity: 'low' });
+    }
   }
 
   // Buenas prácticas
