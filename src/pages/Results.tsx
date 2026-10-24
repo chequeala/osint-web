@@ -99,6 +99,14 @@ const ResultsContent = styled.section`
   padding-bottom: 1rem;
 `;
 
+const DetailsToggle = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem 1rem;
+  margin: 0 0 1.5rem;
+`;
+
 const FilterButtons = styled.div`
   width: 100%;
   margin: auto;
@@ -172,6 +180,16 @@ const Results = (): JSX.Element => {
   const [modalOpen, setModalOpen] = useState(false);
   const [modalContent, setModalContent] = useState<ReactNode>(<></>);
   const [showFilters, setShowFilters] = useState(false);
+  // Vista simple por defecto: resumen y datos clave; las tarjetas técnicas, a un clic
+  const [showDetails, setShowDetails] = useState<boolean>(() => {
+    try { return localStorage.getItem('showTechnicalDetails') === 'true'; } catch { return false; }
+  });
+  const toggleDetails = () => {
+    setShowDetails(previous => {
+      try { localStorage.setItem('showTechnicalDetails', String(!previous)); } catch { /* sin localStorage */ }
+      return !previous;
+    });
+  };
   const [comparison, setComparison] = useState<{ comparison: Comparison, previousDate: string | null } | null>(null);
   const [searchTerm, setSearchTerm] = useState<string>('');
   const [tags, setTags] = useState<string[]>([]);
@@ -999,6 +1017,14 @@ const Results = (): JSX.Element => {
         /> }
         { address && <Compare current={currentExport} host={makeSiteName(address)} isDone={isDone} onCompare={setComparison} /> }
           <Loader show={loadingJobs.filter((job: LoadingJob) => job.state !== 'loading').length < 5} />
+        <DetailsToggle>
+          <button type="button" className="btn btn-outline-brand rounded-pill px-4" aria-expanded={showDetails} aria-controls="detalle-tecnico" onClick={toggleDetails}>
+            <i className={`bi ${showDetails ? 'bi-chevron-up' : 'bi-list-columns-reverse'} me-2`} aria-hidden="true"></i>
+            {showDetails ? t('results.details.hide') : t('results.details.show', { count: resultCardData.filter(c => c.result && !c.result.error).length })}
+          </button>
+          {!showDetails && <p className="small text-soft mb-0">{t('results.details.hint')}</p>}
+        </DetailsToggle>
+        { showDetails && <div id="detalle-tecnico">
         <FilterButtons>{ showFilters ? <>
           <div className="one-half">
           <span className="group-label">{t('results.filters.label.filterBy')}</span>
@@ -1067,8 +1093,9 @@ const Results = (): JSX.Element => {
             }
             </Masonry>
         </ResultsContent>
+        </div> }
         <ViewRaw everything={resultCardData} address={address} skipped={skippedJobs} />
-        <AdditionalResources url={address} />
+        { showDetails && <AdditionalResources url={address} /> }
         <Modal isOpen={modalOpen} closeModal={()=> setModalOpen(false)}>{modalContent}</Modal>
         <ToastContainer limit={3} draggablePercent={60} autoClose={2500} theme="light" position="bottom-right" />
       </div>

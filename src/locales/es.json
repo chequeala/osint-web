@@ -134,7 +134,13 @@
       "info": "Información sobre {{title}}",
       "refetch": "Volver a consultar {{title}}"
     },
-    "rateLimited": "Hiciste muchos análisis seguidos. Espera un minuto y vuelve a intentar."
+    "rateLimited": "Hiciste muchos análisis seguidos. Espera un minuto y vuelve a intentar.",
+    "details": {
+      "show_one": "Ver detalle técnico ({{count}} prueba)",
+      "show_other": "Ver detalle técnico ({{count}} pruebas)",
+      "hide": "Ocultar detalle técnico",
+      "hint": "Los datos de cada prueba (DNS, certificado, cabeceras, puertos…) para quien quiera revisar más a fondo."
+    }
   },
   "additionalresources": {
     "note": {
