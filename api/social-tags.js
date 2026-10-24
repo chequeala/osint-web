@@ -3,6 +3,27 @@ const middleware = require('./_common/middleware');
 const axios = require('axios');
 const cheerio = require('cheerio');
 
+// La imagen se descarga desde el servidor y se entrega incrustada (data:): si la
+// cargara el navegador, el sitio analizado vería la IP de quien usa veni
+const MAX_IMAGE_BYTES = 500 * 1024;
+const IMAGE_TYPES = /^image\/(png|jpe?g|gif|webp|avif|svg\+xml)$/i;
+
+const fetchImageData = async (imageUrl, pageUrl) => {
+  try {
+    const absolute = new URL(imageUrl, pageUrl);
+    if (!/^https?:$/.test(absolute.protocol)) return null;
+    const res = await axios.get(absolute.toString(), {
+      responseType: 'arraybuffer', timeout: 5000, maxContentLength: MAX_IMAGE_BYTES, maxRedirects: 3,
+      headers: { 'User-Agent': 'Mozilla/5.0 (compatible; VeniOSINT/1.0; +https://veni.chequea.la)' },
+    });
+    const type = String(res.headers['content-type'] || '').split(';')[0].trim();
+    if (!IMAGE_TYPES.test(type)) return null;
+    return `data:${type};base64,${Buffer.from(res.data).toString('base64')}`;
+  } catch {
+    return null; // muy grande, no es imagen o no respondió: se muestra solo la URL
+  }
+};
+
 const handler = async (url) => {
   
   // Check if url includes protocol
@@ -51,6 +72,12 @@ const handler = async (url) => {
 
     if (Object.keys(metadata).length === 0) {
       return { skipped: 'No metadata found' };
+    }
+    const imageUrl = metadata.ogImage || metadata.twitterImage;
+    if (imageUrl) {
+      const finalUrl = response.request?.res?.responseUrl || url;
+      const imageData = await fetchImageData(imageUrl, finalUrl);
+      if (imageData) metadata.ogImageData = imageData;
     }
     return metadata;
   } catch (error) {
