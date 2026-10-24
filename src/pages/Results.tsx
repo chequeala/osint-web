@@ -759,6 +759,12 @@ const Results = (): JSX.Element => {
       result: mailConfigResults,
       Component: MailConfigCard,
       refresh: updateMailConfigResults,
+      // Volver a consultar con el selector DKIM que indique la persona
+      extraProps: {
+        onSelector: (selector: string) => fetch(`${api}/mail-config?url=${address}&dkim=${encodeURIComponent(selector)}`)
+          .then(res => parseJson(res))
+          .then(res => { if (res && !res.error && !res.skipped) updateMailConfigResults(res); }),
+      },
       tags: ['server'],
     }, {
       id: 'archives',
@@ -1040,7 +1046,10 @@ const Results = (): JSX.Element => {
             columnClassName="masonry-grid-col">
             {
               resultCardData
-              .map(({ id, title, result, tags: cardTags, refresh, Component }, index: number) => {
+              .map((card, index: number) => {
+                const { id, title, result, tags: cardTags, refresh, Component } = card;
+                // Algunas tarjetas reciben props propias (p. ej. el selector DKIM)
+                const extraProps = (card as { extraProps?: Record<string, any> }).extraProps || {};
                 const label = t(`cards.${id}`, { defaultValue: title });
                 const show = (tags.length === 0 || cardTags.some(tag => tags.includes(tag)))
                 && label.toLowerCase().includes(searchTerm.toLowerCase())
@@ -1051,6 +1060,7 @@ const Results = (): JSX.Element => {
                       data={{...result}}
                       title={label}
                       actionButtons={refresh ? makeActionButtons(label, refresh, () => showInfo(id)) : undefined}
+                      {...extraProps}
                     />
                   </ErrorBoundary>
               ) : null})

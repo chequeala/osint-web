@@ -274,7 +274,11 @@
     "priority": "Prioridade",
     "services": "Serviços de e-mail detectados",
     "txt": "Registros TXT de e-mail",
-    "dkimNote": "O DKIM é procurado com os seletores mais comuns; se o seu provedor usa outro, ele pode existir mesmo que não apareça aqui."
+    "dkimNote": "O DKIM é procurado com os seletores mais comuns; se o seu provedor usa outro, ele pode existir mesmo que não apareça aqui.",
+    "selectorLabel": "O seu provedor de e-mail usa outro seletor DKIM? Digite para verificar:",
+    "selectorButton": "Verificar",
+    "selectorFound": "DKIM encontrado com o seletor «{{selector}}».",
+    "selectorNotFound": "Não há DKIM com o seletor «{{selector}}»."
   },
   "wordpress": {
     "version": "Versão visível",

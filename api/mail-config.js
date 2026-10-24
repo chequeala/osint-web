@@ -11,7 +11,15 @@ const isMissing = (error) => ['ENODATA', 'ENOTFOUND'].includes(error.code);
 const orEmpty = (promise) => promise.catch(error => { if (isMissing(error)) return []; throw error; });
 const resolveTxtOrEmpty = (name) => orEmpty(dns.resolveTxt(name));
 
+// Selector DKIM que indica la persona (?dkim=...), además de los comunes
+const customSelector = (event) => {
+  const value = event?.query?.dkim ?? event?.queryStringParameters?.dkim;
+  return typeof value === 'string' && /^[a-z0-9][a-z0-9._-]{0,62}$/i.test(value) ? value.toLowerCase() : null;
+};
+
 const handler = async (url, event, context) => {
+  const extraSelector = customSelector(event);
+  const selectors = extraSelector && !DKIM_SELECTORS.includes(extraSelector) ? [...DKIM_SELECTORS, extraSelector] : DKIM_SELECTORS;
   try {
     const domain = new URL(url).hostname || new URL(url).pathname;
 
@@ -22,9 +30,9 @@ const handler = async (url, event, context) => {
     const [rootTxt, dmarcTxt, ...dkimTxt] = await Promise.all([
       resolveTxtOrEmpty(domain),
       resolveTxtOrEmpty(`_dmarc.${domain}`),
-      ...DKIM_SELECTORS.map(sel => resolveTxtOrEmpty(`${sel}._domainkey.${domain}`)),
+      ...selectors.map(sel => resolveTxtOrEmpty(`${sel}._domainkey.${domain}`)),
     ]);
-    const dkimSelectors = DKIM_SELECTORS.filter((_, i) => dkimTxt[i].some(r => r.join('').includes('p=')));
+    const dkimSelectors = selectors.filter((_, i) => dkimTxt[i].some(r => r.join('').includes('p=')));
     const txtRecords = [
       ...rootTxt,
       ...dmarcTxt.filter(r => r.join('').startsWith('v=DMARC1')),
@@ -81,6 +89,7 @@ const handler = async (url, event, context) => {
         txtRecords: emailTxtRecords,
         mailServices,
         dkimSelectors,
+        ...(extraSelector && { customSelector: extraSelector }),
       };
   } catch (error) {
     if (error.code === 'ENOTFOUND' || error.code === 'ENODATA') {
