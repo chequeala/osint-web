@@ -181,9 +181,9 @@ const Results = (): JSX.Element => {
   const [modalOpen, setModalOpen] = useState(false);
   const [modalContent, setModalContent] = useState<ReactNode>(<></>);
   const [showFilters, setShowFilters] = useState(false);
-  // Vista simple por defecto: resumen y datos clave; las tarjetas técnicas, a un clic
+  // Detalle técnico desplegado por defecto; si alguien lo oculta, se recuerda
   const [showDetails, setShowDetails] = useState<boolean>(() => {
-    try { return localStorage.getItem('showTechnicalDetails') === 'true'; } catch { return false; }
+    try { return localStorage.getItem('showTechnicalDetails') !== 'false'; } catch { return true; }
   });
   const toggleDetails = () => {
     setShowDetails(previous => {
