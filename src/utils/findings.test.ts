@@ -159,4 +159,14 @@ describe('getFindings', () => {
     expect(r.passed).not.toContain('mail');
     expect(ids({ mail: { txtRecords: [['v=spf1 -all'], ['v=DMARC1; p=quarantine']] } })).toEqual([]);
   });
+
+  it('librerías vulnerables: alta si alguna vulnerabilidad es alta', () => {
+    const r = getFindings({ jsLibraries: { libraries: [
+      { name: 'jquery-mobile', version: '1.5.0-alpha.1', vulnerabilities: [{ severity: 'high' }] },
+      { name: 'jquery', version: '3.7.1', vulnerabilities: [] },
+    ] } }, now);
+    expect(r.findings).toEqual([{ id: 'vulnerableLibraries', severity: 'high', params: { libraries: 'jquery-mobile 1.5.0-alpha.1' } }]);
+    expect(getFindings({ jsLibraries: { libraries: [{ name: 'jquery', version: '1.12.4', vulnerabilities: [{ severity: 'medium' }] }] } }, now).findings[0].severity).toBe('medium');
+    expect(getFindings({ jsLibraries: { libraries: [{ name: 'jquery', version: '3.7.1', vulnerabilities: [] }] } }, now).passed).toContain('jsLibraries');
+  });
 });

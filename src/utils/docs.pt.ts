@@ -429,6 +429,16 @@ const docs: Doc[] = [
     ],
   },
   {
+    id: 'js-libraries',
+    title: 'Bibliotecas JavaScript',
+    description: 'Verifica os scripts da página inicial (nome, URL e o comentário de versão no começo do arquivo) e os compara com a base aberta de vulnerabilidades do retire.js: jQuery, Bootstrap, jQuery UI, Moment, Angular e cerca de 75 bibliotecas mais.',
+    use: 'Muitos sites de organizações usam temas ou plugins que trazem bibliotecas antigas com falhas publicadas. É uma das formas mais comuns de injetar código em um site.',
+    resources: [
+      { title: 'retire.js', link: 'https://github.com/RetireJS/retire.js' },
+      { title: 'OWASP - Componentes vulneráveis e desatualizados', link: 'https://owasp.org/Top10/pt-BR/A06_2021-Vulnerable_and_Outdated_Components/' },
+    ],
+  },
+  {
     id: 'dns-security',
     title: 'CAA e MTA-STS',
     description: 'Verifica três registros DNS de segurança: CAA (quais autoridades podem emitir certificados para o domínio), MTA-STS (obriga que o e-mail recebido pelo domínio trafegue criptografado) e TLS-RPT (endereço para receber relatórios quando essa criptografia falha).',

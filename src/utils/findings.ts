@@ -31,6 +31,7 @@ export interface FindingInputs {
   mixedContent?: any;
   lookalikes?: any;
   dnsSecurity?: any;
+  jsLibraries?: any;
 }
 
 const DAY_MS = 24 * 60 * 60 * 1000;
@@ -232,6 +233,15 @@ export const getFindings = (r: FindingInputs, now: Date = new Date()): { finding
       const strong = list.some(d => d.kind === 'typo' && d.hasMx) && (r.lookalikes.label || '').length >= 5;
       findings.push({ id: 'lookalikes', severity: strong ? 'medium' : 'low', params: { count: list.length, names: list.slice(0, 5).map(d => d.name).join(', ') } });
     } else passed.push('lookalikes');
+  }
+
+  // Librerías JavaScript con vulnerabilidades conocidas (retire.js)
+  if (Array.isArray(r.jsLibraries?.libraries)) {
+    const vulnerable: { name: string, version: string, vulnerabilities: { severity: string }[] }[] = r.jsLibraries.libraries.filter((l: any) => l.vulnerabilities?.length);
+    if (vulnerable.length) {
+      const severe = vulnerable.some(l => l.vulnerabilities.some(v => ['high', 'critical'].includes(v.severity)));
+      findings.push({ id: 'vulnerableLibraries', severity: severe ? 'high' : 'medium', params: { libraries: vulnerable.map(l => `${l.name} ${l.version}`).join(', ') } });
+    } else if (r.jsLibraries.libraries.length) passed.push('jsLibraries');
   }
 
   // Puertos abiertos además de la web

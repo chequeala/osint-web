@@ -274,7 +274,8 @@
     "censorship": "Censura",
     "mixed-content": "Contenido mixto",
     "lookalikes": "Dominios parecidos",
-    "dns-security": "CAA y MTA-STS"
+    "dns-security": "CAA y MTA-STS",
+    "js-libraries": "Librerías JavaScript"
   },
   "mailConfig": {
     "checklist": "Protección contra suplantación",
@@ -504,6 +505,11 @@
         "title": "DMARC solo observa (p=none): no protege contra la suplantación",
         "desc": "Con p=none, los correos falsos a nombre de tu dominio se siguen entregando; DMARC solo envía reportes.",
         "action": "Si los reportes muestran que tu correo legítimo pasa SPF y DKIM, cambia a p=quarantine y, después, a p=reject."
+      },
+      "vulnerableLibraries": {
+        "title": "El sitio usa librerías JavaScript con vulnerabilidades conocidas: {{libraries}}",
+        "desc": "Son versiones con fallas publicadas que se pueden aprovechar, por ejemplo para inyectar código en la página. Suelen venir en temas o plugins viejos.",
+        "action": "Actualiza el tema, los plugins o la librería a una versión sin esas fallas; si la librería ya no se mantiene, reemplázala o quita lo que la usa."
       }
     }
   },
@@ -594,7 +600,8 @@
       "lookalikes": "Sin dominios parecidos registrados",
       "onion": "Tiene dirección para Tor (.onion)",
       "caa": "Registro CAA configurado",
-      "mtaSts": "Correo entre servidores cifrado (MTA-STS)"
+      "mtaSts": "Correo entre servidores cifrado (MTA-STS)",
+      "jsLibraries": "Librerías JavaScript sin vulnerabilidades conocidas"
     },
     "help": "¿Necesitas ayuda para resolver algo de este informe? Escríbenos a {{email}}. Puedes escribirnos sin cifrar.",
     "disclaimer": "Informe generado con Veni OSINT ({{site}}) a partir de información pública del sitio. Es una revisión automática: no reemplaza una auditoría de seguridad."
@@ -808,5 +815,12 @@
       "title": "Plugin de endurecimiento",
       "where": "Súbelo a la carpeta wp-content/mu-plugins/ (créala si no existe): se activa solo y no se puede desactivar por error. Si usas un plugin de seguridad como Wordfence o Solid Security, también tienen estas opciones."
     }
+  },
+  "jsLibraries": {
+    "none": "No encontramos librerías conocidas en los {{count}} scripts de la portada.",
+    "ok": "Sin vulnerabilidades conocidas",
+    "vulnerable_one": "{{count}} vulnerabilidad conocida",
+    "vulnerable_other": "{{count}} vulnerabilidades conocidas",
+    "note": "Se revisaron los scripts de la portada (nombre, URL y comentario de versión) con la base abierta de"
   }
 }

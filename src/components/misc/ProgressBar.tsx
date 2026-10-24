@@ -214,6 +214,7 @@ const jobNames = [
   'mixed-content',
   'lookalikes',
   'dns-security',
+  'js-libraries',
   'redirects',
   'linked-pages',
   'robots-txt',
