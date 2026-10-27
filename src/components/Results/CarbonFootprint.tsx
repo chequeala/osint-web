@@ -12,18 +12,21 @@ a { color: ${colors.primary}; }
 `;
 
 const CarbonCard = (props: { data: any, title: string, actionButtons: any }): JSX.Element => {
-const carbons = props.data.statistics;
+const carbon = props.data;
+const green = carbon?.greenHosting;
 
 return (
 <Card heading={props.title} actionButtons={props.actionButtons}>
-{ !carbons?.adjustedBytes && <p>{tl('Unable to calculate carbon footprint for host')}</p>}
-{ carbons?.adjustedBytes > 0 && <>
-<Row lbl="HTML Initial Size" val={`${carbons.adjustedBytes} bytes`} />
-<Row lbl="CO2 for Initial Load" val={`${(carbons.co2.grid.grams * 1000).toPrecision(4)} ${tl('grams')}`} />
-<Row lbl="Energy Usage for Load" val={`${(carbons.energy * 1000).toPrecision(4)} KWg`} />
+{ !carbon?.bytes && <p>{tl('Unable to calculate carbon footprint for host')}</p>}
+{ carbon?.bytes > 0 && <>
+<Row lbl="HTML Initial Size" val={`${carbon.bytes} bytes`} />
+<Row lbl="CO2 for Initial Load" val={`${carbon.co2Grams} ${tl('grams')}`} />
+{ green !== null && green !== undefined && (
+<Row lbl="Green hosting" val={green ? `✅ ${tl('Yes')}${carbon.hostedBy ? ` (${carbon.hostedBy})` : ''}` : `❌ ${tl('No')}`} />
+)}
 </>}
 <br />
-<LearnMoreInfo>{tl('Learn more at')} <a href="https://www.websitecarbon.com/">websitecarbon.com</a></LearnMoreInfo>
+<LearnMoreInfo>{tl('Learn more at')} <a href="https://www.thegreenwebfoundation.org/" target="_blank" rel="noreferrer">The Green Web Foundation</a></LearnMoreInfo>
 </Card>
 );
 }

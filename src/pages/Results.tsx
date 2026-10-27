@@ -75,7 +75,7 @@ import {
   getLocation, ServerLocation,
   Cookie,
   applyWhoIsResults, Whois,
-  parseShodanResults, ShodanResults
+  parseInternetDbResults, ShodanResults
 } from 'utils/result-processor';
 
 const ResultsOuter = styled.div`
@@ -356,10 +356,10 @@ const Results = (): JSX.Element => {
     jobId: ['hosts', 'server-info'],
     updateLoadingJobs,
     addressInfo: { address: ipAddress, addressType: 'ipV4', expectedAddressTypes: ['ipV4', 'ipV6'] },
-    // Sin clave no se consulta: evita enviar la IP a Shodan para recibir un 401
-    fetchRequest: () => !keys.shodan ? Promise.resolve({ skipped: 'Sin clave de Shodan configurada.' }) : fetch(`https://api.shodan.io/shodan/host/${ipAddress}?key=${keys.shodan}`)
+    // InternetDB de Shodan, gratis y sin clave, consultado desde el servidor
+    fetchRequest: () => fetch(`${api}/internetdb?url=${ipAddress}`)
       .then(res => parseJson(res))
-      .then(res => parseShodanResults(res)),
+      .then(res => (res?.skipped || res?.error ? res : parseInternetDbResults(res))),
   });
 
   // Fetch and parse cookies info

@@ -231,7 +231,7 @@ const docs: Doc[] = [
     use:
       "Desde una perspectiva de OSINT, entender la huella de carbono de un sitio web no proporciona información directa sobre su funcionamiento interno o la organización detrás de él. Sin embargo, puede ser un dato valioso en análisis más amplios, especialmente en contextos donde el impacto ambiental es una consideración. Por ejemplo, puede ser útil para activistas, investigadores o hackers éticos interesados en la sostenibilidad de la infraestructura digital y que deseen hacer responsables a las organizaciones por su impacto ambiental.",
     resources: [
-      { title: 'WebsiteCarbon - Calculadora de Carbono', link: 'https://www.websitecarbon.com/' },
+      { title: 'CO2.js - cómo se calcula (Green Web Foundation)', link: 'https://developers.thegreenwebfoundation.org/co2js/overview/' },
       { title: 'La Fundación Green Web', link: 'https://www.thegreenwebfoundation.org/' },
       { title: 'La Alianza de Webs Ecológicas', link: 'https://ecofriendlyweb.org/' },
       { title: 'Reset.org', link: 'https://en.reset.org/' },

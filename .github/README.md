@@ -39,7 +39,7 @@ npx netlify-cli env:set GOOGLE_CLOUD_API_KEY "..." --scope functions
 | `URLHAUS_AUTH_KEY` | URLhaus (malware) en Amenazas | Crea una cuenta en [auth.abuse.ch](https://auth.abuse.ch/) y copia tu *Auth-Key*. |
 | `BUILT_WITH_API_KEY` | Funciones del sitio | Cuenta gratuita en [api.builtwith.com](https://api.builtwith.com/). |
 
-`REACT_APP_SHODAN_API_KEY` y `REACT_APP_WHO_API_KEY` se consultan desde el navegador y quedarían visibles en el código público del sitio: no las configures en producción.
+`REACT_APP_WHO_API_KEY` se consulta desde el navegador y quedaría visible en el código público del sitio: no la configures en producción. Información del servidor y nombres de host usan InternetDB de Shodan, gratis y sin clave, desde el servidor.
 
 ## Despliegue
 

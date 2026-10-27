@@ -176,7 +176,7 @@ const docs: Doc[] = [
     use:
       "Do ponto de vista OSINT, a pegada de carbono não revela diretamente como o site funciona ou quem está por trás dele. Mas pode ser um dado valioso em análises mais amplas, especialmente quando o impacto ambiental importa, por exemplo para ativistas e pesquisadoras interessadas na sustentabilidade da infraestrutura digital.",
     resources: [
-      { title: 'WebsiteCarbon - Calculadora de carbono', link: 'https://www.websitecarbon.com/' },
+      { title: 'CO2.js - como é calculado (Green Web Foundation)', link: 'https://developers.thegreenwebfoundation.org/co2js/overview/' },
       { title: 'The Green Web Foundation', link: 'https://www.thegreenwebfoundation.org/' },
       { title: 'Eco-Friendly Web Alliance', link: 'https://ecofriendlyweb.org/' },
       { title: 'Reset.org', link: 'https://en.reset.org/' },

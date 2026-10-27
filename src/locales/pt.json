@@ -626,7 +626,6 @@
     "noWhoisServer": "A terminação {{tld}} não tem um servidor whois público.",
     "whoisNotFound": "{{domain}} não aparece em {{server}}.",
     "whoisNoData": "{{server}} não fornece dados de {{domain}}.",
-    "carbonUnavailable": "O websitecarbon.com não respondeu; não é um problema do site.",
     "rateLimited": "Você fez muitas análises seguidas. Espere um minuto e tente de novo.",
     "noMail": "O domínio não usa e-mail próprio (não tem registros MX, SPF nem DMARC).",
     "noCookies": "O site não cria cookies.",

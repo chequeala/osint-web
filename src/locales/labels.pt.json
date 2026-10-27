@@ -143,5 +143,22 @@
   "HSTS header does not contain the preload directive.": "O cabeçalho HSTS não tem a diretiva preload.",
   "Site is compatible with the HSTS preload list!": "O site cumpre os requisitos da lista de preload do HSTS!",
   "Online": "Online",
-  "Offline": "Offline"
+  "Offline": "Offline",
+  "Software": "Software detectado",
+  "Known vulnerabilities": "Vulnerabilidades conhecidas (CVE)",
+  "None found": "Nenhuma encontrada",
+  "Source": "Fonte",
+  "Green hosting": "Hospedagem com energia renovável",
+  "Yes": "Sim",
+  "No": "Não",
+  "Shodan tags": "Etiquetas do Shodan",
+  "eol-product": "software sem suporte (EOL)",
+  "self-signed": "certificado autoassinado no IP",
+  "cloud": "nuvem",
+  "cdn": "CDN",
+  "vpn": "VPN",
+  "proxy": "proxy",
+  "tor": "Tor",
+  "database": "banco de dados",
+  "starttls": "STARTTLS"
 }

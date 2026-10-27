@@ -53,27 +53,11 @@ export const getLocation = (response: any): ServerLocation => {
 
 
 export interface ServerInfo {
-  org: string,
-  asn: string,
-  isp: string,
-  os?: string,
   ip?: string,
   ports?: string,
-  loc?: string,
+  software?: string,
+  vulns?: string,
   type?: string,
-};
-
-export const getServerInfo = (response: any): ServerInfo => {
-  return {
-    org: response.org,
-    asn: response.asn,
-    isp: response.isp,
-    os: response.os,
-    ip: response.ip_str,
-    ports: response?.ports?.toString(),
-    loc: response.city ? `${response.city}, ${response.country_name}` : '',
-    type: response.tags ? response.tags.toString() : '',
-  };
 };
 
 export interface HostNames {
@@ -81,29 +65,38 @@ export interface HostNames {
   hostnames: string[],
 };
 
-export const getHostNames = (response: any): HostNames | null => {
-  const { hostnames, domains } = response;
-  if ((!domains || domains.length < 1) && (!hostnames || hostnames.length < 1)) {
-    return null;
-  }
-  const results: HostNames = {
-    domains: domains || [],
-    hostnames: hostnames || [],
-  };
-  return results;
-};
-
 export interface ShodanResults {
   hostnames: HostNames | null,
   serverInfo: ServerInfo,
 }
 
-export const parseShodanResults = (response: any): ShodanResults => {
+// "cpe:/a:f5:nginx:1.27.5" → "nginx 1.27.5"; sin repetir el producto si ya está con versión.
+// Nombres genéricos como "http_server" llevan el fabricante: "apache http server".
+export const cpeToSoftware = (cpes: string[]): string[] => {
+  const parsed = cpes.map(cpe => cpe.split(':')).filter(parts => parts.length >= 4)
+    .map(([, , vendor, product, version]) => {
+      const name = product.replace(/_/g, ' ');
+      return { product: /^(http )?server$/.test(name) ? `${vendor} ${name}` : name, version };
+    });
+  return parsed
+    .filter(p => p.version || !parsed.some(o => o.product === p.product && o.version))
+    .map(p => (p.version ? `${p.product} ${p.version}` : p.product));
+};
+
+// Respuesta de api/internetdb (InternetDB de Shodan)
+export const parseInternetDbResults = (response: any): ShodanResults => {
+  const hostnames: string[] = response.hostnames || [];
   return {
-    hostnames: getHostNames(response),
-    serverInfo: getServerInfo(response),
+    hostnames: hostnames.length ? { domains: [], hostnames } : null,
+    serverInfo: {
+      ip: response.ip,
+      ports: (response.ports || []).join(', '),
+      software: cpeToSoftware(response.cpes || []).join(', '),
+      vulns: (response.vulns || []).join(', '),
+      type: (response.tags || []).join(', '),
+    },
   };
-}
+};
 
 export interface Technology {
   Categories?: string[];

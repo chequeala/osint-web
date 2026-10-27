@@ -17,7 +17,6 @@ const PATTERNS: [RegExp, string][] = [
   [/^La terminación (?<tld>\S+) no tiene un servidor whois/, 'noWhoisServer'],
   [/^(?<domain>\S+) no aparece en (?<server>\S+)$/, 'whoisNotFound'],
   [/^(?<server>\S+) no entrega datos de (?<domain>\S+)$/, 'whoisNoData'],
-  [/^websitecarbon\.com/, 'carbonUnavailable'],
   [/^Hiciste muchos análisis seguidos/, 'rateLimited'],
   [/^No mail server in use on this domain/, 'noMail'],
   [/^No cookies/, 'noCookies'],
