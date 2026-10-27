@@ -7,6 +7,7 @@ describe('translateServerMessage', () => {
   it('traduce los mensajes del servidor al portugués, con sus datos', async () => {
     await i18n.changeLanguage('pt');
     expect(translateServerMessage('El sitio no tiene robots.txt')).toBe('O site não tem robots.txt.');
+    expect(translateServerMessage('El sitio respondió con una verificación anti-robots; no se pudo revisar WordPress')).toMatch(/^O site respondeu com uma verificação anti-robôs/);
     expect(translateServerMessage('ejemplo.org no aparece en whois.pir.org')).toBe('ejemplo.org não aparece em whois.pir.org.');
     expect(translateServerMessage('Falta configurar BUILT_WITH_API_KEY para detectar funciones del sitio.'))
       .toBe('Falta configurar a chave BUILT_WITH_API_KEY no servidor.');

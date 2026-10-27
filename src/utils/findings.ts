@@ -190,6 +190,17 @@ export const getFindings = (r: FindingInputs, now: Date = new Date()): { finding
       if (wp.latestVersion) passed.push('wpUpdated');
       findings.push({ id: 'wpVersion', severity: 'low', params: { version: wp.version } });
     }
+    // Plugins: retirados de WordPress.org (a menudo por seguridad) o desactualizados
+    if (Array.isArray(wp.plugins)) {
+      const label = (p: any) => p.name || p.slug;
+      const closed = wp.plugins.filter((p: any) => p.status === 'closed');
+      const outdated = wp.plugins.filter((p: any) => p.status === 'outdated');
+      if (closed.length) findings.push({ id: 'wpPluginsClosed', severity: 'high', params: { plugins: closed.map(label).join(', ') } });
+      if (outdated.length) {
+        findings.push({ id: 'wpPluginsOutdated', severity: 'medium', params: { plugins: outdated.map((p: any) => `${label(p)} ${p.version} → ${p.latest}`).join(', ') } });
+      }
+      if (!closed.length && !outdated.length && wp.plugins.some((p: any) => p.status === 'current')) passed.push('wpPlugins');
+    }
   }
 
   // Archivos expuestos: los de severidad alta (código, contraseñas, respaldos) van aparte

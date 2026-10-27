@@ -297,7 +297,12 @@
     "xmlrpc": "xmlrpc.php activo",
     "usersTitle": "Usuarios visibles en la API",
     "yes": "Sí",
-    "no": "No"
+    "no": "No",
+    "pluginsTitle": "Plugins visibles",
+    "pluginLatest": "última {{latest}}",
+    "pluginClosed": "retirado de WordPress.org",
+    "pluginNotListed": "no está en WordPress.org (de pago o propio)",
+    "pluginNoVersion": "versión no visible"
   },
   "summary": {
     "title": "Qué revisar primero",
@@ -361,6 +366,16 @@
         "title": "Se ve la versión de WordPress ({{version}})",
         "desc": "Ayuda a quien busca sitios con versiones vulnerables.",
         "action": "Mantén WordPress actualizado y oculta la versión del código del sitio."
+      },
+      "wpPluginsClosed": {
+        "title": "El sitio usa plugins retirados de WordPress.org: {{plugins}}",
+        "desc": "WordPress.org los quitó de su directorio, muchas veces por fallas de seguridad sin corregir. Ya no reciben actualizaciones por la vía normal.",
+        "action": "Busca un reemplazo que siga mantenido y desinstala el plugin. Si es imprescindible, revisa en su página por qué se retiró."
+      },
+      "wpPluginsOutdated": {
+        "title": "Hay plugins de WordPress desactualizados: {{plugins}}",
+        "desc": "Los plugins viejos son la forma más común de entrar a un sitio WordPress: sus fallas se publican y se aprovechan en masa.",
+        "action": "Haz un respaldo y actualiza los plugins desde Escritorio → Actualizaciones. Activa las actualizaciones automáticas de los que no te den problemas."
       },
       "wpOutdated": {
         "title": "WordPress está desactualizado ({{version}}; la última es {{latest}})",
@@ -601,6 +616,7 @@
       "wpUsers": "WordPress no expone usuarios",
       "wpXmlrpc": "xmlrpc.php desactivado",
       "wpUpdated": "WordPress está en la última versión",
+      "wpPlugins": "Los plugins visibles están actualizados",
       "ports": "Solo están abiertos los puertos web",
       "mail": "Correo protegido con SPF y DMARC",
       "hsts": "HSTS activo",
@@ -633,6 +649,9 @@
     "noRobots": "El sitio no tiene robots.txt.",
     "noSitemap": "El sitio no tiene sitemap.xml.",
     "notWordPress": "El sitio no parece estar hecho con WordPress.",
+    "antiBot": "El sitio respondió con una verificación anti-robots (captcha), así que no se pudo revisar. Prueba de nuevo más tarde.",
+    "noShodanData": "Shodan no tiene datos de esta IP.",
+    "noCarbonContent": "La página no devolvió contenido para medir.",
     "noSubdomains": "No hay subdominios de {{domain}} en los registros públicos de certificados.",
     "noWhoisServer": "La terminación {{tld}} no tiene un servidor whois público.",
     "whoisNotFound": "{{domain}} no aparece en {{server}}.",

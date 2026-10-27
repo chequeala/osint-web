@@ -71,6 +71,22 @@ describe('getFindings', () => {
     expect(limpio.passed).toContain('serverSoftware');
   });
 
+  it('WordPress: plugins retirados son urgentes y los desactualizados importantes', () => {
+    const wp = { isWordPress: true, usersExposed: false, users: [], xmlrpcEnabled: false };
+    const r = getFindings({ wordpress: { ...wp, plugins: [
+      { slug: 'contact-form-7', name: 'Contact Form 7', version: '6.1.7', latest: '6.2.3', status: 'outdated' },
+      { slug: 'page-visit-counter', name: null, version: '6.0.7', latest: null, status: 'closed' },
+      { slug: 'revslider', name: null, version: '5.4.8.1', latest: null, status: 'notListed' },
+    ] } }, now);
+    expect(r.findings).toEqual([
+      { id: 'wpPluginsClosed', severity: 'high', params: { plugins: 'page-visit-counter' } },
+      { id: 'wpPluginsOutdated', severity: 'medium', params: { plugins: 'Contact Form 7 6.1.7 → 6.2.3' } },
+    ]);
+    const alDia = getFindings({ wordpress: { ...wp, plugins: [{ slug: 'akismet', name: 'Akismet', version: '5.7.2', latest: '5.7.2', status: 'current' }] } }, now);
+    expect(alDia.findings).toEqual([]);
+    expect(alDia.passed).toContain('wpPlugins');
+  });
+
   it('compara versiones por número, no como texto', () => {
     expect(compareVersions('6.10', '6.9.4')).toBeGreaterThan(0);
     expect(compareVersions('7.1', '7.1.0')).toBe(0);
