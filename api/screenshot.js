@@ -1,4 +1,5 @@
-const puppeteer = require('puppeteer-core');
+// puppeteer-core es solo ESM: con require() falla en las funciones de Netlify
+const loadPuppeteer = async () => (await import('puppeteer-core')).default;
 const middleware = require('./_common/middleware');
 const { skipIfUnavailable } = require('./_common/unavailable');
 
@@ -21,6 +22,7 @@ const handler = async (targetUrl) => {
   let browser = null;
   try {
       // Sin CHROME_PATH (p. ej. en Netlify) puppeteer falla por executablePath y la prueba se omite
+      const puppeteer = await loadPuppeteer();
       browser = await puppeteer.launch({
       args: ['--no-sandbox', '--disable-setuid-sandbox'],
       defaultViewport: { width: 800, height: 600 },

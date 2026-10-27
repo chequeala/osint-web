@@ -33,5 +33,10 @@ jobs:
       - name: Pruebas
         run: yarn test run
 
+      # Las funciones de Netlify no aceptan require() de paquetes solo ESM (p. ej.
+      # puppeteer-core o got): hay que cargarlos con import(). Esto lo detecta.
+      - name: Cargar las funciones de la API
+        run: for f in api/*.js; do node --no-experimental-require-module -e "require('./$f')" || exit 1; done
+
       - name: Compilar
         run: yarn build

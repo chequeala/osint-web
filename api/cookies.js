@@ -1,8 +1,10 @@
 const axios = require('axios');
-const puppeteer = require('puppeteer-core');
+// puppeteer-core es solo ESM: con require() falla en las funciones de Netlify
+const loadPuppeteer = async () => (await import('puppeteer-core')).default;
 const middleware = require('./_common/middleware');
 
 const getPuppeteerCookies = async (url) => {
+  const puppeteer = await loadPuppeteer();
   const browser = await puppeteer.launch({
     executablePath: process.env.CHROME_PATH,
     headless: true,
