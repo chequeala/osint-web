@@ -512,6 +512,16 @@
         "desc": "Con p=none, los correos falsos a nombre de tu dominio se siguen entregando; DMARC solo envía reportes.",
         "action": "Si los reportes muestran que tu correo legítimo pasa SPF y DKIM, cambia a p=quarantine y, después, a p=reject."
       },
+      "serverEol": {
+        "title": "El servidor usa software que ya no tiene soporte",
+        "desc": "Shodan detecta software sin arreglos de seguridad entre lo que corre en el servidor ({{software}}): cualquier falla que se descubra queda abierta para siempre.",
+        "action": "Pide a tu hosting o a quien administra el servidor que lo actualice a una versión con soporte. Si el sitio está en un hosting compartido o detrás de un proxy, el software puede ser del proveedor: pásale este aviso."
+      },
+      "serverVulns": {
+        "title": "El software del servidor tiene vulnerabilidades conocidas ({{count}} CVE)",
+        "desc": "Shodan relaciona la versión de {{software}} con fallas publicadas, por ejemplo {{cves}}. Algunas pueden no aplicar si el servidor recibe parches sin cambiar de número de versión.",
+        "action": "Pide a tu hosting que actualice el servidor y que te confirme cuáles de esas vulnerabilidades ya están corregidas."
+      },
       "vulnerableLibraries": {
         "title": "El sitio usa librerías JavaScript con vulnerabilidades conocidas: {{libraries}}",
         "desc": "Son versiones con fallas publicadas que se pueden aprovechar, por ejemplo para inyectar código en la página. Suelen venir en temas o plugins viejos.",
@@ -608,7 +618,8 @@
       "onion": "Tiene dirección para Tor (.onion)",
       "caa": "Registro CAA configurado",
       "mtaSts": "Correo entre servidores cifrado (MTA-STS)",
-      "jsLibraries": "Librerías JavaScript sin vulnerabilidades conocidas"
+      "jsLibraries": "Librerías JavaScript sin vulnerabilidades conocidas",
+      "serverSoftware": "Shodan no ve software sin soporte ni vulnerabilidades conocidas en el servidor"
     },
     "help": "¿Necesitas ayuda para resolver algo de este informe? Escríbenos a {{email}}. Puedes escribirnos sin cifrar.",
     "disclaimer": "Informe generado con Veni OSINT ({{site}}) a partir de información pública del sitio. Es una revisión automática: no reemplaza una auditoría de seguridad."

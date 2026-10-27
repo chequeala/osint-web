@@ -1027,6 +1027,7 @@ const Results = (): JSX.Element => {
         lookalikes={lookalikesResults}
         dnsSecurity={dnsSecurityResults}
         jsLibraries={jsLibrariesResults}
+        serverInfo={shoadnResults?.serverInfo}
         comparison={comparison}
       /> }
       <div className="container results-screen">
@@ -1070,6 +1071,7 @@ const Results = (): JSX.Element => {
           lookalikes={lookalikesResults}
           dnsSecurity={dnsSecurityResults}
           jsLibraries={jsLibrariesResults}
+          serverInfo={shoadnResults?.serverInfo}
         /> }
         { address && <Compare current={currentExport} host={makeSiteName(address)} isDone={isDone} onCompare={setComparison} /> }
           <Loader show={loadingJobs.filter((job: LoadingJob) => job.state !== 'loading').length < 5} />

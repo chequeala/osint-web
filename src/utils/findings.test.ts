@@ -60,6 +60,17 @@ describe('getFindings', () => {
     expect(alDia.passed).toContain('wpUpdated');
   });
 
+  it('servidor: software sin soporte es urgente y las CVE son importantes', () => {
+    const r = getFindings({ serverInfo: { ip: '203.0.113.7', software: 'debian linux, openssh 6.7p1, nginx 1.9.4', type: 'eol-product', vulns: 'CVE-2016-0746, CVE-2021-23017, CVE-2017-7529, CVE-2021-3618' } }, now);
+    expect(r.findings).toEqual([
+      { id: 'serverEol', severity: 'high', params: { software: 'openssh 6.7p1, nginx 1.9.4' } },
+      { id: 'serverVulns', severity: 'medium', params: { software: 'openssh 6.7p1, nginx 1.9.4', count: 4, cves: 'CVE-2021-23017, CVE-2021-3618, CVE-2017-7529' } },
+    ]);
+    const limpio = getFindings({ serverInfo: { ip: '203.0.113.7', software: 'apache http server', type: 'self-signed', vulns: '' } }, now);
+    expect(limpio.findings).toEqual([]);
+    expect(limpio.passed).toContain('serverSoftware');
+  });
+
   it('compara versiones por número, no como texto', () => {
     expect(compareVersions('6.10', '6.9.4')).toBeGreaterThan(0);
     expect(compareVersions('7.1', '7.1.0')).toBe(0);

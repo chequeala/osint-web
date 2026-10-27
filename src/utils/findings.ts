@@ -32,6 +32,7 @@ export interface FindingInputs {
   lookalikes?: any;
   dnsSecurity?: any;
   jsLibraries?: any;
+  serverInfo?: any;
 }
 
 const DAY_MS = 24 * 60 * 60 * 1000;
@@ -260,6 +261,22 @@ export const getFindings = (r: FindingInputs, now: Date = new Date()): { finding
       const severe = vulnerable.some(l => l.vulnerabilities.some(v => ['high', 'critical'].includes(v.severity)));
       findings.push({ id: 'vulnerableLibraries', severity: severe ? 'high' : 'medium', params: { libraries: vulnerable.map(l => `${l.name} ${l.version}`).join(', ') } });
     } else if (r.jsLibraries.libraries.length) passed.push('jsLibraries');
+  }
+
+  // Software del servidor según InternetDB (Shodan): sin soporte o con CVE asociadas a su versión
+  if (r.serverInfo?.ip) {
+    // Solo lo que tiene versión ("nginx 1.9.4"): es lo que se puede actualizar
+    const listed = String(r.serverInfo.software || '').split(', ').filter(s => /\d/.test(s));
+    const software = listed.join(', ') || r.serverInfo.software || r.serverInfo.ip;
+    const tags = String(r.serverInfo.type || '').split(', ');
+    const cves = String(r.serverInfo.vulns || '').split(', ').filter(Boolean);
+    if (tags.includes('eol-product')) findings.push({ id: 'serverEol', severity: 'high', params: { software } });
+    if (cves.length) {
+      // Las más recientes primero: suelen ser las que más importan
+      const recent = [...cves].sort((a, b) => b.localeCompare(a, undefined, { numeric: true })).slice(0, 3).join(', ');
+      findings.push({ id: 'serverVulns', severity: 'medium', params: { software, count: cves.length, cves: recent } });
+    }
+    if (!tags.includes('eol-product') && !cves.length) passed.push('serverSoftware');
   }
 
   // Puertos abiertos además de la web
