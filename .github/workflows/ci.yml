@@ -22,7 +22,7 @@ jobs:
 
       - uses: actions/setup-node@v4
         with:
-          node-version: 20 # la misma que usa Netlify (netlify.toml)
+          node-version: 22 # la misma que usa Netlify (netlify.toml)
 
       - name: Activar Yarn 4
         run: corepack enable
@@ -31,11 +31,7 @@ jobs:
         run: yarn install --immutable
 
       - name: Pruebas
-        run: yarn test --watchAll=false
-        env:
-          CI: 'true'
+        run: yarn test run
 
       - name: Compilar
         run: yarn build
-        env:
-          CI: 'false' # CRA trata los avisos como errores con CI=true

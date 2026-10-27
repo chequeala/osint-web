@@ -15,12 +15,12 @@ Está basada en [Web Check](https://github.com/lissy93/web-check), el proyecto d
 
 ## Desarrollo
 
-Requiere Node 20 y Yarn 4 (`corepack enable`).
+Requiere Node 22 y Yarn 4 (`corepack enable`).
 
 ```sh
 PUPPETEER_SKIP_DOWNLOAD=1 yarn install
 yarn build && PLATFORM=node node server.js   # interfaz y API en http://localhost:3000
-yarn test --watchAll=false                   # pruebas
+yarn test run                                # pruebas
 ```
 
 Copia `.env.example` a `.env` para desarrollo local (`.env` no se versiona: nunca pongas claves reales en `.env.example`).

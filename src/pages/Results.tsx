@@ -269,7 +269,7 @@ const Results = (): JSX.Element => {
 
   const urlTypeOnly = ['url'] as AddressType[]; // Many jobs only run with these address types
 
-  const api = process.env.REACT_APP_API_ENDPOINT || '/api'; // Where is the API hosted?
+  const api = import.meta.env.REACT_APP_API_ENDPOINT || '/api'; // Where is the API hosted?
 
   // Qué pruebas puede correr el servidor (claves de API, navegador). Hasta saberlo,
   // esas tareas esperan; si no están disponibles se omiten sin consultar al servidor.

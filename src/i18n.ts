@@ -1,6 +1,10 @@
 // i18n.ts
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
+import es from './locales/es.json';
+import labelsEs from './locales/labels.es.json';
+import pt from './locales/pt.json';
+import labelsPt from './locales/labels.pt.json';
 
 // Solo español y portugués, como chequea.la. Los términos técnicos (DNS, HSTS,
 // CNAME...) se dejan en inglés dentro de los textos.
@@ -8,14 +12,8 @@ export const LANGUAGES = ['es', 'pt'] as const;
 export type Language = typeof LANGUAGES[number];
 
 const resources = {
-  es: {
-    translation: require('./locales/es.json'),
-    labels: require('./locales/labels.es.json'),
-  },
-  pt: {
-    translation: require('./locales/pt.json'),
-    labels: require('./locales/labels.pt.json'),
-  },
+  es: { translation: es, labels: labelsEs },
+  pt: { translation: pt, labels: labelsPt },
 };
 
 // Preferencia guardada; si no hay, portugués para navegadores en portugués y español para el resto
