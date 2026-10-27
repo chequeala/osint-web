@@ -50,6 +50,17 @@ const PHP_SECURITY_UNTIL: Record<string, string> = {
   '8.5': '2029-12-31',
 };
 
+// Compara versiones tipo "6.5.2": negativo si a es anterior a b
+export const compareVersions = (a: string, b: string): number => {
+  const pa = a.split('.').map(Number);
+  const pb = b.split('.').map(Number);
+  for (let i = 0; i < Math.max(pa.length, pb.length); i++) {
+    const diff = (pa[i] || 0) - (pb[i] || 0);
+    if (diff) return diff;
+  }
+  return 0;
+};
+
 export const isPhpUnsupported = (version: string, now: Date): boolean => {
   const [major, minor] = version.split('.').map(Number);
   if (isNaN(major) || isNaN(minor)) return false;
@@ -170,7 +181,14 @@ export const getFindings = (r: FindingInputs, now: Date = new Date()): { finding
     } else passed.push('wpUsers');
     if (wp.xmlrpcEnabled) findings.push({ id: 'wpXmlrpc', severity: 'medium' });
     else passed.push('wpXmlrpc');
-    if (wp.version) findings.push({ id: 'wpVersion', severity: 'low', params: { version: wp.version } });
+    if (wp.version && wp.latestVersion && compareVersions(wp.version, wp.latestVersion) < 0) {
+      // Si ni siquiera tiene el último parche de su rama, le faltan arreglos de seguridad publicados
+      const missingPatches = !wp.branchLatestVersion || compareVersions(wp.version, wp.branchLatestVersion) < 0;
+      findings.push({ id: 'wpOutdated', severity: missingPatches ? 'high' : 'medium', params: { version: wp.version, latest: wp.latestVersion } });
+    } else if (wp.version) {
+      if (wp.latestVersion) passed.push('wpUpdated');
+      findings.push({ id: 'wpVersion', severity: 'low', params: { version: wp.version } });
+    }
   }
 
   // Archivos expuestos: los de severidad alta (código, contraseñas, respaldos) van aparte

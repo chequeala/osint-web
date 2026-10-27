@@ -292,6 +292,7 @@
   "wordpress": {
     "version": "Versión visible",
     "hidden": "Oculta",
+    "latest": "Última versión de WordPress",
     "usersExposed": "Usuarios expuestos",
     "xmlrpc": "xmlrpc.php activo",
     "usersTitle": "Usuarios visibles en la API",
@@ -360,6 +361,11 @@
         "title": "Se ve la versión de WordPress ({{version}})",
         "desc": "Ayuda a quien busca sitios con versiones vulnerables.",
         "action": "Mantén WordPress actualizado y oculta la versión del código del sitio."
+      },
+      "wpOutdated": {
+        "title": "WordPress está desactualizado ({{version}}; la última es {{latest}})",
+        "desc": "Las versiones viejas tienen fallas de seguridad ya publicadas, y hay quien busca sitios que no se actualizaron para aprovecharlas.",
+        "action": "Haz un respaldo y actualiza WordPress desde Escritorio → Actualizaciones, junto con plugins y temas. Después, oculta la versión del código del sitio."
       },
       "criticalPorts": {
         "title": "Servicios delicados abiertos a internet (puertos {{ports}})",
@@ -584,6 +590,7 @@
       "ssl": "Certificado HTTPS válido",
       "wpUsers": "WordPress no expone usuarios",
       "wpXmlrpc": "xmlrpc.php desactivado",
+      "wpUpdated": "WordPress está en la última versión",
       "ports": "Solo están abiertos los puertos web",
       "mail": "Correo protegido con SPF y DMARC",
       "hsts": "HSTS activo",

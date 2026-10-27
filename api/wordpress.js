@@ -33,6 +33,24 @@ const isXmlRpcEnabled = async (base) => {
   return !!res && typeof res.data === 'string' && /XML-RPC server accepts POST requests only/i.test(res.data);
 };
 
+// Última versión de cada rama según la API pública de WordPress.org. No se envía nada
+// del sitio analizado; se guarda en memoria unas horas para no consultarla en cada análisis.
+const RELEASES_TTL = 6 * 60 * 60 * 1000;
+let releasesCache = null;
+
+const getReleases = async () => {
+  if (releasesCache && Date.now() - releasesCache.at < RELEASES_TTL) return releasesCache.data;
+  const res = await http.get('https://api.wordpress.org/core/version-check/1.7/').catch(() => null);
+  const offers = res && res.status === 200 && Array.isArray(res.data?.offers) ? res.data.offers : [];
+  const versions = offers.map(o => o.current).filter(v => /^\d+\.\d+/.test(v || ''));
+  if (!versions.length) return null;
+  const data = { latest: versions[0], versions };
+  releasesCache = { at: Date.now(), data };
+  return data;
+};
+
+const branchOf = (version) => version.split('.').slice(0, 2).join('.');
+
 const getFeedVersion = async (base) => {
   const res = await http.get(`${base}/feed/`).catch(() => null);
   const match = res && typeof res.data === 'string' && res.data.match(/<generator>https?:\/\/wordpress\.org\/\?v=([\d.]+)<\/generator>/i);
@@ -52,15 +70,20 @@ const handler = async (url) => {
     return { skipped: 'El sitio no parece estar hecho con WordPress' };
   }
 
-  const [users, xmlrpcEnabled, feedVersion] = await Promise.all([
+  const [users, xmlrpcEnabled, feedVersion, releases] = await Promise.all([
     getUsers(base),
     isXmlRpcEnabled(base),
     getFeedVersion(base),
+    getReleases(),
   ]);
+  const version = findVersion(html) || feedVersion;
 
   return {
     isWordPress: true,
-    version: findVersion(html) || feedVersion,
+    version,
+    latestVersion: releases?.latest || null,
+    // Último parche de seguridad de la misma rama (p. ej. 6.5.13 para un sitio en 6.5.2)
+    branchLatestVersion: (version && releases?.versions.find(v => branchOf(v) === branchOf(version))) || null,
     usersExposed: users.length > 0,
     users,
     xmlrpcEnabled,

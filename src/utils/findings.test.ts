@@ -1,4 +1,4 @@
-import { getFindings, isPhpUnsupported, parseDate, parseSetCookie } from 'utils/findings';
+import { compareVersions, getFindings, isPhpUnsupported, parseDate, parseSetCookie } from 'utils/findings';
 
 const now = new Date('2026-10-23T00:00:00Z');
 const ids = (r: Parameters<typeof getFindings>[0]) => getFindings(r, now).findings.map(f => f.id);
@@ -48,6 +48,22 @@ describe('getFindings', () => {
     }, now);
     expect(r.findings.map(f => f.severity)).toEqual(['high', 'medium', 'low', 'low']);
     expect(r.findings[0]).toMatchObject({ id: 'wpUsers', params: { users: 'admin' } });
+  });
+
+  it('WordPress desactualizado: urgente si le faltan parches de su rama', () => {
+    const wp = { isWordPress: true, usersExposed: false, users: [], xmlrpcEnabled: false, latestVersion: '7.1.3' };
+    const sinParches = getFindings({ wordpress: { ...wp, version: '6.5.2', branchLatestVersion: '6.5.13' } }, now);
+    expect(sinParches.findings).toEqual([{ id: 'wpOutdated', severity: 'high', params: { version: '6.5.2', latest: '7.1.3' } }]);
+    expect(getFindings({ wordpress: { ...wp, version: '6.5.13', branchLatestVersion: '6.5.13' } }, now).findings[0].severity).toBe('medium');
+    const alDia = getFindings({ wordpress: { ...wp, version: '7.1.3', branchLatestVersion: '7.1.3' } }, now);
+    expect(alDia.findings.map(f => f.id)).toEqual(['wpVersion']);
+    expect(alDia.passed).toContain('wpUpdated');
+  });
+
+  it('compara versiones por número, no como texto', () => {
+    expect(compareVersions('6.10', '6.9.4')).toBeGreaterThan(0);
+    expect(compareVersions('7.1', '7.1.0')).toBe(0);
+    expect(compareVersions('6.5.2', '6.5.13')).toBeLessThan(0);
   });
 
   it('no marca nada mientras no hay datos', () => {
