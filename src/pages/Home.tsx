@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { ChangeEvent, FormEvent, useEffect, useState } from 'react';
-import { Link, useNavigate, NavigateOptions } from 'react-router-dom';
+import { Link, useNavigate, NavigateOptions } from 'react-router';
 
 import { useTranslation } from 'react-i18next';
 

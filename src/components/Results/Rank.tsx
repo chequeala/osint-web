@@ -39,7 +39,7 @@ const makeChartData = (data: {date: string, rank: number }[]) => {
   });
 };
 
-function Chart(chartData: { date: string; uv: number; }[], data: any) {
+function Chart(chartData: { date: string; uv: number; }[]) {
   return <ResponsiveContainer width="100%" height={100}>
     <AreaChart width={400} height={100} data={chartData}>
       <defs>
@@ -50,7 +50,7 @@ function Chart(chartData: { date: string; uv: number; }[], data: any) {
       </defs>
       <CartesianGrid strokeDasharray="4" strokeWidth={0.25} verticalPoints={[50, 100, 150, 200, 250, 300, 350]} horizontalPoints={[25, 50, 75]} />
       <Tooltip contentStyle={{ background: colors.background, color: colors.textColor, borderRadius: 4 }}
-        labelFormatter={(value) => ['Date : ', data[value].date]} />
+        labelFormatter={(_label, payload) => `Date: ${payload?.[0]?.payload?.date ?? ''}`} />
       <Area type="monotone" dataKey="uv" stroke={colors.primary} fillOpacity={1} name="Rank" fill={colors.primaryTransparent} />
     </AreaChart>
   </ResponsiveContainer>;
@@ -66,7 +66,7 @@ const RankCard = (props: { data: any, title: string, actionButtons: any }): JSX.
       <Row lbl="Change since Yesterday" val={`${percentageChange > 0 ? '+':''} ${percentageChange.toFixed(2)}%`} />
       <Row lbl="Historical Average Rank" val={average.toLocaleString()} />
       <div className="chart-container">
-        {Chart(chartData, data)}
+        {Chart(chartData)}
       </div>
     </Card>
   );

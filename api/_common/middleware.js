@@ -1,6 +1,9 @@
 const { assertPublicTarget } = require('./ssrf');
+const net = require('net');
 const normalizeUrl = (url) => {
-  return url.startsWith('http') ? url : `https://${url}`;
+  if (url.startsWith('http')) return url;
+  // Una IPv6 va entre corchetes en una URL: https://[2620:0:860:ed1a::1]
+  return net.isIP(url) === 6 ? `https://[${url}]` : `https://${url}`;
 };
 
 const headers = {
