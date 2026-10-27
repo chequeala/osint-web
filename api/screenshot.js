@@ -1,5 +1,4 @@
 const puppeteer = require('puppeteer-core');
-const chromium = require('chrome-aws-lambda');
 const middleware = require('./_common/middleware');
 const { skipIfUnavailable } = require('./_common/unavailable');
 
@@ -21,13 +20,14 @@ const handler = async (targetUrl) => {
 
   let browser = null;
   try {
+      // Sin CHROME_PATH (p. ej. en Netlify) puppeteer falla por executablePath y la prueba se omite
       browser = await puppeteer.launch({
-      args: [...chromium.args, '--no-sandbox'], // Add --no-sandbox flag
+      args: ['--no-sandbox', '--disable-setuid-sandbox'],
       defaultViewport: { width: 800, height: 600 },
-      executablePath: process.env.CHROME_PATH || await chromium.executablePath,
-      headless: chromium.headless,
-      ignoreHTTPSErrors: true,
-      ignoreDefaultArgs: ['--disable-extensions'],
+      executablePath: process.env.CHROME_PATH,
+      headless: true,
+      pipe: true, // por tubería y no por 127.0.0.1, que la protección contra SSRF bloquea
+      acceptInsecureCerts: true,
     });
 
     let page = await browser.newPage();
@@ -47,8 +47,7 @@ const handler = async (targetUrl) => {
       });
     });
 
-    const screenshotBuffer = await page.screenshot();
-    const base64Screenshot = screenshotBuffer.toString('base64');
+    const base64Screenshot = await page.screenshot({ encoding: 'base64' });
 
     return { image: base64Screenshot };
 

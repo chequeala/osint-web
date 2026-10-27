@@ -1,10 +1,12 @@
 const axios = require('axios');
-const puppeteer = require('puppeteer');
+const puppeteer = require('puppeteer-core');
 const middleware = require('./_common/middleware');
 
 const getPuppeteerCookies = async (url) => {
   const browser = await puppeteer.launch({
-    headless: 'new',
+    executablePath: process.env.CHROME_PATH,
+    headless: true,
+    pipe: true, // por tubería y no por 127.0.0.1, que la protección contra SSRF bloquea
     args: ['--no-sandbox', '--disable-setuid-sandbox'],
   });
 
@@ -42,7 +44,8 @@ const handler = async (url) => {
   }
 
   try {
-    clientCookies = await getPuppeteerCookies(url);
+    // Solo si hay navegador; sin él (p. ej. en Netlify) quedan las cookies de las cabeceras
+    if (process.env.CHROME_PATH) clientCookies = await getPuppeteerCookies(url);
   } catch (_) {
     clientCookies = null;
   }

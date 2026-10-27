@@ -30,7 +30,7 @@ Copia `.env.example` a `.env` para desarrollo local (`.env` no se versiona: nunc
 Sin ellas, esas pruebas aparecen como omitidas. En producción se cargan en Netlify (*Site configuration → Environment variables*) o con la CLI, y se aplican en el siguiente deploy:
 
 ```sh
-yarn netlify env:set GOOGLE_CLOUD_API_KEY "..." --scope functions
+npx netlify-cli env:set GOOGLE_CLOUD_API_KEY "..." --scope functions
 ```
 
 | Variable | Enciende | Cómo conseguirla |
