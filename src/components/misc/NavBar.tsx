@@ -84,13 +84,13 @@ const NavBar = (): JSX.Element => {
         <div className="collapse navbar-collapse" id="mainNav" ref={collapseRef}>
           <ul className="navbar-nav ms-auto align-items-lg-center gap-lg-2 py-3 py-lg-0">
             <li className="nav-item">
-              <a className="nav-link" href={`${SITE_URL}/checklist`}>{t('navbar.checkList')}</a>
-            </li>
-            <li className="nav-item">
               <Link className="nav-link active" aria-current="page" to="/">{t('navbar.osintWeb')}</Link>
             </li>
             <li className="nav-item">
               <a className="nav-link" href={`${SITE_URL}/principios`}>{t('navbar.principles')}</a>
+            </li>
+            <li className="nav-item">
+              <a className="nav-link" href={`${SITE_URL}/checklist`}>{t('navbar.checkList')}</a>
             </li>
             <li className="nav-item my-2 my-lg-0 ms-lg-2">
               <div className="btn-group btn-group-sm lang-switch" role="group" aria-label={t('navbar.language')}>

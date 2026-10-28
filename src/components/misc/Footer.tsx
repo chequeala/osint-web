@@ -50,10 +50,10 @@ const Footer = (): JSX.Element => {
           <div className="col-6 col-md-3">
             <h2 className="footer-title">{t('footer.explore')}</h2>
             <ul className="list-unstyled mb-0">
-              <li><a href={`${SITE_URL}/checklist`}>{t('navbar.checkList')}</a></li>
               <li><a href="/">{t('navbar.osintWeb')}</a></li>
               <li><a href="/about">{t('footer.aboutTool')}</a></li>
               <li><a href={`${SITE_URL}/principios`}>{t('navbar.principles')}</a></li>
+              <li><a href={`${SITE_URL}/checklist`}>{t('navbar.checkList')}</a></li>
             </ul>
           </div>
 
