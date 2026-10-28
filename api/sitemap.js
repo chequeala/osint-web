@@ -34,8 +34,11 @@ const handler = async (url) => {
       }
     }
 
+    // Muchos sitemaps traen "&" sin escapar en las direcciones (?a=1&b=2); los
+    // navegadores lo toleran, así que se corrige antes de leerlo
+    const xml = String(sitemapRes.data).replace(/&(?!(?:[a-z][a-z0-9]*|#\d+|#x[0-9a-f]+);)/gi, '&amp;');
     const parser = new xml2js.Parser();
-    const sitemap = await parser.parseStringPromise(sitemapRes.data);
+    const sitemap = await parser.parseStringPromise(xml);
 
     return sitemap;
   } catch (error) {
