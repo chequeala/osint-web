@@ -278,6 +278,7 @@
     "js-libraries": "Bibliotecas JavaScript"
   },
   "mailConfig": {
+    "domain": "Domínio verificado",
     "checklist": "Proteção contra falsificação",
     "mx": "Registros MX",
     "priority": "Prioridade",

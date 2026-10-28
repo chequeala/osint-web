@@ -1,6 +1,7 @@
 const middleware = require('./_common/middleware');
 
 const dns = require('dns').promises;
+const psl = require('psl');
 const URL = require('url-parse');
 
 // Selectores DKIM más comunes (no hay forma de listarlos todos desde fuera)
@@ -17,27 +18,44 @@ const customSelector = (event) => {
   return typeof value === 'string' && /^[a-z0-9][a-z0-9._-]{0,62}$/i.test(value) ? value.toLowerCase() : null;
 };
 
+// MX, TXT del dominio y los de DMARC y DKIM, que viven en subdominios
+const lookupMail = async (domain, selectors, registered) => {
+  // Un dominio sin MX igual puede tener SPF/DMARC que impidan suplantarlo
+  const mxRecords = await orEmpty(dns.resolveMx(domain));
+  const [rootTxt, dmarcTxt, ...dkimTxt] = await Promise.all([
+    resolveTxtOrEmpty(domain),
+    resolveTxtOrEmpty(`_dmarc.${domain}`),
+    ...selectors.map(sel => resolveTxtOrEmpty(`${sel}._domainkey.${domain}`)),
+  ]);
+  const dkimSelectors = selectors.filter((_, i) => dkimTxt[i].some(r => r.join('').includes('p=')));
+  let dmarc = dmarcTxt.filter(r => r.join('').startsWith('v=DMARC1'));
+  // Lo que el nombre tiene por sí mismo, sin contar el DMARC heredado
+  const hasOwnMail = mxRecords.length > 0 || rootTxt.length > 0 || dmarc.length > 0 || dkimSelectors.length > 0;
+  // Regla de DMARC (RFC 7489): sin registro propio, el subdominio usa el del dominio principal
+  if (!dmarc.length && registered && registered !== domain) {
+    dmarc = (await resolveTxtOrEmpty(`_dmarc.${registered}`)).filter(r => r.join('').startsWith('v=DMARC1'));
+  }
+  const txtRecords = [
+    ...rootTxt,
+    ...dmarc,
+    ...dkimSelectors.map(sel => [`v=DKIM1; selector=${sel}`]),
+  ];
+  return { mxRecords, txtRecords, dkimSelectors, hasOwnMail };
+};
+
 const handler = async (url, event, context) => {
   const extraSelector = customSelector(event);
   const selectors = extraSelector && !DKIM_SELECTORS.includes(extraSelector) ? [...DKIM_SELECTORS, extraSelector] : DKIM_SELECTORS;
   try {
-    const domain = new URL(url).hostname || new URL(url).pathname;
+    let domain = new URL(url).hostname || new URL(url).pathname;
+    const registered = psl.parse(domain).domain;
+    let { mxRecords, txtRecords, dkimSelectors, hasOwnMail } = await lookupMail(domain, selectors, registered);
 
-    // Get MX records (un dominio sin MX igual puede tener SPF/DMARC que impidan suplantarlo)
-    const mxRecords = await orEmpty(dns.resolveMx(domain));
-
-    // Get TXT records, más los de DMARC y DKIM que viven en subdominios
-    const [rootTxt, dmarcTxt, ...dkimTxt] = await Promise.all([
-      resolveTxtOrEmpty(domain),
-      resolveTxtOrEmpty(`_dmarc.${domain}`),
-      ...selectors.map(sel => resolveTxtOrEmpty(`${sel}._domainkey.${domain}`)),
-    ]);
-    const dkimSelectors = selectors.filter((_, i) => dkimTxt[i].some(r => r.join('').includes('p=')));
-    const txtRecords = [
-      ...rootTxt,
-      ...dmarcTxt.filter(r => r.join('').startsWith('v=DMARC1')),
-      ...dkimSelectors.map(sel => [`v=DKIM1; selector=${sel}`]),
-    ];
+    // www.ejemplo.org casi nunca tiene correo propio: está en ejemplo.org
+    if (!hasOwnMail && registered && registered !== domain) {
+      domain = registered;
+      ({ mxRecords, txtRecords, dkimSelectors } = await lookupMail(domain, selectors, registered));
+    }
     if (mxRecords.length === 0 && txtRecords.length === 0) {
       return { skipped: 'No mail server in use on this domain' };
     }
@@ -85,6 +103,7 @@ const handler = async (url, event, context) => {
     }
 
     return {
+        domain,
         mxRecords,
         txtRecords: emailTxtRecords,
         mailServices,

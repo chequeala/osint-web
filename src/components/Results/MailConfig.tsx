@@ -31,6 +31,8 @@ const MailConfigCard = (props: {data: any, title: string, actionButtons: any, on
   const txtRecords = (mailServer.txtRecords || []).join('').toLowerCase() || '';
   return (
     <Card heading={props.title} actionButtons={props.actionButtons} styles={cardStyles}>
+      {/* Con www.ejemplo.org se revisa el correo de ejemplo.org: se dice cuál, para no confundir */}
+      { mailServer.domain && <Row lbl={t('mailConfig.domain')} val={mailServer.domain} /> }
       <Heading as="h3" color={colors.primary} size="small">{t('mailConfig.checklist')}</Heading>
       <Row lbl="SPF" val={txtRecords.includes('spf')} />
       <Row lbl="DKIM" title={t('mailConfig.dkimNote')} val={txtRecords.includes('dkim')} />

@@ -278,6 +278,7 @@
     "js-libraries": "Librerías JavaScript"
   },
   "mailConfig": {
+    "domain": "Dominio revisado",
     "checklist": "Protección contra suplantación",
     "mx": "Registros MX",
     "priority": "Prioridad",
