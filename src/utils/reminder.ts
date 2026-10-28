@@ -63,7 +63,7 @@ export const buildIcs = (opts: { title: string, description: string, url: string
   return [
     'BEGIN:VCALENDAR',
     'VERSION:2.0',
-    'PRODID:-//chequea.la//Veni OSINT//ES',
+    'PRODID:-//chequea.la//OSINT Web//ES',
     'CALSCALE:GREGORIAN',
     'METHOD:PUBLISH',
     'BEGIN:VEVENT',

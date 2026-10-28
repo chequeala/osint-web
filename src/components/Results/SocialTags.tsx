@@ -52,8 +52,8 @@ return (
 { tags.author && <Row lbl="Author" val={tags.author} />}
 { tags.publisher && <Row lbl="Publisher" val={tags.publisher} />}
 { tags.generator && <Row lbl="Generator" val={tags.generator} />}
-{/* La imagen la descarga el servidor de veni (ogImageData): cargarla desde el sitio
-    analizado le revelaría la IP de quien usa veni */}
+{/* La imagen la descarga el servidor de OSINT Web (ogImageData): cargarla desde el sitio
+    analizado le revelaría la IP de quien usa OSINT Web */}
 { (tags.ogImage || tags.twitterImage) && <ImagePreview>
   <span className="lbl">{tl('Image')}</span>
   { tags.ogImageData && <img src={tags.ogImageData} alt="" /> }

@@ -43,11 +43,18 @@ describe('compareAnalyses', () => {
 });
 
 describe('parseExport', () => {
-  it('acepta un análisis de veni y rechaza otros JSON', () => {
+  it('acepta un análisis de OSINT Web y rechaza otros JSON', () => {
     expect(parseExport(JSON.stringify(before))._meta?.domain).toBe('ejemplo.org');
     expect(parseExport(JSON.stringify({ ssl: {} }))).toEqual({ ssl: {} });
     expect(() => parseExport('{"foo": 1}')).toThrow();
     expect(() => parseExport('[1,2]')).toThrow();
     expect(() => parseExport('no es json')).toThrow();
+  });
+
+  it('acepta los JSON de antes del cambio de nombre (veni-osint)', () => {
+    for (const tool of ['osint-web', 'veni-osint']) {
+      const onlyMeta = { _meta: { ...before._meta, tool } };
+      expect(parseExport(JSON.stringify(onlyMeta))._meta?.tool).toBe(tool);
+    }
   });
 });

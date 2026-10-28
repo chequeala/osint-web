@@ -3,7 +3,7 @@ const middleware = require('./_common/middleware');
 
 // Puertos, nombres de host, software y vulnerabilidades conocidas de la IP según
 // InternetDB, la base gratuita de Shodan (sin clave). Se consulta desde el servidor,
-// para que el navegador de quien usa veni no hable con terceros.
+// para que el navegador de quien usa OSINT Web no hable con terceros.
 const http = axios.create({ timeout: 8000, validateStatus: () => true });
 
 const handler = async (url) => {

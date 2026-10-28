@@ -11,7 +11,7 @@ const http = axios.create({
   responseType: 'arraybuffer',
   validateStatus: () => true,
   headers: {
-    'User-Agent': 'Mozilla/5.0 (compatible; VeniOSINT/1.0; +https://veni.chequea.la)',
+    'User-Agent': 'Mozilla/5.0 (compatible; OSINTWeb/1.0; +https://veni.chequea.la)',
     Range: 'bytes=0-4095', // basta el principio del archivo para reconocerlo
   },
 });
@@ -45,7 +45,7 @@ const handler = async (url) => {
 
   // Línea base: lo que responde el sitio a una dirección que no existe.
   // Cualquier respuesta igual a esa es su página por defecto, no un archivo expuesto.
-  const fetchBaseline = () => http.get(`${base}/veni-no-existe-${Date.now()}.txt`).then(res => Buffer.from(res.data || []));
+  const fetchBaseline = () => http.get(`${base}/osint-web-no-existe-${Date.now()}.txt`).then(res => Buffer.from(res.data || []));
   let baseline = null;
   let fetchedOverHttp = false;
   try {

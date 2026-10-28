@@ -35,7 +35,7 @@ const getCertificate = (hostname, port) => new Promise((resolve, reject) => {
 
 // ¿http:// lleva a https://? Sin HSTS ni redirección, quien escribe la dirección sin "https" navega sin cifrar
 const checkHttpRedirect = (hostname) => new Promise((resolve) => {
-  const req = http.get({ host: hostname, path: '/', timeout: TIMEOUT_MS, headers: { 'User-Agent': 'Mozilla/5.0 (compatible; VeniOSINT/1.0)' } }, (res) => {
+  const req = http.get({ host: hostname, path: '/', timeout: TIMEOUT_MS, headers: { 'User-Agent': 'Mozilla/5.0 (compatible; OSINTWeb/1.0)' } }, (res) => {
     res.resume();
     const location = res.headers.location || '';
     resolve(res.statusCode >= 300 && res.statusCode < 400 ? /^https:\/\//i.test(location) : false);

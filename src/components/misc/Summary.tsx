@@ -95,7 +95,7 @@ const Summary = (props: SummaryProps): JSX.Element => {
     try { return new URL(address).hostname; } catch { return address; }
   })();
 
-  // Generadores "Arréglalo tú": qué paneles están abiertos y los datos que ya detectó veni
+  // Generadores "Arréglalo tú": qué paneles están abiertos y los datos que ya detectó OSINT Web
   const [openGenerators, setOpenGenerators] = useState<string[]>([]);
   const toggleGenerator = (id: string) => setOpenGenerators(l => (l.includes(id) ? l.filter(x => x !== id) : [...l, id]));
   const generatorContext: GeneratorContext = {
@@ -141,7 +141,7 @@ const Summary = (props: SummaryProps): JSX.Element => {
     const url = URL.createObjectURL(new Blob([ics], { type: 'text/calendar;charset=utf-8' }));
     const link = document.createElement('a');
     link.href = url;
-    link.download = `veni-osint-recordatorio-${host}.ics`;
+    link.download = `osint-web-recordatorio-${host}.ics`;
     link.click();
     URL.revokeObjectURL(url);
   };
@@ -150,7 +150,7 @@ const Summary = (props: SummaryProps): JSX.Element => {
   const printReport = () => {
     const previousTitle = document.title;
     const today = new Date().toISOString().slice(0, 10);
-    document.title = `veni-osint-${host}-${today}`;
+    document.title = `osint-web-${host}-${today}`;
     const restore = () => {
       document.title = previousTitle;
       window.removeEventListener('afterprint', restore);

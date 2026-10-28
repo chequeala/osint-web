@@ -45,7 +45,7 @@ const ViewRaw = (props: { everything: { id: string, result: any}[], address?: st
   const fileName = () => {
     let host = 'resultados';
     try { host = new URL(props.address || '').hostname || host; } catch { /* nombre por defecto */ }
-    return `veni-osint-${host}-${new Date().toISOString().slice(0, 10)}.json`;
+    return `osint-web-${host}-${new Date().toISOString().slice(0, 10)}.json`;
   };
 
   const handleDownload = () => {

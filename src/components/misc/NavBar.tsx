@@ -87,7 +87,7 @@ const NavBar = (): JSX.Element => {
               <a className="nav-link" href={`${SITE_URL}/checklist`}>{t('navbar.checkList')}</a>
             </li>
             <li className="nav-item">
-              <Link className="nav-link active" aria-current="page" to="/">{t('navbar.veniOSINT')}</Link>
+              <Link className="nav-link active" aria-current="page" to="/">{t('navbar.osintWeb')}</Link>
             </li>
             <li className="nav-item">
               <a className="nav-link" href={`${SITE_URL}/principios`}>{t('navbar.principles')}</a>

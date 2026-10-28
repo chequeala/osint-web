@@ -20,7 +20,7 @@ const handler = async (url) => {
   const response = await axios.get(url, {
     timeout: 8000,
     maxContentLength: 5 * 1024 * 1024,
-    headers: { 'User-Agent': 'Mozilla/5.0 (compatible; VeniOSINT/1.0; +https://veni.chequea.la)' },
+    headers: { 'User-Agent': 'Mozilla/5.0 (compatible; OSINTWeb/1.0; +https://veni.chequea.la)' },
   });
   // Si terminó en http:// (redirección), no hay "contenido mixto" sino falta de HTTPS
   const finalUrl = response.request?.res?.responseUrl || url;

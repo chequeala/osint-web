@@ -13,7 +13,7 @@ const HEAD_BYTES = 8192;
 const http = axios.create({
   timeout: 5000,
   maxRedirects: 3,
-  headers: { 'User-Agent': 'Mozilla/5.0 (compatible; VeniOSINT/1.0; +https://veni.chequea.la)' },
+  headers: { 'User-Agent': 'Mozilla/5.0 (compatible; OSINTWeb/1.0; +https://veni.chequea.la)' },
 });
 
 // La base se guarda en memoria mientras la función siga "caliente" (12 h)

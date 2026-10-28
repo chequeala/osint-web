@@ -7,7 +7,7 @@ const renderAt = (path: string) => render(<MemoryRouter initialEntries={[path]}>
 
 test('la portada muestra el formulario de análisis', () => {
   renderAt('/');
-  expect(screen.getByRole('heading', { level: 1, name: /Veni OSINT/i })).toBeInTheDocument();
+  expect(screen.getByRole('heading', { level: 1, name: /OSINT Web/i })).toBeInTheDocument();
   expect(screen.getByLabelText(/URL de tu sitio/i)).toBeInTheDocument();
   expect(screen.getByRole('button', { name: /Chequea mi web/i })).toBeInTheDocument();
 });
@@ -24,7 +24,7 @@ describe('en portugués', () => {
   test('la portada y el menú se traducen', () => {
     renderAt('/');
     expect(screen.getByRole('button', { name: /Chequear meu site/i })).toBeInTheDocument();
-    expect(screen.getByText(/O que o Veni OSINT verifica/i)).toBeInTheDocument();
+    expect(screen.getByText(/O que o OSINT Web verifica/i)).toBeInTheDocument();
     expect(screen.getByRole('button', { name: 'PT' })).toHaveAttribute('aria-pressed', 'true');
   });
 

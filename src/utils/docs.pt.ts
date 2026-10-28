@@ -483,7 +483,7 @@ const docs: Doc[] = [
   {
     id: 'exposed-files',
     title: 'Arquivos expostos',
-    description: 'Procura arquivos que nunca deveriam estar públicos: o repositório .git, arquivos .env, backups do wp-config.php, dumps de banco de dados, backups .zip, phpinfo e listagens de pastas. Cada arquivo é confirmado pelo conteúdo, e o veni nunca mostra o que encontra.',
+    description: 'Procura arquivos que nunca deveriam estar públicos: o repositório .git, arquivos .env, backups do wp-config.php, dumps de banco de dados, backups .zip, phpinfo e listagens de pastas. Cada arquivo é confirmado pelo conteúdo, e o OSINT Web nunca mostra o que encontra.',
     use: 'Esses arquivos costumam conter senhas ou uma cópia completa do site. São um erro comum ao migrar ou fazer backup de um site, e um dos primeiros lugares que quem ataca procura.',
     resources: [
       { title: 'OWASP - Arquivos antigos, de backup e sem referência', link: 'https://owasp.org/www-project-web-security-testing-guide/latest/4-Web_Application_Security_Testing/02-Configuration_and_Deployment_Management_Testing/04-Review_Old_Backup_and_Unreferenced_Files_for_Sensitive_Information' },
@@ -510,17 +510,17 @@ const docs: Doc[] = [
 
 export const featureIntro = [
   'Quando você faz uma investigação OSINT de um site ou servidor, há várias áreas importantes para revisar. Cada uma está documentada abaixo, com links para ferramentas e técnicas para reunir as informações.',
-  'O Veni OSINT pode automatizar a coleta desses dados, mas interpretar os resultados e tirar conclusões continua sendo responsabilidade sua.',
+  'O OSINT Web pode automatizar a coleta desses dados, mas interpretar os resultados e tirar conclusões continua sendo responsabilidade sua.',
 ];
 
 export const about = [
-  `O Veni OSINT é uma ferramenta baseada no projeto de código aberto de <a href="https://aliciasykes.com" target="_blank">Alicia Sykes</a>, criada para descobrir e visualizar as informações públicas que o seu site ou servidor expõe. O objetivo é claro: oferecer a ativistas, jornalistas, pessoas defensoras de direitos humanos e movimentos sociais um recurso simples para identificar o que melhorar na segurança das suas plataformas digitais.`,
+  `O OSINT Web é uma ferramenta baseada no projeto de código aberto de <a href="https://aliciasykes.com" target="_blank">Alicia Sykes</a>, criada para descobrir e visualizar as informações públicas que o seu site ou servidor expõe. O objetivo é claro: oferecer a ativistas, jornalistas, pessoas defensoras de direitos humanos e movimentos sociais um recurso simples para identificar o que melhorar na segurança das suas plataformas digitais.`,
 
-  `Ao digitar a URL do seu site, o <strong>Veni OSINT</strong> reúne e apresenta uma ampla gama de dados públicos que, pela forma como os sites funcionam, qualquer pessoa pode acessar. Isso inclui metadados, configurações do servidor e outros elementos que ajudam a entender como proteger o seu site, mostrando onde as medidas de segurança podem ser reforçadas.`,
+  `Ao digitar a URL do seu site, o <strong>OSINT Web</strong> reúne e apresenta uma ampla gama de dados públicos que, pela forma como os sites funcionam, qualquer pessoa pode acessar. Isso inclui metadados, configurações do servidor e outros elementos que ajudam a entender como proteger o seu site, mostrando onde as medidas de segurança podem ser reforçadas.`,
 
   `Além de apontar o que melhorar na segurança, os resultados ajudam a ajustar as respostas do servidor, configurar redirecionamentos de forma mais segura, gerenciar cookies ou acertar os registros DNS do seu site.`,
 
-  `Seja numa organização de direitos humanos, num meio de comunicação independente ou numa rede de ativismo digital, o <strong>Veni OSINT</strong> oferece o conhecimento necessário para melhorar a segurança do seu ambiente online, tomar decisões informadas e manter as suas plataformas protegidas, cuidando do seu trabalho e da sua comunidade.`,
+  `Seja numa organização de direitos humanos, num meio de comunicação independente ou numa rede de ativismo digital, o <strong>OSINT Web</strong> oferece o conhecimento necessário para melhorar a segurança do seu ambiente online, tomar decisões informadas e manter as suas plataformas protegidas, cuidando do seu trabalho e da sua comunidade.`,
 ];
 
 export const fairUse = [

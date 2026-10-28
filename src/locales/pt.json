@@ -10,7 +10,7 @@
     "menu": "Abrir menu",
     "language": "Idioma",
     "checkList": "Check List",
-    "veniOSINT": "Veni OSINT",
+    "osintWeb": "OSINT Web",
     "principles": "Nossos Princípios"
   },
   "footer": {
@@ -19,13 +19,13 @@
     "highlight": "latino-americana",
     "explore": "Explore",
     "contactTitle": "Contato",
-    "aboutVeni": "Sobre o Veni OSINT",
+    "aboutTool": "Sobre o OSINT Web",
     "basedOn": "Baseado no",
     "byAuthor": "de",
-    "sourceCode": "Código-fonte do Veni OSINT"
+    "sourceCode": "Código-fonte do OSINT Web"
   },
   "home": {
-    "title": "Veni OSINT",
+    "title": "OSINT Web",
     "defaultPlaceholder": "ex.: https://chequea.la/",
     "errorEmptyField": "O campo não pode ficar vazio",
     "errorInvalidUrl": "Deve ser uma URL válida, IPv4 ou IPv6",
@@ -33,7 +33,7 @@
     "submitButton": "Chequear meu site",
     "infotitle": "Por que é importante conhecer as informações públicas do seu site?",
     "paragraph1": "Como pessoas defensoras de direitos humanos, jornalistas e ativistas, é fundamental tomarmos medidas para proteger nossas plataformas digitais. As informações públicas do seu site, como metadados ou configurações de segurança expostas, podem ser usadas por pessoas mal-intencionadas para comprometer a sua segurança ou a da sua comunidade.",
-    "paragraph2": "O \"Veni OSINT\" é uma ferramenta criada para ajudar você a visualizar essas informações públicas de forma simples e oferecer um panorama claro dos possíveis riscos. Sabendo quais dados estão acessíveis, você pode tomar decisões informadas para melhorar a segurança do seu site e fortalecer a sua proteção digital.",
+    "paragraph2": "O \"OSINT Web\" é uma ferramenta criada para ajudar você a visualizar essas informações públicas de forma simples e oferecer um panorama claro dos possíveis riscos. Sabendo quais dados estão acessíveis, você pode tomar decisões informadas para melhorar a segurança do seu site e fortalecer a sua proteção digital.",
     "paragraph3": "Esta ferramenta é para quem luta por um mundo mais justo e seguro, oferecendo o controle e o conhecimento necessários para manter o seu trabalho digital fora de perigo.",
     "eyebrow": "Uma ferramenta da chequea.la",
     "lead": "Veja quais informações públicas o seu site expõe: DNS, certificados, cabeçalhos, portas e mais.",
@@ -41,7 +41,7 @@
     "inputHint": "Você pode digitar um domínio, uma URL ou um endereço IP.",
     "privacyHint": "Não usamos analytics nem cookies. Alguns testes consultam serviços externos.",
     "privacyLink": "Mais sobre privacidade",
-    "checksTitle": "O que o Veni OSINT verifica?",
+    "checksTitle": "O que o OSINT Web verifica?",
     "checks": {
       "server": {
         "title": "Servidor e DNS",
@@ -62,8 +62,8 @@
     },
     "helpTitle": "Encontrou algo que não entende ou que te preocupa?",
     "helpDesc": "Escreva para nós com o resultado e ajudamos você a interpretar e resolver.",
-    "credit": "O Veni OSINT é baseado no Web Check, o projeto de código aberto de",
-    "moreAbout": "Mais sobre o Veni OSINT",
+    "credit": "O OSINT Web é baseado no Web Check, o projeto de código aberto de",
+    "moreAbout": "Mais sobre o OSINT Web",
     "responsibleUse": "Analise apenas sites próprios ou de organizações que te deem permissão.",
     "responsibleLink": "Uso responsável"
   },
@@ -92,7 +92,7 @@
       "took": "Levou"
     },
     "link": {
-      "learnMore": "Mais sobre o Veni OSINT"
+      "learnMore": "Mais sobre o OSINT Web"
     },
     "status": {
       "loading": "Carregando",
@@ -206,8 +206,8 @@
     "termsAndInfo": "Termos e informações",
     "responsibleUse": "Uso responsável",
     "privacy": "Privacidade",
-    "privacyDescription": "O Veni OSINT não usa ferramentas de analytics, cookies nem registros de erro de terceiros. Não guardamos os endereços que você analisa. Como em qualquer site, nosso provedor de hospedagem (Netlify) pode registrar temporariamente dados técnicos das requisições.",
-    "title": "Sobre o Veni OSINT",
+    "privacyDescription": "O OSINT Web não usa ferramentas de analytics, cookies nem registros de erro de terceiros. Não guardamos os endereços que você analisa. Como em qualquer site, nosso provedor de hospedagem (Netlify) pode registrar temporariamente dados técnicos das requisições.",
+    "title": "Sobre o OSINT Web",
     "privacyThirdParties": "Para obter alguns resultados, nosso servidor consulta serviços externos (por exemplo Google DNS, Internet Archive, Tranco, OONI, ipwho.is ou listas de bloqueio), que recebem o domínio ou o IP analisado. O seu navegador só se conecta com veni.chequea.la."
   },
   "serverLocation": {
@@ -219,9 +219,9 @@
     "latitude_longitude": "Latitude: {{latitude}}, Longitude: {{longitude}}"
   },
   "titles": {
-    "home": "Veni OSINT",
-    "results": "Resultados do Veni OSINT",
-    "about": "Sobre o Veni OSINT",
+    "home": "OSINT Web",
+    "results": "Resultados do OSINT Web",
+    "about": "Sobre o OSINT Web",
     "notFound": "Página não encontrada"
   },
   "notFound": {
@@ -230,7 +230,7 @@
     "back": "Voltar ao início"
   },
   "selfScan": {
-    "title": "Você está analisando o Veni OSINT com o Veni OSINT!",
+    "title": "Você está analisando o OSINT Web com o OSINT Web!",
     "text": "Se quiser ver como este site é feito, confira o",
     "link": "código-fonte"
   },
@@ -320,8 +320,8 @@
     "checklistButton": "Ver o Check List",
     "helpNote": "O seu e-mail vai abrir com este resumo já escrito; você decide o que enviar. Você pode nos escrever sem criptografia.",
     "mail": {
-      "subject": "Ajuda com o meu site {{host}} (Veni OSINT)",
-      "intro": "Olá, analisei {{host}} com o Veni OSINT e gostaria de ajuda com o seguinte:",
+      "subject": "Ajuda com o meu site {{host}} (OSINT Web)",
+      "intro": "Olá, analisei {{host}} com o OSINT Web e gostaria de ajuda com o seguinte:",
       "noFindings": "- Não apareceram problemas, mas quero uma revisão.",
       "results": "Resultados",
       "outro": "Obrigado/a."
@@ -546,7 +546,7 @@
   },
   "exposedFiles": {
     "none": "Não encontramos arquivos sensíveis expostos ({{count}} verificados).",
-    "note": "Por segurança, o veni não mostra o conteúdo desses arquivos.",
+    "note": "Por segurança, o OSINT Web não mostra o conteúdo desses arquivos.",
     "types": {
       "git": "Repositório Git",
       "env": "Arquivo .env",
@@ -638,7 +638,7 @@
       "serverSoftware": "O Shodan não vê software sem suporte nem vulnerabilidades conhecidas no servidor"
     },
     "help": "Precisa de ajuda para resolver algo deste relatório? Escreva para {{email}}. Você pode nos escrever sem criptografia.",
-    "disclaimer": "Relatório gerado com o Veni OSINT ({{site}}) a partir de informações públicas do site. É uma revisão automática: não substitui uma auditoria de segurança."
+    "disclaimer": "Relatório gerado com o OSINT Web ({{site}}) a partir de informações públicas do site. É uma revisão automática: não substitui uma auditoria de segurança."
   },
   "serverMessages": {
     "noBrowserScreenshot": "Este servidor não tem um navegador para tirar capturas de tela.",
@@ -669,7 +669,7 @@
     "timeout": "O site ou um serviço externo demorou demais para responder.",
     "blocked403": "O site bloqueou a consulta (HTTP 403); pode ter proteção contra bots.",
     "rateLimitedRemote": "O site ou um serviço externo limitou as consultas (HTTP 429); tente de novo em alguns minutos.",
-    "privateAddress": "O Veni só analisa sites públicos: {{host}} aponta para uma rede privada ou local."
+    "privateAddress": "O OSINT Web só analisa sites públicos: {{host}} aponta para uma rede privada ou local."
   },
   "censorship": {
     "status": {
@@ -697,9 +697,9 @@
     "load": "Carregar análise anterior",
     "loadAnother": "Carregar outra",
     "clear": "Remover comparação",
-    "invalidFile": "Esse arquivo não parece ser uma análise do Veni OSINT. Use o JSON de «Baixar resultados».",
+    "invalidFile": "Esse arquivo não parece ser uma análise do OSINT Web. Use o JSON de «Baixar resultados».",
     "otherDomain": "Atenção: o arquivo é de outro domínio ({{domain}}), então a comparação pode não fazer sentido.",
-    "oldFormat": "É um arquivo de uma versão anterior do Veni: só são comparados os testes que aparecem nas duas análises.",
+    "oldFormat": "É um arquivo de uma versão anterior do OSINT Web: só são comparados os testes que aparecem nas duas análises.",
     "before_one": "Antes: {{count}} problema ({{high}} urgentes)",
     "before_other": "Antes: {{count}} problemas ({{high}} urgentes)",
     "after_one": "Agora: {{count}} problema ({{high}} urgentes)",
@@ -737,8 +737,8 @@
   },
   "reminder": {
     "button": "Lembrar de analisar de novo",
-    "title": "Analisar {{host}} de novo com o Veni OSINT",
-    "description": "Veja se foram resolvidos os problemas que o Veni OSINT encontrou em {{host}}. Última análise: {{date}} ({{count}} problemas). Você pode comparar carregando o arquivo de «Baixar resultados».",
+    "title": "Analisar {{host}} de novo com o OSINT Web",
+    "description": "Veja se foram resolvidos os problemas que o OSINT Web encontrou em {{host}}. Última análise: {{date}} ({{count}} problemas). Você pode comparar carregando o arquivo de «Baixar resultados».",
     "domainExpiry": "O domínio vence em {{date}}: lembre-se de renová-lo.",
     "hint": "Baixa um evento de calendário para {{date}}.",
     "hintExpiry": "Baixa um evento de calendário para {{date}}, 30 dias antes de o domínio vencer."
@@ -785,7 +785,7 @@
     "copy": "Copiar",
     "copied": "Copiado",
     "download": "Baixar {{filename}}",
-    "local": "É gerado no seu navegador com o que o Veni detectou; revise os dados antes de usar.",
+    "local": "É gerado no seu navegador com o que o OSINT Web detectou; revise os dados antes de usar.",
     "securityTxt": {
       "contact": "E-mail (ou página) para relatar problemas de segurança",
       "languages": "Idiomas em que podem escrever para você",

@@ -1,4 +1,4 @@
-// Protección contra SSRF: veni descarga direcciones que escribe cualquier persona,
+// Protección contra SSRF: OSINT Web descarga direcciones que escribe cualquier persona,
 // así que su servidor nunca debe conectarse a redes privadas, locales o de
 // metadatos (127.0.0.1, 10.x, 192.168.x, 169.254.169.254, ::1...).
 //
@@ -56,7 +56,7 @@ const guardLookup = (lookup) => function (hostname, options, callback) {
 
 // Solo se controlan las conexiones salientes: modificar dns.lookup de forma global
 // también afectaría a los servidores que escuchan en 127.0.0.1
-if (!net.Socket.prototype.connect.__veniGuarded) {
+if (!net.Socket.prototype.connect.__osintWebGuarded) {
   const originalConnect = net.Socket.prototype.connect;
   const guardedConnect = function (...args) {
     // net.connect() pasa los argumentos ya normalizados como [opciones, callback]
@@ -80,7 +80,7 @@ if (!net.Socket.prototype.connect.__veniGuarded) {
     }
     return originalConnect.apply(this, args);
   };
-  guardedConnect.__veniGuarded = true;
+  guardedConnect.__osintWebGuarded = true;
   net.Socket.prototype.connect = guardedConnect;
 }
 

@@ -1,6 +1,6 @@
-# Veni OSINT · chequea.la
+# OSINT Web · chequea.la
 
-**Veni OSINT** es la herramienta de [chequea.la](https://chequea.la) para ver qué información pública entrega un sitio web (DNS, certificados, cabeceras, correo, puertos y más) y encontrar puntos débiles en su configuración. Está pensada para organizaciones y personas defensoras de derechos humanos en Latinoamérica.
+**OSINT Web** es la herramienta de [chequea.la](https://chequea.la) para ver qué información pública entrega un sitio web (DNS, certificados, cabeceras, correo, puertos y más) y encontrar puntos débiles en su configuración. Está pensada para organizaciones y personas defensoras de derechos humanos en Latinoamérica.
 
 👉 **[veni.chequea.la](https://veni.chequea.la)**
 

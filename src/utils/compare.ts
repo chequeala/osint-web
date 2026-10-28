@@ -3,7 +3,7 @@
 import { Finding, FindingInputs, getFindings } from 'utils/findings';
 
 export interface ExportMeta {
-  tool: 'veni-osint';
+  tool: 'osint-web' | 'veni-osint'; // veni-osint: nombre anterior de la herramienta
   version: number;
   domain: string;
   generatedAt: string;
@@ -65,11 +65,11 @@ export const compareAnalyses = (previous: AnalysisExport, current: AnalysisExpor
   };
 };
 
-// Lee el archivo cargado y revisa que sea un análisis de veni
+// Lee el archivo cargado y revisa que sea un análisis de OSINT Web
 export const parseExport = (text: string): AnalysisExport => {
   const data = JSON.parse(text);
   if (!data || typeof data !== 'object' || Array.isArray(data)) throw new Error('invalid');
-  const known = SOURCES.some(([id]) => id in data) || data._meta?.tool === 'veni-osint';
+  const known = SOURCES.some(([id]) => id in data) || ['osint-web', 'veni-osint'].includes(data._meta?.tool || '');
   if (!known) throw new Error('invalid');
   return data;
 };

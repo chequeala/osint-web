@@ -4,7 +4,7 @@ const axios = require('axios');
 const cheerio = require('cheerio');
 
 // La imagen se descarga desde el servidor y se entrega incrustada (data:): si la
-// cargara el navegador, el sitio analizado vería la IP de quien usa veni
+// cargara el navegador, el sitio analizado vería la IP de quien usa OSINT Web
 const MAX_IMAGE_BYTES = 500 * 1024;
 const IMAGE_TYPES = /^image\/(png|jpe?g|gif|webp|avif|svg\+xml)$/i;
 
@@ -14,7 +14,7 @@ const fetchImageData = async (imageUrl, pageUrl) => {
     if (!/^https?:$/.test(absolute.protocol)) return null;
     const res = await axios.get(absolute.toString(), {
       responseType: 'arraybuffer', timeout: 5000, maxContentLength: MAX_IMAGE_BYTES, maxRedirects: 3,
-      headers: { 'User-Agent': 'Mozilla/5.0 (compatible; VeniOSINT/1.0; +https://veni.chequea.la)' },
+      headers: { 'User-Agent': 'Mozilla/5.0 (compatible; OSINTWeb/1.0; +https://veni.chequea.la)' },
     });
     const type = String(res.headers['content-type'] || '').split(';')[0].trim();
     if (!IMAGE_TYPES.test(type)) return null;

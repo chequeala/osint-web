@@ -152,7 +152,7 @@ const Report = (props: ReportProps): JSX.Element => {
   return (
     <ReportSheet className="print-report" aria-hidden="true">
       <header>
-        <div className="brand">chequea.la · Veni OSINT</div>
+        <div className="brand">chequea.la · OSINT Web</div>
         <h1>{t('report.title', { host })}</h1>
         <div className="meta">{t('report.generated', { date: now })} · {window.location.href}</div>
       </header>

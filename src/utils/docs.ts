@@ -604,7 +604,7 @@ const docs: Doc[] = [
   {
     id: 'exposed-files',
     title: 'Archivos expuestos',
-    description: 'Busca archivos que nunca deberían estar en público: el repositorio .git, archivos .env, respaldos de wp-config.php, volcados de base de datos, respaldos .zip, phpinfo y listados de carpetas. Cada archivo se confirma por su contenido, y veni nunca muestra lo que encuentra.',
+    description: 'Busca archivos que nunca deberían estar en público: el repositorio .git, archivos .env, respaldos de wp-config.php, volcados de base de datos, respaldos .zip, phpinfo y listados de carpetas. Cada archivo se confirma por su contenido, y OSINT Web nunca muestra lo que encuentra.',
     use: 'Estos archivos suelen contener contraseñas o una copia completa del sitio. Son un error común al migrar o respaldar un sitio, y de los primeros lugares que revisa quien ataca.',
     resources: [
       { title: 'OWASP - Revisar archivos viejos, de respaldo y sin referencia', link: 'https://owasp.org/www-project-web-security-testing-guide/latest/4-Web_Application_Security_Testing/02-Configuration_and_Deployment_Management_Testing/04-Review_Old_Backup_and_Unreferenced_Files_for_Sensitive_Information' },
@@ -632,18 +632,18 @@ const docs: Doc[] = [
 
 export const featureIntro = [
   'Cuando realizas una investigación OSINT en un sitio web o servidor, hay varias áreas clave que debes revisar. Cada una de ellas está documentada a continuación, junto con enlaces a las herramientas y técnicas que puedes usar para recopilar la información relevante.',
-  'Veni OSINT puede automatizar el proceso de recopilación de estos datos, pero será tu responsabilidad interpretar los resultados y sacar conclusiones.',
+  'OSINT Web puede automatizar el proceso de recopilación de estos datos, pero será tu responsabilidad interpretar los resultados y sacar conclusiones.',
 ];
 
 
 export const about = [
-  `Veni OSINT es una herramienta integral basada en el proyecto de código abierto desarrollado por <a href="https://aliciasykes.com" target="_blank">Alicia Sykes</a>, diseñada para descubrir y visualizar la información pública que tu sitio web o servidor entrega. El propósito de Veni OSINT es claro: brindar a activistas, periodistas, personas defensoras de derechos humanos y movimientos sociales un recurso sencillo para identificar oportunidades de mejora en la seguridad de sus plataformas digitales.`,
+  `OSINT Web es una herramienta integral basada en el proyecto de código abierto desarrollado por <a href="https://aliciasykes.com" target="_blank">Alicia Sykes</a>, diseñada para descubrir y visualizar la información pública que tu sitio web o servidor entrega. El propósito de OSINT Web es claro: brindar a activistas, periodistas, personas defensoras de derechos humanos y movimientos sociales un recurso sencillo para identificar oportunidades de mejora en la seguridad de sus plataformas digitales.`,
 
-  `Al ingresar la URL de tu sitio, <strong>Veni OSINT</strong> recopila y presenta una amplia gama de datos públicos y abiertos que, debido a la forma en que funcionan los sitios web, son accesibles públicamente. Estos datos incluyen metadatos, configuraciones del servidor y otros elementos que pueden ayudarte a comprender mejor cómo proteger tu sitio. La herramienta ilumina áreas donde se pueden fortalecer las medidas de seguridad, mostrando las conexiones internas del sitio y su estructura.`,
+  `Al ingresar la URL de tu sitio, <strong>OSINT Web</strong> recopila y presenta una amplia gama de datos públicos y abiertos que, debido a la forma en que funcionan los sitios web, son accesibles públicamente. Estos datos incluyen metadatos, configuraciones del servidor y otros elementos que pueden ayudarte a comprender mejor cómo proteger tu sitio. La herramienta ilumina áreas donde se pueden fortalecer las medidas de seguridad, mostrando las conexiones internas del sitio y su estructura.`,
   
   `Además de señalar áreas de oportunidad para optimizar la seguridad, los resultados pueden ayudarte a ajustar la respuesta del servidor, configurar redirecciones de manera más segura, gestionar cookies o afinar los registros DNS de tu sitio.`,
   
-  `Ya seas parte de una organización de derechos humanos, un medio independiente o una red de activismo digital, <strong>Veni OSINT</strong> te proporciona el conocimiento necesario para mejorar la seguridad de tu entorno en línea. Este recurso te ayudará a tomar decisiones informadas y mantener tus plataformas protegidas, contribuyendo a la protección de tu trabajo y de tu comunidad.`,
+  `Ya seas parte de una organización de derechos humanos, un medio independiente o una red de activismo digital, <strong>OSINT Web</strong> te proporciona el conocimiento necesario para mejorar la seguridad de tu entorno en línea. Este recurso te ayudará a tomar decisiones informadas y mantener tus plataformas protegidas, contribuyendo a la protección de tu trabajo y de tu comunidad.`,
 ];
 
 export const license = `The MIT License (MIT)

@@ -2,7 +2,7 @@ const axios = require('axios');
 const middleware = require('./_common/middleware');
 
 // La ubicación se consulta desde el servidor, para que el navegador de quien usa
-// veni no hable con terceros. ipwho.is primero; ipapi.co limita mucho sin cuenta.
+// OSINT Web no hable con terceros. ipwho.is primero; ipapi.co limita mucho sin cuenta.
 const http = axios.create({ timeout: 8000, validateStatus: () => true });
 
 const fromIpWhoIs = async (ip) => {

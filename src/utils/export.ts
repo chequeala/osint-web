@@ -16,6 +16,6 @@ export const buildExport = (
   }
   let domain = '';
   try { domain = new URL(address || '').hostname; } catch { /* sin dirección válida */ }
-  data._meta = { tool: 'veni-osint', version: 1, domain, generatedAt: new Date().toISOString(), skipped };
+  data._meta = { tool: 'osint-web', version: 1, domain, generatedAt: new Date().toISOString(), skipped };
   return data;
 };
