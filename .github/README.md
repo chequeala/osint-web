@@ -2,7 +2,7 @@
 
 **OSINT Web** es la herramienta de [chequea.la](https://chequea.la) para ver qué información pública entrega un sitio web (DNS, certificados, cabeceras, correo, puertos y más) y encontrar puntos débiles en su configuración. Está pensada para organizaciones y personas defensoras de derechos humanos en Latinoamérica.
 
-👉 **[veni.chequea.la](https://veni.chequea.la)**
+👉 **[osint.chequea.la](https://osint.chequea.la)**
 
 Está basada en [Web Check](https://github.com/lissy93/web-check), el proyecto de código abierto de [Alicia Sykes](https://aliciasykes.com), con licencia MIT.
 
@@ -10,7 +10,7 @@ Está basada en [Web Check](https://github.com/lissy93/web-check), el proyecto d
 
 - **Resumen "Qué revisar primero"**: hallazgos priorizados en lenguaje sencillo, con qué hacer en cada caso, y un botón para pedir ayuda a la línea de ayuda con el resumen ya escrito.
 - **Pruebas nuevas**: WordPress (usuarios expuestos, `xmlrpc.php`, versión), archivos sensibles expuestos (`.git`, `.env`, respaldos…), subdominios y CNAME colgantes, PHP sin soporte, DMARC/DKIM reales.
-- **Privacidad**: el navegador solo habla con veni.chequea.la (lo garantiza la CSP de `netlify.toml`). Sin analítica ni cookies. Las consultas a servicios externos las hace el servidor.
+- **Privacidad**: el navegador solo habla con osint.chequea.la (lo garantiza la CSP de `netlify.toml`). Sin analítica ni cookies. Las consultas a servicios externos las hace el servidor.
 - Diseño de chequea.la, en español y portugués (los términos técnicos quedan en inglés).
 
 ## Desarrollo
@@ -43,7 +43,7 @@ npx netlify-cli env:set GOOGLE_CLOUD_API_KEY "..." --scope functions
 
 ## Despliegue
 
-Se publica en **Netlify** con cada push a `main` (sitio `stupendous-douhua-04bc19`, dominio `veni.chequea.la`). El CI de GitHub Actions (`.github/workflows/ci.yml`) corre las pruebas y la compilación.
+Se publica en **Netlify** con cada push a `main` (sitio `stupendous-douhua-04bc19`, dominio `osint.chequea.la`). El CI de GitHub Actions (`.github/workflows/ci.yml`) corre las pruebas y la compilación.
 
 - **Si un push no aparece en el sitio**: revisa en Netlify que la publicación automática no esté detenida (*Deploys → Stop auto publishing*). Estuvo bloqueada de 2024 a 2026 y por eso "no se veían" los cambios.
 - **Límite de uso**: 150 llamadas a `/api/*` por minuto e IP (unos 4 análisis), definido en `netlify.toml`. Netlify no falla el deploy si la regla está mal escrita: confírmala en la sección *post-processing* del log.

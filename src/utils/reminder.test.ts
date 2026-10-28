@@ -23,7 +23,7 @@ describe('buildIcs', () => {
   const ics = buildIcs({
     title: 'Volver a analizar r3d.mx, con OSINT Web; ya',
     description: 'Línea 1\nLínea 2 con un texto largo que tiene que plegarse porque supera los setenta y cinco octetos permitidos',
-    url: 'https://veni.chequea.la/results/https%3A%2F%2Fr3d.mx',
+    url: 'https://osint.chequea.la/results/https%3A%2F%2Fr3d.mx',
     date: new Date('2027-01-21T12:00:00Z'),
     now,
   });

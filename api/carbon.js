@@ -11,7 +11,7 @@ const http = axios.create({
   maxRedirects: 5,
   validateStatus: () => true,
   responseType: 'arraybuffer',
-  headers: { 'User-Agent': 'Mozilla/5.0 (compatible; OSINTWeb/1.0; +https://veni.chequea.la)' },
+  headers: { 'User-Agent': 'Mozilla/5.0 (compatible; OSINTWeb/1.0; +https://osint.chequea.la)' },
 });
 
 const getGreenHosting = async (hostname) => {

@@ -7,7 +7,7 @@ const http = axios.create({
   timeout: 8000,
   maxRedirects: 5,
   validateStatus: () => true,
-  headers: { 'User-Agent': 'Mozilla/5.0 (compatible; OSINTWeb/1.0; +https://veni.chequea.la)' },
+  headers: { 'User-Agent': 'Mozilla/5.0 (compatible; OSINTWeb/1.0; +https://osint.chequea.la)' },
 });
 
 const WP_MARKERS = /\/wp-content\/|\/wp-includes\/|https:\/\/api\.w\.org\/|<meta[^>]+generator[^>]+WordPress/i;

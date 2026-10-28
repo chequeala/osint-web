@@ -59,7 +59,7 @@ const icsTimestamp = (date: Date) => date.toISOString().replace(/[-:]/g, '').rep
 export const buildIcs = (opts: { title: string, description: string, url: string, date: Date, now?: Date }): string => {
   const now = opts.now || new Date();
   const end = new Date(opts.date.getTime() + DAY_MS);
-  const uid = `${icsTimestamp(now)}-${Math.random().toString(36).slice(2, 10)}@veni.chequea.la`;
+  const uid = `${icsTimestamp(now)}-${Math.random().toString(36).slice(2, 10)}@osint.chequea.la`;
   return [
     'BEGIN:VCALENDAR',
     'VERSION:2.0',

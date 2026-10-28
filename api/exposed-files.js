@@ -11,7 +11,7 @@ const http = axios.create({
   responseType: 'arraybuffer',
   validateStatus: () => true,
   headers: {
-    'User-Agent': 'Mozilla/5.0 (compatible; OSINTWeb/1.0; +https://veni.chequea.la)',
+    'User-Agent': 'Mozilla/5.0 (compatible; OSINTWeb/1.0; +https://osint.chequea.la)',
     Range: 'bytes=0-4095', // basta el principio del archivo para reconocerlo
   },
 });

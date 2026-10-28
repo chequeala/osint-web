@@ -1,5 +1,5 @@
 Contact: mailto:chequeala@tuta.io
 Encryption: https://chequea.la/chequeala.asc
 Preferred-Languages: es, pt, en
-Canonical: https://veni.chequea.la/.well-known/security.txt
+Canonical: https://osint.chequea.la/.well-known/security.txt
 Expires: 2027-10-21T00:00:00.000Z

@@ -208,7 +208,7 @@
     "privacy": "Privacidad",
     "privacyDescription": "OSINT Web no usa herramientas de analítica, cookies ni registros de error de terceros. No guardamos las direcciones que analizas. Como en cualquier sitio web, nuestro proveedor de alojamiento (Netlify) puede registrar temporalmente datos técnicos de las solicitudes.",
     "title": "Sobre OSINT Web",
-    "privacyThirdParties": "Para obtener algunos resultados, nuestro servidor consulta servicios externos (por ejemplo Google DNS, Internet Archive, Tranco, OONI, ipwho.is o listas de bloqueo), que reciben el dominio o la IP analizada. Tu navegador solo se conecta con veni.chequea.la."
+    "privacyThirdParties": "Para obtener algunos resultados, nuestro servidor consulta servicios externos (por ejemplo Google DNS, Internet Archive, Tranco, OONI, ipwho.is o listas de bloqueo), que reciben el dominio o la IP analizada. Tu navegador solo se conecta con osint.chequea.la."
   },
   "serverLocation": {
     "city": "Ciudad",
